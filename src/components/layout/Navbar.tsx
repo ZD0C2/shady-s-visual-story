@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTheme } from "@/hooks/use-theme";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -23,7 +24,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
   const isHome = location.pathname === "/";
-
+  const { theme, toggleTheme } = useTheme();
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -73,6 +74,13 @@ export default function Navbar() {
                 {l.label}
               </Link>
             ))}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
           </div>
 
           {/* Mobile toggle */}
@@ -105,6 +113,13 @@ export default function Navbar() {
                     {l.label}
                   </Link>
                 ))}
+                <button
+                  onClick={toggleTheme}
+                  className="flex items-center gap-2 text-lg font-heading text-foreground"
+                >
+                  {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+                  {theme === "dark" ? "Light Mode" : "Dark Mode"}
+                </button>
               </div>
             </motion.div>
           )}
