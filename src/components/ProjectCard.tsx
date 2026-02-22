@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Play } from "lucide-react";
 import { motion } from "framer-motion";
 import type { Project } from "@/data/site";
+import { projectThumbnails } from "@/data/projectImages";
 
 interface ProjectCardProps {
   project: Project;
@@ -20,11 +21,15 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
         <div className="glass-card-hover overflow-hidden">
           {/* Thumbnail area */}
           <div className="relative aspect-video bg-secondary/50 flex items-center justify-center overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10" />
-            <Play className="w-10 h-10 text-muted-foreground/40 group-hover:text-primary group-hover:scale-110 transition-all duration-300" />
-            {/* Category tag */}
-            <span className="absolute top-3 left-3 chip">{project.category}</span>
-            <span className="absolute top-3 right-3 chip">{project.year}</span>
+            {projectThumbnails[project.slug] ? (
+              <img src={projectThumbnails[project.slug]} alt={project.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            ) : (
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10" />
+            )}
+            <div className="absolute inset-0 bg-background/30 group-hover:bg-background/10 transition-colors duration-300" />
+            <Play className="relative z-10 w-10 h-10 text-foreground/60 group-hover:text-primary group-hover:scale-110 transition-all duration-300 drop-shadow-lg" />
+            <span className="absolute top-3 left-3 chip z-10">{project.category}</span>
+            <span className="absolute top-3 right-3 chip z-10">{project.year}</span>
           </div>
           {/* Info */}
           <div className="p-5">
