@@ -42,7 +42,7 @@ export default function Index() {
               {siteData.statusPill}
             </div>
 
-            <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold leading-tight gradient-text pb-2">
+            <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold leading-tight text-primary-foreground">
               {siteData.name}
             </h1>
             <p className="font-heading text-2xl md:text-3xl mt-2 text-foreground/80">
