@@ -59,11 +59,17 @@ export default function Index() {
 
             {/* Stats */}
             <div className="flex items-center justify-center gap-8 mt-8">
-              {siteData.stats.map((s) => (
-                <div key={s.label} className="text-center">
+              {siteData.stats.map((s, i) => (
+                <motion.div
+                  key={s.label}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.8 + i * 0.15 }}
+                  className="text-center"
+                >
                   <div className="font-heading text-2xl font-bold gradient-text">{s.value}</div>
                   <div className="text-xs text-muted-foreground mt-1">{s.label}</div>
-                </div>
+                </motion.div>
               ))}
             </div>
 
