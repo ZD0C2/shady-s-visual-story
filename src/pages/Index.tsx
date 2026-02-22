@@ -48,34 +48,56 @@ export default function Index() {
         </motion.div>
 
         <div className="relative container mx-auto px-4 lg:px-8 text-center">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-            <div className="inline-flex items-center gap-2 chip mb-6">
+          <div>
+            {/* Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+              className="inline-flex items-center gap-2 chip mb-6"
+            >
               <span className="glow-dot" />
               {siteData.statusPill}
-            </div>
+            </motion.div>
 
+            {/* Name */}
             <motion.h1
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.25, ease: "easeOut" }}
               className="relative font-heading text-4xl md:text-7xl lg:text-8xl font-bold leading-tight text-primary-foreground"
             >
               <span className="absolute inset-0 blur-3xl opacity-30 bg-primary rounded-full scale-150 pointer-events-none" />
               <span className="relative">{siteData.name}</span>
             </motion.h1>
-            <p className="font-heading text-xl md:text-3xl mt-6 text-foreground/80">
+
+            {/* Subtitle */}
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4, ease: "easeOut" }}
+              className="font-heading text-xl md:text-3xl mt-6 text-foreground/80"
+            >
               <span className="text-primary font-semibold">{siteData.title}</span> — <RotatingWord />
-            </p>
-            <p className="text-sm md:text-base text-muted-foreground mt-4 max-w-lg mx-auto">{siteData.heroSubline}</p>
+            </motion.p>
+
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5, ease: "easeOut" }}
+              className="text-sm md:text-base text-muted-foreground mt-4 max-w-lg mx-auto"
+            >
+              {siteData.heroSubline}
+            </motion.p>
 
             {/* Stats */}
             <div className="flex items-center justify-center gap-8 mt-8">
               {siteData.stats.map((s, i) => (
                 <motion.div
                   key={s.label}
-                  initial={{ opacity: 0, y: 15 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.8 + i * 0.15 }}
+                  transition={{ duration: 0.4, delay: 0.6 + i * 0.1, ease: "easeOut" }}
                   className="text-center"
                 >
                   <div className="font-heading text-2xl font-bold gradient-text">{s.value}</div>
@@ -85,7 +107,12 @@ export default function Index() {
             </div>
 
             {/* CTAs */}
-            <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.95, ease: "easeOut" }}
+              className="flex flex-wrap items-center justify-center gap-4 mt-8"
+            >
               <button
                 onClick={() => setShowreelOpen(true)}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-heading font-semibold text-sm hover:opacity-90 transition-opacity"
@@ -104,15 +131,20 @@ export default function Index() {
               >
                 Download Resume
               </Link>
-            </div>
+            </motion.div>
 
             {/* Socials */}
-            <div className="flex items-center justify-center gap-4 mt-6">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 1.1, ease: "easeOut" }}
+              className="flex items-center justify-center gap-4 mt-6"
+            >
               <a href={`mailto:${siteData.contact.email}`} className="text-muted-foreground hover:text-primary transition-colors"><Mail size={18} /></a>
               <a href={`tel:${siteData.contact.phone}`} className="text-muted-foreground hover:text-primary transition-colors"><Phone size={18} /></a>
               <a href={siteData.social.vimeo} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors"><ExternalLink size={18} /></a>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
 
           {/* Scroll indicator */}
           <motion.div
