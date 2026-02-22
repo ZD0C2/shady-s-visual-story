@@ -2,7 +2,7 @@ export const siteData = {
   name: "Shady Maged",
   title: "Creative Director & Editor",
   tagline: "Promos • Sports • Ads • Social Content",
-  heroSubline: "Crafting cinematic stories through precision editing, motion graphics, and sound design.",
+  heroSubline: "I see what others miss — building visual worlds from raw footage through direction, design, and razor-sharp editing.",
   statusPill: "Open for freelance projects",
   stats: [
     { value: "5+", label: "Years Experience" },
@@ -18,7 +18,7 @@ export const siteData = {
     facebook: "https://facebook.com/shady.maged",
     vimeo: "https://vimeo.com/shadyart",
   },
-  rotatingWords: ["DIRECT", "EDIT", "DESIGN", "SHOOT", "LIGHT", "MIX"],
+  rotatingWords: ["DIRECT", "VISUALIZE", "DESIGN", "EDIT", "COMPOSE", "CREATE"],
   showreelUrl: "https://vimeo.com/shadyart",
 };
 
