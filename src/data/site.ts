@@ -2,7 +2,7 @@ export const siteData = {
   name: "Shady Maged",
   title: "Creative Director & Editor",
   tagline: "Promos • Sports • Ads • Social Content",
-  heroSubline: "Different eyes show different details — editing and assembling raw material into broadcast-ready art, from story to screen.",
+  heroSubline: "Crafting cinematic stories through precision editing, motion graphics, and sound design.",
   statusPill: "Open for freelance projects",
   stats: [
     { value: "5+", label: "Years Experience" },
