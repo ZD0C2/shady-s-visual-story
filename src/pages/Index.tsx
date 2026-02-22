@@ -32,9 +32,9 @@ export default function Index() {
       <section className="relative min-h-screen flex items-start justify-center overflow-hidden pt-32 md:pt-40">
         {/* Background photo – anchored bottom-center so the face is visible */}
         <div className="absolute inset-0">
-          <img src={heroBg} alt="Shady Maged" className="w-full h-full object-cover object-bottom opacity-90" />
-          <div className="absolute inset-0 bg-gradient-to-b from-background via-background/60 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+          <img src={heroBg} alt="Shady Maged" className="w-full h-full object-cover object-bottom" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/30 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
         </div>
 
         <div className="relative container mx-auto px-4 lg:px-8">
