@@ -32,12 +32,13 @@ export default function Index() {
       <section className="relative min-h-screen flex items-center overflow-hidden">
         <div className="absolute inset-0">
           <img src={heroBg} alt="Shady Maged" className="w-full h-full object-cover object-left-top opacity-90" />
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background/60 to-background" />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/40 to-background" />
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background/50 to-background/90" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/10 via-background/30 to-background" />
         </div>
 
-        <div className="relative container mx-auto px-4 lg:px-8 flex justify-end">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-center md:text-right max-w-xl">
+        <div className="relative container mx-auto px-4 lg:px-8 grid md:grid-cols-2">
+          <div className="hidden md:block" />
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-center">
             <div className="inline-flex items-center gap-2 chip mb-6">
               <span className="glow-dot" />
               {siteData.statusPill}
