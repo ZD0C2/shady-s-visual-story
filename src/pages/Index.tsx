@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import ShowreelModal from "@/components/ShowreelModal";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Mail, Phone, ExternalLink, ArrowDown, Film, Megaphone, Palette, Sparkles, Monitor } from "lucide-react";
@@ -26,6 +27,7 @@ function RotatingWord() {
 }
 
 export default function Index() {
+  const [showreelOpen, setShowreelOpen] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -36,6 +38,7 @@ export default function Index() {
 
   return (
     <main>
+      <ShowreelModal open={showreelOpen} onClose={() => setShowreelOpen(false)} videoUrl={siteData.showreelUrl} />
       {/* ===== HERO ===== */}
       <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <motion.div className="absolute inset-0" style={{ y: bgY, scale: bgScale }}>
@@ -83,14 +86,12 @@ export default function Index() {
 
             {/* CTAs */}
             <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
-              <a
-                href={siteData.showreelUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => setShowreelOpen(true)}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-heading font-semibold text-sm hover:opacity-90 transition-opacity"
               >
                 <Film className="w-4 h-4" /> Watch Showreel
-              </a>
+              </button>
               <Link
                 to="/work"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border bg-secondary/50 text-foreground font-heading font-semibold text-sm hover:bg-secondary transition-colors"
