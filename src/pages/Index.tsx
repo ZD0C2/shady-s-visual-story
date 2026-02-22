@@ -42,11 +42,14 @@ export default function Index() {
               {siteData.statusPill}
             </div>
 
-            <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold leading-tight gradient-text pb-2">
-              {siteData.name}
+            <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold leading-tight">
+              <span style={{ background: 'linear-gradient(135deg, hsl(0 0% 100%), hsl(42 80% 55%))' }} className="bg-clip-text text-transparent">{siteData.name}</span>
             </h1>
+            <p className="font-heading text-lg md:text-xl mt-4 text-primary font-semibold tracking-wide">
+              {siteData.title}
+            </p>
             <p className="font-heading text-2xl md:text-3xl mt-2 text-foreground/80">
-              <span className="text-primary font-semibold">{siteData.title}</span> — <RotatingWord />
+              I <RotatingWord />
             </p>
             <p className="text-muted-foreground mt-4 max-w-lg mx-auto">{siteData.heroSubline}</p>
 
