@@ -1,0 +1,115 @@
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+
+const navLinks = [
+  { label: "Home", href: "/" },
+  { label: "Work", href: "/work" },
+  { label: "Resume", href: "/resume" },
+  { label: "Contact", href: "/contact" },
+];
+
+const homeAnchors = [
+  { label: "About", href: "#about" },
+  { label: "Work", href: "#work" },
+  { label: "Services", href: "#services" },
+  { label: "Experience", href: "#experience" },
+];
+
+export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
+  const isHome = location.pathname === "/";
+
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 50);
+      const h = document.documentElement;
+      const progress = h.scrollTop / (h.scrollHeight - h.clientHeight);
+      setScrollProgress(Math.min(progress, 1));
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <>
+      <div className="scroll-progress" style={{ transform: `scaleX(${scrollProgress})` }} />
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled ? "bg-background/80 backdrop-blur-xl border-b border-border/40" : ""
+        }`}
+      >
+        <div className="container mx-auto flex items-center justify-between h-16 px-4 lg:px-8">
+          <Link to="/" className="font-heading text-lg font-bold tracking-tight">
+            <span className="gradient-text">SM</span>
+          </Link>
+
+          {/* Desktop nav */}
+          <div className="hidden md:flex items-center gap-6">
+            {isHome &&
+              homeAnchors.map((a) => (
+                <a
+                  key={a.href}
+                  href={a.href}
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {a.label}
+                </a>
+              ))}
+            {navLinks.map((l) => (
+              <Link
+                key={l.href}
+                to={l.href}
+                className={`text-sm transition-colors ${
+                  location.pathname === l.href
+                    ? "text-primary font-medium"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {l.label}
+              </Link>
+            ))}
+          </div>
+
+          {/* Mobile toggle */}
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="md:hidden p-2 text-foreground"
+            aria-label="Toggle menu"
+          >
+            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+
+        {/* Mobile menu */}
+        <AnimatePresence>
+          {mobileOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border/40 overflow-hidden"
+            >
+              <div className="flex flex-col gap-4 p-6">
+                {navLinks.map((l) => (
+                  <Link
+                    key={l.href}
+                    to={l.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="text-lg font-heading text-foreground"
+                  >
+                    {l.label}
+                  </Link>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </nav>
+    </>
+  );
+}
