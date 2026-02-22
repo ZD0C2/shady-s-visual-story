@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Mail, Phone, ExternalLink, ArrowDown, Film, Megaphone, Palette, Sparkles, Monitor } from "lucide-react";
 import heroBg from "@/assets/hero-bg.png";
 import { siteData, projects, services, experience, education, skills } from "@/data/site";
@@ -26,15 +26,23 @@ function RotatingWord() {
 }
 
 export default function Index() {
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+
   return (
     <main>
       {/* ===== HERO ===== */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0">
+      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <motion.div className="absolute inset-0" style={{ y: bgY, scale: bgScale }}>
           <img src={heroBg} alt="Shady Maged" className="w-full h-full object-cover opacity-90" style={{ objectPosition: '10% top' }} />
           <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/50 to-background" />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
-        </div>
+        </motion.div>
 
         <div className="relative container mx-auto px-4 lg:px-8 text-center">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
