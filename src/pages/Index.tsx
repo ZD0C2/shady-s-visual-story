@@ -47,15 +47,15 @@ export default function Index() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-              className="relative font-heading text-5xl md:text-7xl lg:text-8xl font-bold leading-tight text-primary-foreground"
+              className="relative font-heading text-4xl md:text-7xl lg:text-8xl font-bold leading-tight text-primary-foreground"
             >
               <span className="absolute inset-0 blur-3xl opacity-30 bg-primary rounded-full scale-150 pointer-events-none" />
               <span className="relative">{siteData.name}</span>
             </motion.h1>
-            <p className="font-heading text-2xl md:text-3xl mt-6 text-foreground/80">
+            <p className="font-heading text-xl md:text-3xl mt-6 text-foreground/80">
               <span className="text-primary font-semibold">{siteData.title}</span> — <RotatingWord />
             </p>
-            <p className="text-muted-foreground mt-4 max-w-lg mx-auto">{siteData.heroSubline}</p>
+            <p className="text-sm md:text-base text-muted-foreground mt-4 max-w-lg mx-auto">{siteData.heroSubline}</p>
 
             {/* Stats */}
             <div className="flex items-center justify-center gap-8 mt-8">
