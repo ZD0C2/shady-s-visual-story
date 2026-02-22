@@ -45,7 +45,7 @@ export default function Index() {
             <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold leading-tight text-primary-foreground">
               {siteData.name}
             </h1>
-            <p className="font-heading text-2xl md:text-3xl mt-2 text-foreground/80">
+            <p className="font-heading text-2xl md:text-3xl mt-6 text-foreground/80">
               <span className="text-primary font-semibold">{siteData.title}</span> — <RotatingWord />
             </p>
             <p className="text-muted-foreground mt-4 max-w-lg mx-auto">{siteData.heroSubline}</p>
