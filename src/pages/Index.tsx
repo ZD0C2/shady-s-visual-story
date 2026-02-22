@@ -97,8 +97,9 @@ export default function Index() {
                   key={s.label}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
+                  whileHover={{ scale: 1.05, filter: "brightness(1.2)" }}
                   transition={{ duration: 0.4, delay: 0.6 + i * 0.1, ease: "easeOut" }}
-                  className="text-center"
+                  className="text-center cursor-default"
                 >
                   <div className="font-heading text-2xl font-bold gradient-text">{s.value}</div>
                   <div className="text-xs text-muted-foreground mt-1">{s.label}</div>
@@ -121,13 +122,13 @@ export default function Index() {
               </button>
               <Link
                 to="/work"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border bg-secondary/50 text-foreground font-heading font-semibold text-sm hover:bg-secondary transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border bg-secondary/50 text-foreground font-heading font-semibold text-sm hover:bg-secondary hover:border-primary/50 hover:shadow-[0_0_15px_-3px_hsl(var(--primary)/0.4)] transition-all duration-300"
               >
                 View Work
               </Link>
               <Link
                 to="/resume"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border/40 text-muted-foreground font-heading text-sm hover:text-foreground transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border/40 text-muted-foreground font-heading text-sm hover:text-foreground hover:border-primary/50 hover:shadow-[0_0_15px_-3px_hsl(var(--primary)/0.4)] transition-all duration-300"
               >
                 Download Resume
               </Link>
