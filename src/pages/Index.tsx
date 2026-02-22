@@ -29,15 +29,15 @@ export default function Index() {
   return (
     <main>
       {/* ===== HERO ===== */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
+      <section className="relative min-h-screen flex items-start justify-center overflow-hidden pt-32 md:pt-40">
+        {/* Background photo – anchored bottom-center so the face is visible */}
         <div className="absolute inset-0">
-          <img src={heroBg} alt="Shady Maged" className="w-full h-full object-cover object-left-top opacity-90" />
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background/50 to-background/90" />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/10 via-background/30 to-background" />
+          <img src={heroBg} alt="Shady Maged" className="w-full h-full object-cover object-bottom opacity-90" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background via-background/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
         </div>
 
-        <div className="relative container mx-auto px-4 lg:px-8 grid md:grid-cols-2">
-          <div className="hidden md:block" />
+        <div className="relative container mx-auto px-4 lg:px-8">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-center">
             <div className="inline-flex items-center gap-2 chip mb-6">
               <span className="glow-dot" />
