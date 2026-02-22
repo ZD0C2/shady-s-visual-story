@@ -43,8 +43,9 @@ export default function Index() {
               {siteData.statusPill}
             </div>
 
-            <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold leading-tight text-primary-foreground">
-              {siteData.name}
+            <h1 className="relative font-heading text-5xl md:text-7xl lg:text-8xl font-bold leading-tight text-primary-foreground">
+              <span className="absolute inset-0 blur-3xl opacity-30 bg-primary rounded-full scale-150 pointer-events-none" />
+              <span className="relative">{siteData.name}</span>
             </h1>
             <p className="font-heading text-2xl md:text-3xl mt-6 text-foreground/80">
               <span className="text-primary font-semibold">{siteData.title}</span> — <RotatingWord />
