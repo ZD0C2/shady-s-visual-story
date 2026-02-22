@@ -50,6 +50,32 @@ function AnimatedCounter({ value }: { value: string }) {
   return <span ref={ref}>{display}</span>;
 }
 
+function TypeWriter({ text, delay = 0.5 }: { text: string; delay?: number }) {
+  const [displayed, setDisplayed] = useState("");
+  const [started, setStarted] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setStarted(true), delay * 1000);
+    return () => clearTimeout(timeout);
+  }, [delay]);
+
+  useEffect(() => {
+    if (!started) return;
+    if (displayed.length >= text.length) return;
+    const t = setTimeout(() => {
+      setDisplayed(text.slice(0, displayed.length + 1));
+    }, 30);
+    return () => clearTimeout(t);
+  }, [started, displayed, text]);
+
+  return (
+    <span>
+      {displayed}
+      {displayed.length < text.length && <span className="animate-pulse">|</span>}
+    </span>
+  );
+}
+
 export default function Index() {
   const [showreelOpen, setShowreelOpen] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
@@ -106,12 +132,12 @@ export default function Index() {
             </motion.p>
 
             <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.5, ease: "easeOut" }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3, delay: 0.5 }}
               className="text-sm md:text-base text-muted-foreground mt-4 max-w-lg mx-auto"
             >
-              {siteData.heroSubline}
+              <TypeWriter text={siteData.heroSubline} delay={0.6} />
             </motion.p>
 
             {/* Stats */}
