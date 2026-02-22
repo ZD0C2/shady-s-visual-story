@@ -31,9 +31,9 @@ export default function Index() {
       {/* ===== HERO ===== */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src={heroBg} alt="Shady Maged" className="w-full h-full object-cover object-top opacity-75" />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/75 to-background" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-background/20" />
+          <img src={heroBg} alt="Shady Maged" className="w-full h-full object-cover object-top opacity-90" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/50 to-background" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
         </div>
 
         <div className="relative container mx-auto px-4 lg:px-8 text-center">
