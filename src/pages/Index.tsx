@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import ShowreelModal from "@/components/ShowreelModal";
 import { Link } from "react-router-dom";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { Mail, Phone, ExternalLink, ArrowDown, Film, Megaphone, Palette, Sparkles, Monitor } from "lucide-react";
 import heroBg from "@/assets/hero-bg.png";
 import { siteData, projects, services, experience, education, skills } from "@/data/site";
@@ -24,6 +24,30 @@ function RotatingWord() {
       {siteData.rotatingWords[idx]}
     </span>
   );
+}
+
+function AnimatedCounter({ value }: { value: string }) {
+  const match = value.match(/^(\d+)(.*)$/);
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true });
+  const [display, setDisplay] = useState(match ? "0" + match[2] : value);
+
+  useEffect(() => {
+    if (!match || !inView) return;
+    const target = parseInt(match[1], 10);
+    const suffix = match[2];
+    const duration = 1200;
+    const start = performance.now();
+    const step = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDisplay(Math.round(eased * target) + suffix);
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [inView]);
+
+  return <span ref={ref}>{display}</span>;
 }
 
 export default function Index() {
@@ -101,7 +125,7 @@ export default function Index() {
                   transition={{ duration: 0.4, delay: 0.6 + i * 0.1, ease: "easeOut" }}
                   className="text-center cursor-default"
                 >
-                  <div className="font-heading text-2xl font-bold gradient-text">{s.value}</div>
+                  <div className="font-heading text-2xl font-bold gradient-text"><AnimatedCounter value={s.value} /></div>
                   <div className="text-xs text-muted-foreground mt-1">{s.label}</div>
                 </motion.div>
               ))}
