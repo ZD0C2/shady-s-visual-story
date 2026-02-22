@@ -29,15 +29,15 @@ export default function Index() {
   return (
     <main>
       {/* ===== HERO ===== */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen flex items-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src={heroBg} alt="Shady Maged" className="w-full h-full object-cover object-top opacity-90" />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/50 to-background" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+          <img src={heroBg} alt="Shady Maged" className="w-full h-full object-cover object-left-top opacity-90" />
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background/60 to-background" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/40 to-background" />
         </div>
 
-        <div className="relative container mx-auto px-4 lg:px-8 text-center">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+        <div className="relative container mx-auto px-4 lg:px-8 flex justify-end">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-center md:text-right max-w-xl">
             <div className="inline-flex items-center gap-2 chip mb-6">
               <span className="glow-dot" />
               {siteData.statusPill}
@@ -104,16 +104,16 @@ export default function Index() {
               <a href={siteData.social.vimeo} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors"><ExternalLink size={18} /></a>
             </div>
           </motion.div>
-
-          {/* Scroll indicator */}
-          <motion.div
-            className="absolute bottom-8 left-1/2 -translate-x-1/2"
-            animate={{ y: [0, 8, 0] }}
-            transition={{ repeat: Infinity, duration: 2 }}
-          >
-            <ArrowDown className="w-5 h-5 text-muted-foreground" />
-          </motion.div>
         </div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          animate={{ y: [0, 8, 0] }}
+          transition={{ repeat: Infinity, duration: 2 }}
+        >
+          <ArrowDown className="w-5 h-5 text-muted-foreground" />
+        </motion.div>
       </section>
 
       {/* ===== SELECTED WORK ===== */}
