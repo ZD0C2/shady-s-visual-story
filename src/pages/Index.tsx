@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import ShowreelModal from "@/components/ShowreelModal";
 import { Link } from "react-router-dom";
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { motion, useScroll, useTransform, useInView, AnimatePresence, LayoutGroup } from "framer-motion";
 import { Mail, Phone, ExternalLink, ArrowDown, Film, Megaphone, Palette, Sparkles, Monitor } from "lucide-react";
 import heroBg from "@/assets/hero-bg.png";
-import { siteData, projects, services, experience, education, skills } from "@/data/site";
+import { siteData, projects, services, experience, education, skills, categories } from "@/data/site";
 import SectionHeader from "@/components/SectionHeader";
 import ProjectCard from "@/components/ProjectCard";
 import Marquee from "@/components/Marquee";
@@ -78,6 +78,12 @@ function TypeWriter({ text, delay = 0.5 }: { text: string; delay?: number }) {
 
 export default function Index() {
   const [showreelOpen, setShowreelOpen] = useState(false);
+  const [workFilter, setWorkFilter] = useState("All");
+
+  const filteredProjects = useMemo(() => {
+    const base = workFilter === "All" ? projects : projects.filter((p) => p.category === workFilter);
+    return base.slice(0, 6);
+  }, [workFilter]);
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -245,11 +251,42 @@ export default function Index() {
       <section id="work" className="py-24">
         <div className="container mx-auto px-4 lg:px-8">
           <SectionHeader number="01" title="Selected Work" subtitle="Curated projects showcasing editing craft and creative vision." />
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.slice(0, 6).map((p, i) => (
-              <ProjectCard key={p.slug} project={p} index={i} />
+
+          {/* Filter Bar */}
+          <div className="flex flex-wrap gap-2 mb-8">
+            {categories.map((c) => (
+              <button
+                key={c}
+                onClick={() => setWorkFilter(c)}
+                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer ${
+                  workFilter === c
+                    ? "bg-primary text-primary-foreground shadow-[0_0_16px_hsl(var(--primary)/0.4)]"
+                    : "bg-secondary/50 text-muted-foreground hover:text-foreground border border-border/50"
+                }`}
+              >
+                {c}
+              </button>
             ))}
           </div>
+
+          <LayoutGroup>
+            <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <AnimatePresence mode="popLayout">
+                {filteredProjects.map((p, i) => (
+                  <motion.div
+                    key={p.slug}
+                    layout
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                  >
+                    <ProjectCard project={p} index={i} />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </motion.div>
+          </LayoutGroup>
           <div className="text-center mt-10">
             <Link to="/work" className="inline-flex items-center gap-2 text-sm text-primary hover:underline font-heading">
               View All Projects <ExternalLink size={14} />
