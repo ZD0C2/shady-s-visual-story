@@ -21,20 +21,32 @@ const homeAnchors = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [activeSection, setActiveSection] = useState("");
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
   const isHome = location.pathname === "/";
   const { theme, toggleTheme } = useTheme();
+
   useEffect(() => {
+    const sectionIds = homeAnchors.map((a) => a.href.slice(1));
     const onScroll = () => {
       setScrolled(window.scrollY > 50);
       const h = document.documentElement;
       const progress = h.scrollTop / (h.scrollHeight - h.clientHeight);
       setScrollProgress(Math.min(progress, 1));
+
+      if (!isHome) return;
+      let current = "";
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= 120) current = id;
+      }
+      setActiveSection(current);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [isHome]);
 
   return (
     <>
@@ -64,7 +76,11 @@ export default function Navbar() {
                       window.scrollTo({ top, behavior: "smooth" });
                     }
                   }}
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                  className={`text-sm transition-colors cursor-pointer ${
+                    activeSection === a.href.slice(1)
+                      ? "text-primary font-medium"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
                 >
                   {a.label}
                 </a>
