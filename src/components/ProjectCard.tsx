@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Play } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useRef, useState } from "react";
 import type { Project } from "@/data/site";
 import { projectThumbnails } from "@/data/projectImages";
 
@@ -10,6 +11,25 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
+  const [hovered, setHovered] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const hasPreviewVideo = !!project.previewVideo;
+
+  const handleMouseEnter = () => {
+    setHovered(true);
+    if (videoRef.current) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.play().catch(() => {});
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setHovered(false);
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -18,10 +38,16 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
       transition={{ duration: 0.5, delay: index * 0.1 }}
       whileHover={{ y: -8 }}
     >
-      <Link to={`/work/${project.slug}`} className="block group">
+      <Link
+        to={`/work/${project.slug}`}
+        className="block group"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         <div className="glass-card-hover overflow-hidden transition-shadow duration-300 group-hover:shadow-[0_8px_30px_-8px_hsl(var(--primary)/0.3)]">
           {/* Thumbnail area */}
           <div className="relative aspect-video bg-secondary/50 flex items-center justify-center overflow-hidden">
+            {/* Static thumbnail */}
             {projectThumbnails[project.slug] ? (
               <motion.img
                 src={projectThumbnails[project.slug]}
@@ -33,17 +59,37 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
             ) : (
               <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10" />
             )}
-            <div className="absolute inset-0 bg-background/40 group-hover:bg-background/10 transition-colors duration-500" />
+
+            {/* Video overlay with crossfade */}
+            <AnimatePresence>
+              {hasPreviewVideo && hovered && (
+                <motion.video
+                  ref={videoRef}
+                  src={project.previewVideo}
+                  muted
+                  loop
+                  playsInline
+                  className="absolute inset-0 w-full h-full object-cover z-[1]"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                />
+              )}
+            </AnimatePresence>
+
+            <div className="absolute inset-0 bg-background/40 group-hover:bg-background/10 transition-colors duration-500 z-[2]" />
             <motion.div
               className="relative z-10"
+              style={{ zIndex: 3 }}
               initial={{ scale: 1, opacity: 0.6 }}
               whileHover={{ scale: 1.2, opacity: 1 }}
               transition={{ duration: 0.3 }}
             >
               <Play className="w-10 h-10 text-foreground/60 group-hover:text-primary transition-colors duration-300 drop-shadow-lg" />
             </motion.div>
-            <span className="absolute top-3 left-3 chip z-10 transition-transform duration-300 group-hover:-translate-y-0.5">{project.category}</span>
-            <span className="absolute top-3 right-3 chip z-10 transition-transform duration-300 group-hover:-translate-y-0.5">{project.year}</span>
+            <span className="absolute top-3 left-3 chip z-10 transition-transform duration-300 group-hover:-translate-y-0.5" style={{ zIndex: 3 }}>{project.category}</span>
+            <span className="absolute top-3 right-3 chip z-10 transition-transform duration-300 group-hover:-translate-y-0.5" style={{ zIndex: 3 }}>{project.year}</span>
           </div>
           {/* Info */}
           <div className="p-5">
