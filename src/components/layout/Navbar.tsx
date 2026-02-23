@@ -56,7 +56,15 @@ export default function Navbar() {
                 <a
                   key={a.href}
                   href={a.href}
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const el = document.querySelector(a.href);
+                    if (el) {
+                      const top = el.getBoundingClientRect().top + window.scrollY - 80;
+                      window.scrollTo({ top, behavior: "smooth" });
+                    }
+                  }}
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
                 >
                   {a.label}
                 </a>
@@ -105,6 +113,25 @@ export default function Navbar() {
               className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border/40 overflow-hidden"
             >
               <div className="flex flex-col gap-4 p-6">
+                {isHome &&
+                  homeAnchors.map((a) => (
+                    <a
+                      key={a.href}
+                      href={a.href}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setMobileOpen(false);
+                        const el = document.querySelector(a.href);
+                        if (el) {
+                          const top = el.getBoundingClientRect().top + window.scrollY - 80;
+                          window.scrollTo({ top, behavior: "smooth" });
+                        }
+                      }}
+                      className="text-lg font-heading text-foreground cursor-pointer"
+                    >
+                      {a.label}
+                    </a>
+                  ))}
                 {navLinks.map((l) => (
                   <Link
                     key={l.href}
