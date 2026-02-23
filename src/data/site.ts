@@ -205,6 +205,18 @@ export const skills = [
   { name: "Audition", level: 70 },
 ];
 
+export const about = {
+  heading: "Crafting Visual Worlds.",
+  paragraphs: [
+    "I am a Creative Director and Editor with over 5 years of experience specializing in high-impact sports promos, corporate narratives, and engaging social content. My approach bridges the gap between raw, unpolished footage and razor-sharp, emotionally resonant visual stories. Having led post-production for major campaigns—including African Nations Cup coverage and Vodafone STARS CLASH—I know what it takes to deliver broadcast-quality content that commands attention and drives engagement across every platform.",
+  ],
+  milestones: [
+    { value: "5+", label: "Years in Post-Production" },
+    { value: "Millions", label: "Views Generated" },
+    { value: "End-to-End", label: "Creative Direction" },
+  ],
+};
+
 export const toolsMarquee = [
   "After Effects", "Premiere Pro", "DaVinci Resolve", "Photoshop",
   "Illustrator", "Audition", "Media Encoder", "Final Cut Pro",
