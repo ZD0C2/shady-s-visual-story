@@ -12,9 +12,9 @@ const navLinks = [
 ];
 
 const homeAnchors = [
-  { label: "About", href: "#about" },
   { label: "Work", href: "#work" },
   { label: "Services", href: "#services" },
+  { label: "About", href: "#about" },
   { label: "Experience", href: "#experience" },
 ];
 
