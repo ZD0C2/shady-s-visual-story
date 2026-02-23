@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform, useInView, AnimatePresence, LayoutGroup } from "framer-motion";
 import { Mail, Phone, ExternalLink, ArrowDown, Film, Megaphone, Palette, Sparkles, Monitor } from "lucide-react";
 import heroBg from "@/assets/hero-bg.png";
-import { siteData, projects, services, experience, education, skills, categories, type Project } from "@/data/site";
+import { siteData, projects, services, experience, education, skills, categories, about, type Project } from "@/data/site";
 import SectionHeader from "@/components/SectionHeader";
 import ProjectCard from "@/components/ProjectCard";
 import Marquee from "@/components/Marquee";
@@ -326,13 +326,71 @@ export default function Index() {
         </div>
       </section>
 
+      {/* ===== ABOUT ===== */}
+      <section id="about" className="py-24">
+        <div className="container mx-auto px-4 lg:px-8">
+          <SectionHeader number="03" title="About" />
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            {/* Left — Portrait with glow */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6 }}
+              className="relative flex items-center justify-center"
+            >
+              {/* Pulsing radial glow */}
+              <div className="absolute w-72 h-72 md:w-80 md:h-80 rounded-full bg-primary/20 blur-3xl animate-[pulse-glow_3s_ease-in-out_infinite]" />
+              {/* Placeholder portrait */}
+              <div className="relative w-64 h-80 md:w-72 md:h-96 rounded-2xl overflow-hidden border border-border/40 shadow-[0_0_60px_-10px_hsl(var(--primary)/0.25)]">
+                <img
+                  src={heroBg}
+                  alt="Shady Maged portrait"
+                  className="w-full h-full object-cover grayscale-[60%] brightness-90"
+                  style={{ objectPosition: '10% top' }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+              </div>
+            </motion.div>
+
+            {/* Right — Text & milestones */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+            >
+              <h3 className="font-heading text-2xl md:text-3xl font-bold mb-6">{about.heading}</h3>
+              {about.paragraphs.map((p, i) => (
+                <p key={i} className="text-muted-foreground leading-relaxed mb-4">{p}</p>
+              ))}
+              <div className="grid grid-cols-3 gap-4 mt-8">
+                {about.milestones.map((m, i) => (
+                  <motion.div
+                    key={m.label}
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
+                    className="glass-card p-4 text-center"
+                  >
+                    <div className="font-heading text-lg font-bold gradient-text">{m.value}</div>
+                    <div className="text-[11px] text-muted-foreground mt-1 leading-tight">{m.label}</div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* ===== TOOLS ===== */}
       <Marquee />
 
       {/* ===== EXPERIENCE ===== */}
       <section id="experience" className="py-24">
         <div className="container mx-auto px-4 lg:px-8">
-          <SectionHeader number="04" title="Experience" subtitle="Professional journey in video production." />
+          <SectionHeader number="05" title="Experience" subtitle="Professional journey in video production." />
           <div className="relative max-w-2xl mx-auto">
             {/* Timeline line */}
             <div className="absolute left-4 md:left-6 top-0 bottom-0 w-px bg-border/50" />
@@ -374,7 +432,7 @@ export default function Index() {
       {/* ===== SKILLS ===== */}
       <section id="skills" className="py-24">
         <div className="container mx-auto px-4 lg:px-8">
-          <SectionHeader number="05" title="Skills" subtitle="Tools of the trade." />
+          <SectionHeader number="06" title="Skills" subtitle="Tools of the trade." />
           <div className="max-w-xl mx-auto space-y-5">
             {skills.map((s, i) => (
               <motion.div
@@ -406,7 +464,7 @@ export default function Index() {
       {/* ===== EDUCATION ===== */}
       <section className="py-24">
         <div className="container mx-auto px-4 lg:px-8">
-          <SectionHeader number="06" title="Education" />
+          <SectionHeader number="07" title="Education" />
           <div className="grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
             {education.map((e, i) => (
               <motion.div
@@ -429,7 +487,7 @@ export default function Index() {
       {/* ===== CONTACT CTA ===== */}
       <section id="contact" className="py-24">
         <div className="container mx-auto px-4 lg:px-8 text-center">
-          <SectionHeader number="07" title="Let's Work Together" subtitle="Got a project in mind? Let's create something amazing." />
+          <SectionHeader number="08" title="Let's Work Together" subtitle="Got a project in mind? Let's create something amazing." />
           <div className="flex flex-wrap items-center justify-center gap-4">
             <a
               href={`mailto:${siteData.contact.email}`}
