@@ -37,6 +37,7 @@ export interface Project {
   breakdown: string;
   result: string;
   videoUrl?: string;
+  previewVideo?: string;
   images?: string[];
 }
 
