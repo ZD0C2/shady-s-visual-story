@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { Play } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
@@ -8,9 +7,10 @@ import { projectThumbnails } from "@/data/projectImages";
 interface ProjectCardProps {
   project: Project;
   index?: number;
+  onClick?: (project: Project) => void;
 }
 
-export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
+export default function ProjectCard({ project, index = 0, onClick }: ProjectCardProps) {
   const [hovered, setHovered] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const hasPreviewVideo = !!project.previewVideo;
@@ -30,6 +30,13 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
     }
   };
 
+  const handleClick = (e: React.MouseEvent) => {
+    if (onClick) {
+      e.preventDefault();
+      onClick(project);
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -38,16 +45,18 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
       transition={{ duration: 0.5, delay: index * 0.1 }}
       whileHover={{ y: -8 }}
     >
-      <Link
-        to={`/work/${project.slug}`}
-        className="block group"
+      <div
+        role="button"
+        tabIndex={0}
+        className="block group cursor-pointer"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onClick={handleClick}
+        onKeyDown={(e) => e.key === "Enter" && handleClick(e as any)}
       >
         <div className="glass-card-hover overflow-hidden transition-shadow duration-300 group-hover:shadow-[0_8px_30px_-8px_hsl(var(--primary)/0.3)]">
           {/* Thumbnail area */}
           <div className="relative aspect-video bg-secondary/50 flex items-center justify-center overflow-hidden">
-            {/* Static thumbnail */}
             {projectThumbnails[project.slug] ? (
               <motion.img
                 src={projectThumbnails[project.slug]}
@@ -60,7 +69,6 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
               <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10" />
             )}
 
-            {/* Video overlay with crossfade */}
             <AnimatePresence>
               {hasPreviewVideo && hovered && (
                 <motion.video
@@ -80,16 +88,15 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
 
             <div className="absolute inset-0 bg-background/40 group-hover:bg-background/10 transition-colors duration-500 z-[2]" />
             <motion.div
-              className="relative z-10"
-              style={{ zIndex: 3 }}
+              className="relative z-[3]"
               initial={{ scale: 1, opacity: 0.6 }}
               whileHover={{ scale: 1.2, opacity: 1 }}
               transition={{ duration: 0.3 }}
             >
               <Play className="w-10 h-10 text-foreground/60 group-hover:text-primary transition-colors duration-300 drop-shadow-lg" />
             </motion.div>
-            <span className="absolute top-3 left-3 chip z-10 transition-transform duration-300 group-hover:-translate-y-0.5" style={{ zIndex: 3 }}>{project.category}</span>
-            <span className="absolute top-3 right-3 chip z-10 transition-transform duration-300 group-hover:-translate-y-0.5" style={{ zIndex: 3 }}>{project.year}</span>
+            <span className="absolute top-3 left-3 chip z-[3] transition-transform duration-300 group-hover:-translate-y-0.5">{project.category}</span>
+            <span className="absolute top-3 right-3 chip z-[3] transition-transform duration-300 group-hover:-translate-y-0.5">{project.year}</span>
           </div>
           {/* Info */}
           <div className="p-5">
@@ -104,7 +111,7 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
             </div>
           </div>
         </div>
-      </Link>
+      </div>
     </motion.div>
   );
 }

@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState, useMemo } from "react";
 import ShowreelModal from "@/components/ShowreelModal";
+import ProjectModal from "@/components/ProjectModal";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform, useInView, AnimatePresence, LayoutGroup } from "framer-motion";
 import { Mail, Phone, ExternalLink, ArrowDown, Film, Megaphone, Palette, Sparkles, Monitor } from "lucide-react";
 import heroBg from "@/assets/hero-bg.png";
-import { siteData, projects, services, experience, education, skills, categories } from "@/data/site";
+import { siteData, projects, services, experience, education, skills, categories, type Project } from "@/data/site";
 import SectionHeader from "@/components/SectionHeader";
 import ProjectCard from "@/components/ProjectCard";
 import Marquee from "@/components/Marquee";
@@ -78,6 +79,7 @@ function TypeWriter({ text, delay = 0.5 }: { text: string; delay?: number }) {
 
 export default function Index() {
   const [showreelOpen, setShowreelOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [workFilter, setWorkFilter] = useState("All");
 
   const filteredProjects = useMemo(() => {
@@ -95,6 +97,7 @@ export default function Index() {
   return (
     <main>
       <ShowreelModal open={showreelOpen} onClose={() => setShowreelOpen(false)} videoUrl={siteData.showreelUrl} />
+      <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
       {/* ===== HERO ===== */}
       <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <motion.div className="absolute inset-0" style={{ y: bgY, scale: bgScale }}>
@@ -281,7 +284,7 @@ export default function Index() {
                     exit={{ opacity: 0, scale: 0.9 }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
                   >
-                    <ProjectCard project={p} index={i} />
+                    <ProjectCard project={p} index={i} onClick={setSelectedProject} />
                   </motion.div>
                 ))}
               </AnimatePresence>
