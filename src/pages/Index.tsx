@@ -315,11 +315,11 @@ export default function Index() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.6, delay: i * 0.12, ease: "easeOut" }}
-                  whileHover={{ y: -6, transition: { duration: 0.3 } }}
-                  className="glass-card p-6"
+                  whileHover={{ y: -5, transition: { duration: 0.3, ease: "easeInOut" } }}
+                  className="group glass-card p-6 transition-shadow duration-300 ease-in-out hover:shadow-[0_0_60px_-5px_hsl(var(--primary)/0.35)] hover:border-primary/30"
                   style={{ willChange: "transform" }}
                 >
-                  <Icon className="w-8 h-8 text-primary mb-4" />
+                  <Icon className="w-8 h-8 text-primary mb-4 transition-all duration-300 ease-in-out group-hover:animate-[pulse-glow_1.5s_ease-in-out_infinite] group-hover:drop-shadow-[0_0_8px_hsl(var(--primary)/0.6)]" />
                   <h3 className="font-heading font-semibold text-lg">{s.title}</h3>
                   <p className="text-sm text-muted-foreground mt-2">{s.description}</p>
                 </motion.div>
