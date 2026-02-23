@@ -1,16 +1,6 @@
 import { toolsMarquee } from "@/data/site";
 import SectionHeader from "@/components/SectionHeader";
-
-const toolIcons: Record<string, string> = {
-  "Premiere Pro": "Pr",
-  "After Effects": "Ae",
-  "Audition": "Au",
-  "Photoshop": "Ps",
-  "Illustrator": "Ai",
-  "DaVinci Resolve": "DV",
-  "Media Encoder": "Me",
-  "Final Cut Pro": "FC",
-};
+import { ToolIcon } from "@/components/ToolIcons";
 
 export default function Marquee() {
   const items = [...toolsMarquee, ...toolsMarquee];
@@ -26,8 +16,8 @@ export default function Marquee() {
               key={i}
               className="flex items-center gap-3 text-sm text-muted-foreground font-heading tracking-wider uppercase shrink-0 mr-8"
             >
-              <span className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center text-primary font-bold text-xs border border-border/50">
-                {toolIcons[tool] || tool.slice(0, 2)}
+              <span className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center border border-border/50">
+                <ToolIcon name={tool} />
               </span>
               {tool}
               <span className="glow-dot ml-5" />
