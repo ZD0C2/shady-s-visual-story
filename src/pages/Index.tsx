@@ -296,9 +296,6 @@ export default function Index() {
             </Link>
           </div>
         </div>
-        <div className="mt-16">
-          <Marquee />
-        </div>
       </section>
 
       {/* ===== SERVICES ===== */}
@@ -329,10 +326,13 @@ export default function Index() {
         </div>
       </section>
 
+      {/* ===== TOOLS ===== */}
+      <Marquee />
+
       {/* ===== EXPERIENCE ===== */}
       <section id="experience" className="py-24">
         <div className="container mx-auto px-4 lg:px-8">
-          <SectionHeader number="03" title="Experience" subtitle="Professional journey in video production." />
+          <SectionHeader number="04" title="Experience" subtitle="Professional journey in video production." />
           <div className="relative max-w-2xl mx-auto">
             {/* Timeline line */}
             <div className="absolute left-4 md:left-6 top-0 bottom-0 w-px bg-border/50" />
@@ -374,7 +374,7 @@ export default function Index() {
       {/* ===== SKILLS ===== */}
       <section id="skills" className="py-24">
         <div className="container mx-auto px-4 lg:px-8">
-          <SectionHeader number="04" title="Skills" subtitle="Tools of the trade." />
+          <SectionHeader number="05" title="Skills" subtitle="Tools of the trade." />
           <div className="max-w-xl mx-auto space-y-5">
             {skills.map((s, i) => (
               <motion.div
@@ -406,7 +406,7 @@ export default function Index() {
       {/* ===== EDUCATION ===== */}
       <section className="py-24">
         <div className="container mx-auto px-4 lg:px-8">
-          <SectionHeader number="05" title="Education" />
+          <SectionHeader number="06" title="Education" />
           <div className="grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
             {education.map((e, i) => (
               <motion.div
@@ -429,7 +429,7 @@ export default function Index() {
       {/* ===== CONTACT CTA ===== */}
       <section id="contact" className="py-24">
         <div className="container mx-auto px-4 lg:px-8 text-center">
-          <SectionHeader number="06" title="Let's Work Together" subtitle="Got a project in mind? Let's create something amazing." />
+          <SectionHeader number="07" title="Let's Work Together" subtitle="Got a project in mind? Let's create something amazing." />
           <div className="flex flex-wrap items-center justify-center gap-4">
             <a
               href={`mailto:${siteData.contact.email}`}
