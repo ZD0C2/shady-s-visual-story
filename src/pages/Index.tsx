@@ -77,6 +77,38 @@ function TypeWriter({ text, delay = 0.5 }: { text: string; delay?: number }) {
   );
 }
 
+function PortraitParallax() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1.05, 1, 1.05]);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, x: -30 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.6 }}
+      className="relative flex items-center justify-center"
+    >
+      <div className="absolute w-72 h-72 md:w-80 md:h-80 rounded-full bg-primary/20 blur-3xl animate-[pulse-glow_3s_ease-in-out_infinite]" />
+      <div className="relative w-64 h-80 md:w-72 md:h-96 rounded-2xl overflow-hidden border border-border/40 shadow-[0_0_60px_-10px_hsl(var(--primary)/0.25)]">
+        <motion.img
+          src={heroBg}
+          alt="Shady Maged portrait"
+          className="w-full h-full object-cover grayscale-[60%] brightness-90"
+          style={{ objectPosition: '10% top', y, scale }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+      </div>
+    </motion.div>
+  );
+}
+
 export default function Index() {
   const [showreelOpen, setShowreelOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -332,26 +364,7 @@ export default function Index() {
           <SectionHeader number="03" title="About" />
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* Left — Portrait with glow */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.6 }}
-              className="relative flex items-center justify-center"
-            >
-              {/* Pulsing radial glow */}
-              <div className="absolute w-72 h-72 md:w-80 md:h-80 rounded-full bg-primary/20 blur-3xl animate-[pulse-glow_3s_ease-in-out_infinite]" />
-              {/* Placeholder portrait */}
-              <div className="relative w-64 h-80 md:w-72 md:h-96 rounded-2xl overflow-hidden border border-border/40 shadow-[0_0_60px_-10px_hsl(var(--primary)/0.25)]">
-                <img
-                  src={heroBg}
-                  alt="Shady Maged portrait"
-                  className="w-full h-full object-cover grayscale-[60%] brightness-90"
-                  style={{ objectPosition: '10% top' }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
-              </div>
-            </motion.div>
+            <PortraitParallax />
 
             {/* Right — Text & milestones */}
             <motion.div
