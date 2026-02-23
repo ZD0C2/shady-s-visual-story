@@ -137,18 +137,22 @@ export default function Navbar() {
                       onClick={(e) => {
                         e.preventDefault();
                         setMobileOpen(false);
-                        const el = document.querySelector(a.href);
-                        if (el) {
-                          const top = el.getBoundingClientRect().top + window.scrollY - 80;
-                          window.scrollTo({ top, behavior: "smooth" });
-                        }
+                        setTimeout(() => {
+                          const el = document.querySelector(a.href);
+                          if (el) {
+                            const top = el.getBoundingClientRect().top + window.scrollY - 80;
+                            window.scrollTo({ top, behavior: "smooth" });
+                          }
+                        }, 350);
                       }}
                       className="text-lg font-heading text-foreground cursor-pointer"
                     >
                       {a.label}
                     </a>
                   ))}
-                {navLinks.map((l) => (
+                {navLinks
+                  .filter((l) => !(isHome && l.href === "/work"))
+                  .map((l) => (
                   <Link
                     key={l.href}
                     to={l.href}
