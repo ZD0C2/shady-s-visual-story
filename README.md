@@ -1,73 +1,54 @@
-# Welcome to your Lovable project
+# Shady Maged - Cinematic Portfolio
 
-## Project info
+A premium, cinematic single-page portfolio for **Shady Maged**, Creative Director & Video Editor: sports promos, ads, and social content. Built as a fast, media-optimised React app with a filmic dark theme, letterboxed hero, timecode motifs, and hover-to-play project previews.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## Tech stack
 
-## How can I edit this code?
+- **Vite** + **React 18** + **TypeScript**
+- **Tailwind CSS** with **shadcn/ui** / Radix primitives
+- **Framer Motion** for animation
+- **React Router** for routing
+- **Vitest** + **Testing Library** for tests
 
-There are several ways of editing your application.
+## Getting started
 
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+Requires **Node.js 18+** and npm.
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Open the local site at:
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```text
+http://127.0.0.1:8080/
+```
 
-**Use GitHub Codespaces**
+## Scripts
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+| Script | Description |
+| --- | --- |
+| `npm run dev` | Start the Vite dev server |
+| `npm run build` | Build the static production site to `dist/` |
+| `npm run preview` | Serve the production build locally |
+| `npm run lint` | Lint the project |
+| `npm run test` | Run the Vitest suite once |
 
-## What technologies are used for this project?
+## Editing content
 
-This project is built with:
+Main portfolio copy and structured content live in `src/data/site.ts`. Update the profile, projects, services, experience, education, and skills there.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Deployment
 
-## How can I deploy this project?
+Run:
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+```sh
+npm run build
+```
 
-## Can I connect a custom domain to my Lovable project?
+Deploy the generated `dist/` folder to any static host such as GitHub Pages, Netlify, Vercel, Cloudflare Pages, or S3.
 
-Yes, you can!
+## License
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+All portfolio content and imagery © Shady Maged. Code available for reference.
