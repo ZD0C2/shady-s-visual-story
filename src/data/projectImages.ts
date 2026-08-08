@@ -1,15 +1,17 @@
-import africanNationsCup from "@/assets/projects/african-nations-cup.jpg";
-import vodafoneStarsClash from "@/assets/projects/vodafone-stars-clash.jpg";
-import jawwalSport from "@/assets/projects/jawwal-sport.jpg";
-import nsoo7y from "@/assets/projects/nsoo7y.jpg";
-import goldEra from "@/assets/projects/gold-era.jpg";
-import leellooCafe from "@/assets/projects/leeloo-cafe.jpg";
+/**
+ * Project thumbnails.
+ *
+ * Thumbnails now live in `public/media/thumbnails/` and are referenced directly
+ * from each project's `thumbnail` field in `site.ts`. Serving them from /public
+ * (rather than bundling via imports) keeps them out of the JS bundle and lets
+ * the browser lazy-load them.
+ *
+ * This map is kept as an optional override for any project that needs a bundled
+ * image instead of a public-path one.
+ */
+export const projectThumbnails: Record<string, string> = {};
 
-export const projectThumbnails: Record<string, string> = {
-  "african-nations-cup": africanNationsCup,
-  "vodafone-stars-clash": vodafoneStarsClash,
-  "jawwal-sport-roberto-carlos": jawwalSport,
-  "nsoo7y-saba7o-korah": nsoo7y,
-  "gold-era-app": goldEra,
-  "leeloo-cafe-promo": leellooCafe,
-};
+/** Resolve a project's thumbnail: bundled override first, then public path. */
+export function getThumbnail(slug: string, thumbnail?: string): string | undefined {
+  return projectThumbnails[slug] ?? thumbnail;
+}

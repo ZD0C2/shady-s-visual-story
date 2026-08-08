@@ -2,7 +2,7 @@ import { Play } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import type { Project } from "@/data/site";
-import { projectThumbnails } from "@/data/projectImages";
+import { getThumbnail } from "@/data/projectImages";
 
 interface ProjectCardProps {
   project: Project;
@@ -14,8 +14,13 @@ export default function ProjectCard({ project, index = 0, onClick }: ProjectCard
   const [hovered, setHovered] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const hasPreviewVideo = !!project.previewVideo;
+  const thumbnailSrc = getThumbnail(project.slug, project.thumbnail);
+  const prefersReducedMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
   const handleMouseEnter = () => {
+    if (prefersReducedMotion) return;
     setHovered(true);
     if (videoRef.current) {
       videoRef.current.currentTime = 0;
@@ -30,7 +35,7 @@ export default function ProjectCard({ project, index = 0, onClick }: ProjectCard
     }
   };
 
-  const handleClick = (e: React.MouseEvent) => {
+  const handleClick = (e: React.MouseEvent | React.KeyboardEvent) => {
     if (onClick) {
       e.preventDefault();
       onClick(project);
@@ -48,19 +53,26 @@ export default function ProjectCard({ project, index = 0, onClick }: ProjectCard
       <div
         role="button"
         tabIndex={0}
-        className="block group cursor-pointer"
+        aria-label={`View case study: ${project.title}`}
+        className="block group cursor-pointer rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onFocus={handleMouseEnter}
+        onBlur={handleMouseLeave}
         onClick={handleClick}
-        onKeyDown={(e) => e.key === "Enter" && handleClick(e as any)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") handleClick(e);
+        }}
       >
         <div className="glass-card-hover overflow-hidden transition-shadow duration-300 group-hover:shadow-[0_8px_30px_-8px_hsl(var(--primary)/0.3)]">
           {/* Thumbnail area */}
           <div className="relative aspect-video bg-secondary/50 flex items-center justify-center overflow-hidden">
-            {projectThumbnails[project.slug] ? (
+            {thumbnailSrc ? (
               <motion.img
-                src={projectThumbnails[project.slug]}
-                alt={project.title}
+                src={thumbnailSrc}
+                alt={`${project.title} — ${project.category}`}
+                loading="lazy"
+                decoding="async"
                 className="absolute inset-0 w-full h-full object-cover"
                 whileHover={{ scale: 1.08 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
@@ -77,6 +89,10 @@ export default function ProjectCard({ project, index = 0, onClick }: ProjectCard
                   muted
                   loop
                   playsInline
+                  preload="none"
+                  poster={thumbnailSrc}
+                  aria-hidden="true"
+                  tabIndex={-1}
                   className="absolute inset-0 w-full h-full object-cover z-[1]"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}

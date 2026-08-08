@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import type { Project } from "@/data/site";
-import { projectThumbnails } from "@/data/projectImages";
+import { getThumbnail } from "@/data/projectImages";
 
 interface ProjectModalProps {
   project: Project | null;
@@ -62,10 +62,24 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                   allowFullScreen
                   title={project.title}
                 />
-              ) : projectThumbnails[project.slug] ? (
+              ) : project.previewVideo ? (
+                <video
+                  src={project.previewVideo}
+                  poster={getThumbnail(project.slug, project.thumbnail)}
+                  muted
+                  loop
+                  autoPlay
+                  playsInline
+                  preload="metadata"
+                  aria-label={`${project.title} preview`}
+                  className="w-full h-full object-cover"
+                />
+              ) : getThumbnail(project.slug, project.thumbnail) ? (
                 <img
-                  src={projectThumbnails[project.slug]}
-                  alt={project.title}
+                  src={getThumbnail(project.slug, project.thumbnail)}
+                  alt={`${project.title} — ${project.category}`}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover"
                 />
               ) : (

@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Working media sets (extraction candidates, contact sheets, review gallery)
+_media-workspace/

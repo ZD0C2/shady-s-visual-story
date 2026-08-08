@@ -3,7 +3,21 @@ import ShowreelModal from "@/components/ShowreelModal";
 import ProjectModal from "@/components/ProjectModal";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform, useInView, AnimatePresence, LayoutGroup } from "framer-motion";
-import { Mail, Phone, ExternalLink, ArrowDown, Film, Megaphone, Palette, Sparkles, Monitor } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  ExternalLink,
+  ArrowDown,
+  Film,
+  Megaphone,
+  Palette,
+  Sparkles,
+  Monitor,
+  Clapperboard,
+  LayoutTemplate,
+  PenTool,
+  Languages,
+} from "lucide-react";
 import heroBg from "@/assets/hero-bg.png";
 import { siteData, projects, services, experience, education, skills, categories, about, type Project } from "@/data/site";
 import SectionHeader from "@/components/SectionHeader";
@@ -12,6 +26,7 @@ import Marquee from "@/components/Marquee";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Film, Megaphone, Palette, Sparkles, Monitor,
+  Clapperboard, LayoutTemplate, PenTool, Languages,
 };
 
 function RotatingWord() {
@@ -46,7 +61,7 @@ function AnimatedCounter({ value }: { value: string }) {
       if (progress < 1) requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
-  }, [inView]);
+  }, [inView, match]);
 
   return <span ref={ref}>{display}</span>;
 }
@@ -115,7 +130,11 @@ export default function Index() {
   const [workFilter, setWorkFilter] = useState("All");
 
   const filteredProjects = useMemo(() => {
-    const base = workFilter === "All" ? projects : projects.filter((p) => p.category === workFilter);
+    // "All" shows the curated featured set; a category filter shows that category.
+    const base =
+      workFilter === "All"
+        ? [...projects.filter((p) => p.featured), ...projects.filter((p) => !p.featured)]
+        : projects.filter((p) => p.category === workFilter);
     return base.slice(0, 6);
   }, [workFilter]);
   const heroRef = useRef<HTMLElement>(null);
@@ -126,6 +145,17 @@ export default function Index() {
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
+  // Only load the hero video on larger screens, and never when the visitor
+  // has asked for reduced motion or is on a metered/slow connection.
+  const [showHeroVideo, setShowHeroVideo] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const wideEnough = window.matchMedia("(min-width: 768px)").matches;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const conn = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+    setShowHeroVideo(wideEnough && !reduced && !conn?.saveData);
+  }, []);
+
   return (
     <main>
       <ShowreelModal open={showreelOpen} onClose={() => setShowreelOpen(false)} videoUrl={siteData.showreelUrl} />
@@ -133,7 +163,26 @@ export default function Index() {
       {/* ===== HERO ===== */}
       <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <motion.div className="absolute inset-0" style={{ y: bgY, scale: bgScale }}>
-          <img src={heroBg} alt="Shady Maged" className="w-full h-full object-cover opacity-90" style={{ objectPosition: '10% top' }} />
+          <img
+            src={heroBg}
+            alt="Shady Maged — editor, director and motion designer"
+            className="w-full h-full object-cover opacity-90"
+            style={{ objectPosition: "10% top" }}
+          />
+          {/* Cinematic video layer — desktop only, muted, reduced-motion aware */}
+          {showHeroVideo && (
+            <video
+              src={siteData.heroVideo}
+              poster={siteData.heroPoster}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="none"
+              aria-hidden="true"
+              className="absolute inset-0 w-full h-full object-cover opacity-60"
+            />
+          )}
           <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/50 to-background" />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
         </motion.div>
