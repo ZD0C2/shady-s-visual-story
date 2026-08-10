@@ -57,8 +57,18 @@ export default function Navbar() {
         }`}
       >
         <div className="container mx-auto flex items-center justify-between h-16 px-4 lg:px-8">
-          <Link to="/" className="font-heading text-lg font-bold tracking-tight">
-            <span className="gradient-text">SM</span>
+          <Link
+            to="/"
+            aria-label="Shady Maged — home"
+            className="group inline-flex items-center gap-2 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
+            <span className="font-heading text-2xl md:text-[26px] font-bold tracking-[-0.03em] text-foreground leading-none">
+              SM
+            </span>
+            <span className="hidden sm:inline-block h-4 w-px bg-border" aria-hidden="true" />
+            <span className="hidden sm:inline text-[11px] uppercase tracking-[0.2em] text-muted-foreground group-hover:text-foreground transition-colors">
+              Shady Maged
+            </span>
           </Link>
 
           {/* Desktop nav */}
@@ -78,8 +88,8 @@ export default function Navbar() {
                   }}
                   className={`text-sm transition-colors cursor-pointer ${
                     activeSection === a.href.slice(1)
-                      ? "text-primary font-medium"
-                      : "text-muted-foreground hover:text-foreground"
+                      ? "text-foreground font-semibold"
+                      : "text-foreground/70 hover:text-foreground"
                   }`}
                 >
                   {a.label}
@@ -93,8 +103,8 @@ export default function Navbar() {
                 to={l.href}
                 className={`text-sm transition-colors ${
                   location.pathname === l.href
-                    ? "text-primary font-medium"
-                    : "text-muted-foreground hover:text-foreground"
+                    ? "text-foreground font-semibold"
+                    : "text-foreground/70 hover:text-foreground"
                 }`}
               >
                 {l.label}

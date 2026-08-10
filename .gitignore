@@ -25,3 +25,19 @@ dist-ssr
 
 # Working media sets (extraction candidates, contact sheets, review gallery)
 _media-workspace/
+dist-verify/
+dist-final/
+dist-new/
+dist-clean/
+dist-qa/
+
+# Extraction candidates live in _media-workspace/, never in the shipped build
+public/media/new-candidate-stills/
+public/media/new-preview-snippets/
+public/media/new-contact-sheets/
+public/media/all-candidate-stills/
+public/media/all-preview-snippets/
+public/media/contact-sheets/
+
+# Stale verification build dirs
+dist-check/

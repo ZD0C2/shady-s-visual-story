@@ -210,6 +210,9 @@ export default function Index() {
           )}
           <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/50 to-background" />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+          {/* Controlled centre scrim: darkens behind the headline so the type
+              reads instantly, while the portrait/video stays visible. */}
+          <div className="absolute inset-0 hero-center-scrim pointer-events-none" />
         </motion.div>
 
         {/* Film grain overlay */}
@@ -245,7 +248,7 @@ export default function Index() {
           ))}
         </div>
 
-        <div className="relative container mx-auto px-4 lg:px-8 text-center">
+        <div className="hero-content relative container mx-auto px-4 lg:px-8 text-center">
           <div>
             {/* Badge */}
             <motion.div
@@ -263,9 +266,8 @@ export default function Index() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.25, ease: "easeOut" }}
-              className="relative font-heading text-4xl md:text-7xl lg:text-8xl font-bold leading-tight text-primary-foreground"
+              className="relative font-heading text-4xl md:text-7xl lg:text-8xl font-bold leading-tight hero-title"
             >
-              <span className="absolute inset-0 blur-3xl opacity-30 bg-primary rounded-full scale-150 pointer-events-none" />
               <span className="relative">{siteData.name}</span>
             </motion.h1>
 
@@ -315,21 +317,23 @@ export default function Index() {
             >
               <button
                 onClick={() => setShowreelOpen(true)}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-heading font-semibold text-sm hover:opacity-90 transition-opacity"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white text-[#0b0b0d] font-heading font-semibold text-sm hover:bg-white/90 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40"
               >
                 <Film className="w-4 h-4" /> Watch Showreel
               </button>
               <Link
                 to="/work"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border bg-secondary/50 text-foreground font-heading font-semibold text-sm hover:bg-secondary hover:border-primary/50 hover:shadow-[0_0_15px_-3px_hsl(var(--primary)/0.4)] transition-all duration-300"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-white/35 bg-black/45 text-white font-heading font-semibold text-sm backdrop-blur-sm hover:bg-black/65 hover:border-white/60 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
               >
                 View Work
               </Link>
+              {/* Links to the résumé page — no CV file is published yet, so the
+                  label says "View" rather than promising a download. */}
               <Link
                 to="/resume"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border/40 text-muted-foreground font-heading text-sm hover:text-foreground hover:border-primary/50 hover:shadow-[0_0_15px_-3px_hsl(var(--primary)/0.4)] transition-all duration-300"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-white/25 bg-black/30 text-white/90 font-heading font-medium text-sm backdrop-blur-sm hover:bg-black/55 hover:text-white hover:border-white/50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
               >
-                Download Resume
+                View Résumé
               </Link>
             </motion.div>
 

@@ -30,10 +30,22 @@ describe("site data integrity", () => {
     }
   });
 
-  it("marks a small curated set as featured", () => {
+  it("marks a small curated set as featured, never more than the homepage shows", () => {
     const featured = projects.filter((p) => p.featured);
     expect(featured.length).toBeGreaterThanOrEqual(3);
+    // The homepage grid renders 6 — more than that would silently hide work.
     expect(featured.length).toBeLessThanOrEqual(6);
+  });
+
+  it("keeps the El Gohary documentary and its 3D environments in separate categories", () => {
+    const doc = projects.find((p) => p.slug === "el-gohary-prime-suspect");
+    const env = projects.find((p) => p.slug === "el-gohary-3d-environments");
+    expect(doc?.category).toBe("Documentary & Directing");
+    expect(env?.category).toBe("Motion & 3D");
+  });
+
+  it("classifies motion-design-led football pieces under Motion & 3D", () => {
+    expect(projects.find((p) => p.slug === "maaloul-tribute")?.category).toBe("Motion & 3D");
   });
 
   it("requires the narrative fields each case study page renders", () => {

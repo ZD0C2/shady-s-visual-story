@@ -16,23 +16,39 @@ const WORKING_MEDIA = [
   "media/all-candidate-stills",
   "media/all-preview-snippets",
   "media/contact-sheets",
+  "media/new-candidate-stills",
+  "media/new-preview-snippets",
+  "media/new-contact-sheets",
   "media/REVIEW_GALLERY.html",
   "media/EXTRACTION_CANDIDATES.csv",
+  "media/NEW_MEDIA_INVENTORY.csv",
   "media/PORTFOLIO_CATEGORIES.md",
   "media/PORTFOLIO_NAMING_RECOMMENDATIONS.md",
 ];
 
 function excludeWorkingMedia(): Plugin {
+  // Resolve the real output directory rather than assuming "dist" — the outDir
+  // can be overridden from the CLI, and hardcoding it silently skipped pruning.
+  let outDir = path.resolve(__dirname, "dist");
   return {
     name: "exclude-working-media",
     apply: "build",
+    configResolved(config) {
+      outDir = path.resolve(config.root, config.build.outDir);
+    },
     closeBundle() {
-      const outDir = path.resolve(__dirname, "dist");
       for (const rel of WORKING_MEDIA) {
         const target = path.join(outDir, rel);
-        if (fs.existsSync(target)) {
+        if (!fs.existsSync(target)) continue;
+        try {
           fs.rmSync(target, { recursive: true, force: true });
           this.info?.(`excluded from build: ${rel}`);
+        } catch (err) {
+          // Never fail a build over cleanup; surface it instead.
+          this.warn?.(
+            `could not prune ${rel} from the build output (${(err as Error).message}). ` +
+              `Remove it manually before deploying.`,
+          );
         }
       }
     },

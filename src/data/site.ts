@@ -174,7 +174,100 @@ export const projects: Project[] = [
     result: "An 85-second promo package delivered for the campaign.",
   },
 
-  /* ---------------- Sports ---------------- */
+  /* ---------------- Documentary & Directing (2026 additions) ---------------- */
+  {
+    slug: "ahly-epic",
+    title: "Ahly Epic — Three-Part Documentary",
+    category: "Documentary & Directing",
+    year: "2024",
+    featured: true,
+    summary:
+      "A three-part feature documentary, roughly five and a half hours in total, built on studio interviews with a bespoke lighting design for every subject.",
+    role: "Director, Cinematographer & Editor",
+    tools: ["Camera", "Lighting", "Premiere Pro", "DaVinci Resolve", "After Effects"],
+    previewVideo: `${P}/documentary-ahly-epic.mp4`,
+    thumbnail: `${T}/documentary-ahly-epic.jpg`,
+    brief:
+      "Tell a club's story across three feature-length parts, carried by first-hand testimony.",
+    problem:
+      "A long interview documentary risks visual monotony — a dozen people in the same chair for five hours will flatten unless each is given a reason to look different.",
+    approach:
+      "Designed a distinct lighting setup per subject rather than one house look. Fourteen shot setups, each with its own key placement and colour separation — deep blue rim on one, warm amber wrap on another, cool magenta on a third — so the film changes register as the testimony changes.",
+    breakdown:
+      "Low-key studio setups against negative fill, per-subject colour separation, controlled falloff, cutaway inserts of hands and gesture, and a graded frame library used to keep all three parts consistent.",
+    result:
+      "Three parts plus a teaser, with a director's frame library of over 470 graded stills — the largest and most sustained directing work in the portfolio.",
+  },
+  {
+    slug: "el-gohary-prime-suspect",
+    title: "المتهم الأول — The Prime Suspect",
+    category: "Documentary & Directing",
+    year: "2026",
+    featured: true,
+    summary:
+      "Investigative football documentary on Mahmoud El Gohary and the 5–1 defeat, told through animated newspaper archives and editorial typography.",
+    role: "Director, Editor & Motion Designer",
+    tools: ["After Effects", "Premiere Pro", "Photoshop"],
+    previewVideo: `${P}/documentary-el-gohary-archive.mp4`,
+    thumbnail: `${T}/documentary-el-gohary-archive.jpg`,
+    brief:
+      "Re-open a defining moment in Egyptian football history and ask who carried the blame.",
+    problem:
+      "The story survives mainly as decades-old newspaper print — text-heavy source material with no usable footage, which resists being made cinematic.",
+    approach:
+      "Treated the archive as the narrative spine: newspaper spreads animated with a moving camera, and progressive highlight callouts that lead the eye through dense Arabic print exactly in step with the narration.",
+    breakdown:
+      "Animated newspaper spreads, multi-colour highlight tracking, match-cut title reveals, page-turn and paper-texture simulation, Arabic editorial typography.",
+    result:
+      "A long-form Arabic documentary built almost entirely from print archive.",
+  },
+
+  /* ---------------- Motion & 3D (football subjects, motion-design craft) ---------------- */
+  {
+    slug: "el-gohary-3d-environments",
+    title: "The Prime Suspect — 3D Environments",
+    category: "Motion & 3D",
+    year: "2026",
+    summary:
+      "Cinematic 3D environments built for the El Gohary documentary: a pinned evidence board strung with red thread, a shuttered ahwa at dawn, and a rain-soaked stadium holding the 5–1 scoreboard.",
+    role: "Motion Designer & 3D Artist",
+    tools: ["After Effects", "Cinema 4D", "Photoshop", "Element 3D"],
+    previewVideo: `${P}/documentary-el-gohary.mp4`,
+    thumbnail: `${T}/documentary-el-gohary.jpg`,
+    brief:
+      "Give a print-archive documentary a physical world for its camera to move through.",
+    problem:
+      "Archive-only storytelling has nowhere to put a camera. Without built space, the film would stay flat on the page.",
+    approach:
+      "Constructed sets rather than backgrounds — an investigation room, a café at first light, an empty stadium in rain — each lit and dressed so a moving camera reveals information the way a scene would.",
+    breakdown:
+      "Volumetric light passes, red-thread evidence rigging, rain and haze simulation, practical-matched lighting, depth-of-field camera moves, scoreboard and signage integration.",
+    result:
+      "A set of reusable 3D environments that carry the film's key beats and title moments.",
+  },
+  {
+    slug: "maaloul-tribute",
+    title: "Ali Maâloul — Career Tribute",
+    category: "Motion & 3D",
+    year: "2025",
+    summary:
+      "Career-retrospective design piece for Ali Maâloul, built from layered 3D composites: floating screens of career moments, trophy montages and filmstrip sequences.",
+    role: "Motion Designer & Editor",
+    tools: ["After Effects", "Photoshop", "Cinema 4D"],
+    previewVideo: `${P}/sports-maaloul-tribute.mp4`,
+    thumbnail: `${T}/sports-maaloul-tribute.jpg`,
+    brief:
+      "Celebrate a full club-and-country career in a single design-led sequence.",
+    problem:
+      "A career spanning Sfaxien, Al Ahly and Tunisia had to be legible at a glance without becoming a highlights reel.",
+    approach:
+      "Arranged career moments as floating screens and filmstrip frames inside a lit stadium environment, so the viewer reads the span of a career spatially.",
+    breakdown:
+      "Multi-layer photo composites, volumetric stadium lighting, camera moves through 3D screen arrays, trophy montages and Arabic title treatments.",
+    result:
+      "A tribute package delivered in several cuts and design variants.",
+  },
+
   {
     slug: "zed-talents",
     title: "Zed Talents — Visual System",
@@ -237,6 +330,26 @@ export const projects: Project[] = [
     result: "A reusable title kit applied across multiple series.",
   },
   {
+    slug: "3d-title-series",
+    title: "3D Title Series",
+    category: "Motion & 3D",
+    year: "2025",
+    summary:
+      "Episodic 3D kinetic-typography treatments set inside a cinematic night scene, built as a repeatable series format.",
+    role: "Motion Designer",
+    tools: ["After Effects", "Element 3D", "Photoshop"],
+    previewVideo: `${P}/motion-3d-titles.mp4`,
+    thumbnail: `${T}/motion-3d-titles.jpg`,
+    brief: "Give an explainer series a title system with real physical presence.",
+    problem:
+      "Flat text overlays disappear against a busy live-action plate; each episode still had to feel like part of one set.",
+    approach:
+      "Extruded 3D type placed inside the scene — lit by the same practicals, catching the same haze — so titles sit in the world rather than on top of it.",
+    breakdown:
+      "Extruded typography, scene-matched lighting and reflections, depth-of-field integration, consistent colour language across episodes.",
+    result: "A reusable title system applied across multiple episodes.",
+  },
+  {
     slug: "a-bunch-of-losers",
     title: "A Bunch of Losers",
     category: "Visual Design",
@@ -260,7 +373,6 @@ export const projects: Project[] = [
     title: "Juve Duping",
     category: "Documentary & Directing",
     year: "2024",
-    featured: true,
     summary:
       "Long-form narrative documentary shot in 4K with a noir visual treatment — directed, lit and cut in-house.",
     role: "Director / DP / Editor",
@@ -379,7 +491,6 @@ export const projects: Project[] = [
     category: "Digital & YouTube Content",
     year: "2023",
     client: "Sharjah Entrepreneurship Festival / SHERAA",
-    featured: true,
     summary:
       "Vertical event recap for an AI hackathon, closing on the event lockup and a sold-out card.",
     role: "Editor",
@@ -398,6 +509,28 @@ export const projects: Project[] = [
   },
 
   /* ---------------- Visual Design / Motion ---------------- */
+  {
+    slug: "photo-retouch",
+    title: "Photo Retouching & Cinematic Grade",
+    category: "Visual Design",
+    year: "2025",
+    summary:
+      "Before-and-after retouching: press and match photography regraded into a consistent cinematic look — subject isolated in colour, surroundings cooled and quietened.",
+    role: "Retoucher & Colourist",
+    tools: ["Photoshop", "Lightroom", "Camera Raw"],
+    previewVideo: `${P}/visual-photo-retouch.mp4`,
+    thumbnail: `${T}/visual-photo-retouch.jpg`,
+    brief:
+      "Turn ordinary match and press frames into images that carry a film's weight.",
+    problem:
+      "Raw sports photography is busy and evenly lit — crowds, advertising boards and daylight all compete with the subject.",
+    approach:
+      "Held the subject's colour and let everything behind it fall away: desaturated and cooled surroundings, deepened contrast, controlled vignette, cleaned distractions. The same grade language applied across hundreds of frames so the set reads as one body of work.",
+    breakdown:
+      "Selective colour isolation, background desaturation and tone-mapping, blemish and distraction removal, film-grade curves, vignette and grain.",
+    result:
+      "A retouch library of roughly 500 images, each kept alongside its original for direct comparison.",
+  },
   {
     slug: "ora-identity",
     title: "Ora — Identity in Motion",
