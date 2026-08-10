@@ -19,7 +19,7 @@ export default function Resume() {
           {/* Sidebar */}
           <aside className="space-y-8">
             {/* Avatar placeholder */}
-            <div className="w-32 h-32 rounded-full bg-gradient-to-br from-primary/30 to-accent/30 border-2 border-primary/40 mx-auto md:mx-0 flex items-center justify-center">
+            <div className="w-32 h-32 rounded-full bg-secondary border border-border mx-auto md:mx-0 flex items-center justify-center">
               <span className="font-heading text-3xl font-bold gradient-text">SM</span>
             </div>
 

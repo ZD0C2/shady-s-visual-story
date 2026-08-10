@@ -8,9 +8,9 @@ export const siteData = {
   heroVideo: "/media/previews/documentary-juve-duping.mp4",
   heroPoster: "/media/thumbnails/documentary-juve-duping.jpg",
   stats: [
-    { value: "6+", label: "Years Experience" },
-    { value: "8", label: "Disciplines" },
-    { value: "EN / AR", label: "Bilingual Delivery" },
+    { value: "9+", label: "Years Experience" },
+    { value: "7", label: "Disciplines" },
+    { value: "EN / AR", label: "Delivery" },
   ],
   contact: {
     phone: "01275288876",
@@ -18,8 +18,12 @@ export const siteData = {
     location: "Hadayek El Ahram, Egypt",
   },
   social: {
-    facebook: "https://facebook.com/shady.maged",
+    facebook: "https://www.facebook.com/shady.maged.9256",
     vimeo: "https://vimeo.com/shadyart",
+    // Left blank until confirmed — links render only when a URL is present,
+    // so an unverified profile never ships as a dead link.
+    linkedin: "",
+    behance: "",
   },
   rotatingWords: ["DIRECT", "VISUALIZE", "DESIGN", "EDIT", "COMPOSE", "CREATE"],
   showreelUrl: "https://vimeo.com/shadyart",
@@ -154,7 +158,7 @@ export const projects: Project[] = [
   {
     slug: "hareef-gaming",
     title: "Hareef Gaming — FreeFire",
-    category: "Brand & Commercial",
+    category: "Digital & YouTube Content",
     year: "2023",
     client: "Hareef Gaming",
     summary:
@@ -170,11 +174,11 @@ export const projects: Project[] = [
     result: "An 85-second promo package delivered for the campaign.",
   },
 
-  /* ---------------- Visual Systems ---------------- */
+  /* ---------------- Sports ---------------- */
   {
     slug: "zed-talents",
     title: "Zed Talents — Visual System",
-    category: "Visual Systems",
+    category: "Sports",
     year: "2022",
     client: "ZED FC × Decathlon × Sawiris Foundation",
     featured: true,
@@ -235,7 +239,7 @@ export const projects: Project[] = [
   {
     slug: "a-bunch-of-losers",
     title: "A Bunch of Losers",
-    category: "Motion & 3D",
+    category: "Visual Design",
     year: "2025",
     summary:
       "Editorial motion piece built from high-resolution composites, pairing archive imagery with animated type.",
@@ -368,11 +372,11 @@ export const projects: Project[] = [
       "A speaker teaser library covering the festival programme with a single consistent look.",
   },
 
-  /* ---------------- Event Recaps ---------------- */
+  /* ---------------- Digital & YouTube Content ---------------- */
   {
     slug: "chatgpt-hackathon",
     title: "ChatGPT Hackathon — Sharjah",
-    category: "Event Recaps",
+    category: "Digital & YouTube Content",
     year: "2023",
     client: "Sharjah Entrepreneurship Festival / SHERAA",
     featured: true,
@@ -393,11 +397,11 @@ export const projects: Project[] = [
       "A recap delivered in multiple lengths; the shortest version closes on the hackathon lockup.",
   },
 
-  /* ---------------- Logo Animation ---------------- */
+  /* ---------------- Visual Design / Motion ---------------- */
   {
     slug: "ora-identity",
     title: "Ora — Identity in Motion",
-    category: "Logo Animation",
+    category: "Visual Design",
     year: "2022",
     client: "Ora",
     summary:
@@ -419,7 +423,7 @@ export const projects: Project[] = [
   {
     slug: "gold-era",
     title: "Gold Era — App Identity",
-    category: "Logo Animation",
+    category: "Motion & 3D",
     year: "2022",
     client: "Gold Era",
     summary:
@@ -439,11 +443,11 @@ export const projects: Project[] = [
       "A launch package spanning identity animation and in-app product demonstration.",
   },
 
-  /* ---------------- Football Editorial ---------------- */
+  /* ---------------- Sports & Digital Editorial ---------------- */
   {
     slug: "fr-squad-2000",
     title: "FR Squad 2000",
-    category: "Football Editorial",
+    category: "Sports",
     year: "2024",
     summary:
       "Long-form football retrospective built from archive footage with a strong graphic layer.",
@@ -460,7 +464,7 @@ export const projects: Project[] = [
   {
     slug: "class-92",
     title: "Class 92",
-    category: "Football Editorial",
+    category: "Sports",
     year: "2023",
     summary: "Short-form football history piece on a famous generation of players.",
     role: "Editor",
@@ -476,7 +480,7 @@ export const projects: Project[] = [
   {
     slug: "marmoush-vs-mo",
     title: "Marmoush vs Mo",
-    category: "Football Editorial",
+    category: "Sports",
     year: "2025",
     summary: "Head-to-head player comparison built as a fast graphic-led edit.",
     role: "Editor & Motion Designer",
@@ -492,7 +496,7 @@ export const projects: Project[] = [
   {
     slug: "wessam-zlatan",
     title: "Wessam × Zlatan",
-    category: "Football Editorial",
+    category: "Digital & YouTube Content",
     year: "2024",
     summary:
       "Written football story adapted into a designed motion essay with archive and typography.",
@@ -509,7 +513,7 @@ export const projects: Project[] = [
   {
     slug: "pavel-nedved",
     title: "Pavel Nedvěd",
-    category: "Football Editorial",
+    category: "Digital & YouTube Content",
     year: "2025",
     summary:
       "Motion essay on a football figure, combining original writing with designed archive treatments.",
@@ -527,14 +531,13 @@ export const projects: Project[] = [
 
 export const categories = [
   "All",
-  "Brand & Commercial",
-  "Visual Systems",
-  "Motion & 3D",
   "Documentary & Directing",
+  "Motion & 3D",
+  "Brand & Commercial",
+  "Sports",
+  "Visual Design",
   "Social Reels",
-  "Event Recaps",
-  "Logo Animation",
-  "Football Editorial",
+  "Digital & YouTube Content",
 ];
 
 export const services = [
@@ -558,7 +561,7 @@ export const services = [
   },
   {
     icon: "LayoutTemplate",
-    title: "Visual Systems",
+    title: "Template & Brand Systems",
     description:
       "Template systems and brand furniture designed to stay consistent across hundreds of deliverables.",
   },
@@ -655,8 +658,8 @@ export const about = {
     "I deliver natively in English and Arabic, and I've worked with brands, festivals and platforms across Egypt and the Gulf.",
   ],
   milestones: [
-    { value: "6+", label: "Years in Post-Production" },
-    { value: "8", label: "Disciplines Covered" },
+    { value: "9+", label: "Years in Post-Production" },
+    { value: "7", label: "Disciplines Covered" },
     { value: "End-to-End", label: "Creative Direction" },
   ],
 };

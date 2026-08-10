@@ -22,13 +22,19 @@ export default function Work() {
         <SectionHeader number="—" title="All Work" subtitle="Browse the full portfolio." />
 
         {/* Filters */}
-        <div className="flex flex-col sm:flex-row gap-4 mb-10">
-          <div className="flex flex-wrap gap-2">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-10">
+          <div
+            role="tablist"
+            aria-label="Filter work by category"
+            className="flex flex-wrap items-center gap-2"
+          >
             {categories.map((c) => (
               <button
                 key={c}
+                role="tab"
+                aria-selected={filter === c}
                 onClick={() => setFilter(c)}
-                className={`chip cursor-pointer transition-colors ${filter === c ? "bg-primary/20 border-primary/50 text-primary" : ""}`}
+                className={`filter-pill ${filter === c ? "filter-pill-active" : ""}`}
               >
                 {c}
               </button>

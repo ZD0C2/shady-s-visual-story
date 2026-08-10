@@ -43,25 +43,50 @@ function RotatingWord() {
 }
 
 function AnimatedCounter({ value }: { value: string }) {
-  const match = value.match(/^(\d+)(.*)$/);
+  // Parse once per `value`. Deriving this inline produced a new array on every
+  // render, which re-ran the effect endlessly and reset the display to 0 —
+  // that was the cause of the hero showing "0" / "1+".
+  const parsed = useMemo(() => {
+    const m = /^(\d+)(.*)$/.exec(value);
+    return m ? { target: parseInt(m[1], 10), suffix: m[2] } : null;
+  }, [value]);
+
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true });
-  const [display, setDisplay] = useState(match ? "0" + match[2] : value);
+  const inView = useInView(ref, { once: true, amount: 0.4 });
+
+  // Non-numeric values (e.g. "EN / AR") render as-is and never animate.
+  const [display, setDisplay] = useState(() => (parsed ? `0${parsed.suffix}` : value));
 
   useEffect(() => {
-    if (!match || !inView) return;
-    const target = parseInt(match[1], 10);
-    const suffix = match[2];
+    if (!parsed) {
+      setDisplay(value);
+      return;
+    }
+    if (!inView) return;
+
+    const reduced =
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
+    // Always land on the true value, even if the animation is skipped.
+    if (reduced) {
+      setDisplay(`${parsed.target}${parsed.suffix}`);
+      return;
+    }
+
+    let raf = 0;
     const duration = 1200;
     const start = performance.now();
     const step = (now: number) => {
       const progress = Math.min((now - start) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
-      setDisplay(Math.round(eased * target) + suffix);
-      if (progress < 1) requestAnimationFrame(step);
+      setDisplay(`${Math.round(eased * parsed.target)}${parsed.suffix}`);
+      if (progress < 1) raf = requestAnimationFrame(step);
+      else setDisplay(`${parsed.target}${parsed.suffix}`);
     };
-    requestAnimationFrame(step);
-  }, [inView, match]);
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [inView, parsed, value]);
 
   return <span ref={ref}>{display}</span>;
 }
@@ -110,8 +135,8 @@ function PortraitParallax() {
       transition={{ duration: 0.6 }}
       className="relative flex items-center justify-center"
     >
-      <div className="absolute w-72 h-72 md:w-80 md:h-80 rounded-full bg-primary/20 blur-3xl animate-[pulse-glow_3s_ease-in-out_infinite]" />
-      <div className="relative w-64 h-80 md:w-72 md:h-96 rounded-2xl overflow-hidden border border-border/40 shadow-[0_0_60px_-10px_hsl(var(--primary)/0.25)]">
+      <div className="absolute w-72 h-72 md:w-80 md:h-80 rounded-full bg-foreground/[0.07] blur-3xl" />
+      <div className="relative w-64 h-80 md:w-72 md:h-96 rounded-2xl overflow-hidden border border-border/40 shadow-[0_24px_70px_-30px_hsl(240_10%_0%/0.8)]">
         <motion.img
           src={heroBg}
           alt="Shady Maged portrait"
@@ -200,7 +225,7 @@ export default function Index() {
           {Array.from({ length: 20 }).map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-1 h-1 rounded-full bg-primary/30"
+              className="absolute w-1 h-1 rounded-full bg-foreground/20"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
@@ -264,18 +289,19 @@ export default function Index() {
             </motion.p>
 
             {/* Stats */}
-            <div className="flex items-center justify-center gap-8 mt-8">
+            <div className="mt-12 flex items-stretch justify-center divide-x divide-border/60">
               {siteData.stats.map((s, i) => (
                 <motion.div
                   key={s.label}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  whileHover={{ scale: 1.05, filter: "brightness(1.2)" }}
                   transition={{ duration: 0.4, delay: 0.6 + i * 0.1, ease: "easeOut" }}
-                  className="text-center cursor-default"
+                  className="px-6 sm:px-10 text-center cursor-default"
                 >
-                  <div className="font-heading text-2xl font-bold gradient-text"><AnimatedCounter value={s.value} /></div>
-                  <div className="text-xs text-muted-foreground mt-1">{s.label}</div>
+                  <div className="stat-value">
+                    <AnimatedCounter value={s.value} />
+                  </div>
+                  <div className="stat-label">{s.label}</div>
                 </motion.div>
               ))}
             </div>
@@ -337,16 +363,18 @@ export default function Index() {
           <SectionHeader number="01" title="Selected Work" subtitle="Curated projects showcasing editing craft and creative vision." />
 
           {/* Filter Bar */}
-          <div className="flex flex-wrap gap-2 mb-8">
+          <div
+            role="tablist"
+            aria-label="Filter work by category"
+            className="flex flex-wrap items-center gap-2 mb-10"
+          >
             {categories.map((c) => (
               <button
                 key={c}
+                role="tab"
+                aria-selected={workFilter === c}
                 onClick={() => setWorkFilter(c)}
-                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer ${
-                  workFilter === c
-                    ? "bg-primary text-primary-foreground shadow-[0_0_16px_hsl(var(--primary)/0.4)]"
-                    : "bg-secondary/50 text-muted-foreground hover:text-foreground border border-border/50"
-                }`}
+                className={`filter-pill ${workFilter === c ? "filter-pill-active" : ""}`}
               >
                 {c}
               </button>
@@ -569,27 +597,32 @@ export default function Index() {
               </a>
               <div className="flex items-center gap-5">
                 {[
-                  { label: "LinkedIn", href: "https://linkedin.com/in/shadymaged", icon: (
+                  { label: "Facebook", href: siteData.social.facebook, icon: (
+                    <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 3.492 23.094 8.437 24v-8.437H5.898v-3.49h2.54V9.797c0-2.52 1.492-3.91 3.777-3.91 1.094 0 2.238.196 2.238.196v2.472h-1.26c-1.243 0-1.63.775-1.63 1.57v1.886h2.773l-.443 3.49h-2.33V24C20.508 23.094 24 18.1 24 12.073z"/></svg>
+                  )},
+                  { label: "LinkedIn", href: siteData.social.linkedin, icon: (
                     <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                   )},
-                  { label: "Behance", href: "https://behance.net/shadymaged", icon: (
+                  { label: "Behance", href: siteData.social.behance, icon: (
                     <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current"><path d="M6.938 4.503c.702 0 1.34.06 1.92.188.577.13 1.07.33 1.485.61.41.28.733.65.96 1.12.225.47.34 1.05.34 1.73 0 .74-.17 1.36-.507 1.86-.338.5-.837.9-1.502 1.22.906.26 1.576.72 2.022 1.37.448.66.665 1.45.665 2.36 0 .75-.13 1.39-.41 1.93-.28.55-.67 1-1.16 1.35-.48.348-1.05.6-1.67.767-.63.16-1.3.24-2.004.24H0V4.51h6.938v-.007zM6.545 10.16c.6 0 1.078-.14 1.44-.42.36-.28.54-.71.54-1.27 0-.31-.06-.57-.174-.78a1.36 1.36 0 00-.46-.5 1.81 1.81 0 00-.67-.28 3.34 3.34 0 00-.79-.08H3.463v3.34h3.082v-.01zm.2 5.58c.3 0 .59-.03.87-.1.28-.07.53-.18.73-.34.21-.16.37-.37.5-.63.12-.27.18-.59.18-.99 0-.78-.22-1.35-.66-1.7-.44-.36-1.03-.54-1.76-.54H3.463v4.29H6.74v.01zM15.452 17.2c.46.44 1.12.66 1.98.66.62 0 1.16-.16 1.6-.47.44-.32.7-.65.78-.98h2.58c-.41 1.28-1.03 2.2-1.85 2.76-.83.56-1.83.83-3.01.83-.82 0-1.56-.13-2.23-.4a4.87 4.87 0 01-1.72-1.14 5.13 5.13 0 01-1.1-1.78c-.26-.7-.39-1.47-.39-2.32 0-.82.14-1.58.41-2.28.27-.7.66-1.3 1.16-1.81a5.3 5.3 0 011.73-1.19c.67-.29 1.39-.43 2.17-.43.88 0 1.65.17 2.31.52.66.34 1.21.82 1.65 1.43.44.6.76 1.3.97 2.1.2.8.28 1.67.22 2.6h-7.7c.05.96.33 1.7.8 2.14v-.01zM18.9 11.58c-.35-.38-.96-.58-1.71-.58-.5 0-.92.09-1.24.26-.33.17-.59.38-.78.63-.2.25-.33.52-.4.82-.08.3-.13.57-.15.82h4.83c-.08-.78-.34-1.36-.7-1.74v-.01zm-3.4-4.4h5.56V8.6h-5.56V7.18z"/></svg>
                   )},
                   { label: "Vimeo", href: siteData.social.vimeo, icon: (
                     <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current"><path d="M23.977 6.416c-.105 2.338-1.739 5.543-4.894 9.609-3.268 4.247-6.026 6.37-8.29 6.37-1.409 0-2.578-1.294-3.553-3.881L5.322 11.4C4.603 8.816 3.834 7.522 3.01 7.522c-.18 0-.806.378-1.881 1.132L0 7.197a315.065 315.065 0 003.501-3.128C5.08 2.701 6.266 1.984 7.055 1.91c1.867-.18 3.016 1.1 3.447 3.838.465 2.953.789 4.789.971 5.507.539 2.45 1.131 3.674 1.776 3.674.502 0 1.256-.796 2.265-2.385 1.004-1.589 1.54-2.797 1.612-3.628.144-1.371-.395-2.061-1.614-2.061-.574 0-1.167.121-1.777.391 1.186-3.868 3.434-5.757 6.762-5.637 2.473.06 3.628 1.664 3.493 4.797l-.013.01z"/></svg>
                   )},
-                ].map((s) => (
-                  <a
-                    key={s.label}
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={s.label}
-                    className="text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    {s.icon}
-                  </a>
-                ))}
+                ]
+                  .filter((s) => !!s.href)
+                  .map((s) => (
+                    <a
+                      key={s.label}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={s.label}
+                      className="text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      {s.icon}
+                    </a>
+                  ))}
               </div>
             </motion.div>
 

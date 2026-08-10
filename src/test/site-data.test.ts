@@ -51,4 +51,46 @@ describe("site data integrity", () => {
     expect(siteData.heroVideo.startsWith("/media/previews/")).toBe(true);
     expect(siteData.heroPoster.startsWith("/media/thumbnails/")).toBe(true);
   });
+
+  it("exposes exactly the seven approved filter categories", () => {
+    expect(categories).toEqual([
+      "All",
+      "Documentary & Directing",
+      "Motion & 3D",
+      "Brand & Commercial",
+      "Sports",
+      "Visual Design",
+      "Social Reels",
+      "Digital & YouTube Content",
+    ]);
+  });
+
+  it("no longer references retired category names", () => {
+    const retired = ["Visual Systems", "Event Recaps", "Logo Animation", "Football Editorial"];
+    for (const name of retired) {
+      expect(categories).not.toContain(name);
+      expect(projects.filter((p) => p.category === name)).toHaveLength(0);
+    }
+  });
+
+  it("renders hero stats that parse to real numbers", () => {
+    // Guards the counter regression that displayed 0 / 1+.
+    const byLabel = Object.fromEntries(siteData.stats.map((s) => [s.label, s.value]));
+    expect(byLabel["Years Experience"]).toBe("9+");
+    expect(byLabel["Disciplines"]).toBe("7");
+    expect(byLabel["Delivery"]).toBe("EN / AR");
+
+    for (const { value } of siteData.stats) {
+      const m = /^(\d+)(.*)$/.exec(value);
+      if (m) expect(parseInt(m[1], 10)).toBeGreaterThan(0);
+    }
+  });
+
+  it("points social links at confirmed profiles only", () => {
+    expect(siteData.social.facebook).toBe("https://www.facebook.com/shady.maged.9256");
+    // Unconfirmed profiles stay empty so they are not rendered as dead links.
+    for (const url of Object.values(siteData.social)) {
+      if (url) expect(url.startsWith("https://")).toBe(true);
+    }
+  });
 });

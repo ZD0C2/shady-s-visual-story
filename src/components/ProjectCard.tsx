@@ -64,9 +64,9 @@ export default function ProjectCard({ project, index = 0, onClick }: ProjectCard
           if (e.key === "Enter" || e.key === " ") handleClick(e);
         }}
       >
-        <div className="glass-card-hover overflow-hidden transition-shadow duration-300 group-hover:shadow-[0_8px_30px_-8px_hsl(var(--primary)/0.3)]">
+        <div className="glass-card-hover overflow-hidden transition-shadow duration-300">
           {/* Thumbnail area */}
-          <div className="relative aspect-video bg-secondary/50 flex items-center justify-center overflow-hidden">
+          <div className="relative aspect-video bg-secondary flex items-center justify-center overflow-hidden">
             {thumbnailSrc ? (
               <motion.img
                 src={thumbnailSrc}
@@ -78,7 +78,7 @@ export default function ProjectCard({ project, index = 0, onClick }: ProjectCard
                 transition={{ duration: 0.6, ease: "easeOut" }}
               />
             ) : (
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10" />
+              <div className="absolute inset-0 bg-secondary" />
             )}
 
             <AnimatePresence>
@@ -102,24 +102,32 @@ export default function ProjectCard({ project, index = 0, onClick }: ProjectCard
               )}
             </AnimatePresence>
 
-            <div className="absolute inset-0 bg-background/40 group-hover:bg-background/10 transition-colors duration-500 z-[2]" />
+            {/* Scrim: keeps chips and the play affordance legible over any frame,
+                in both themes. Slightly stronger at the top where chips sit. */}
+            <div className="absolute inset-0 z-[2] bg-gradient-to-b from-black/55 via-black/25 to-black/50 group-hover:from-black/45 group-hover:via-black/15 group-hover:to-black/40 transition-colors duration-500" />
             <motion.div
               className="relative z-[3]"
-              initial={{ scale: 1, opacity: 0.6 }}
-              whileHover={{ scale: 1.2, opacity: 1 }}
+              initial={{ scale: 1, opacity: 0.85 }}
+              whileHover={{ scale: 1.15, opacity: 1 }}
               transition={{ duration: 0.3 }}
             >
-              <Play className="w-10 h-10 text-foreground/60 group-hover:text-primary transition-colors duration-300 drop-shadow-lg" />
+              <span className="flex items-center justify-center w-14 h-14 rounded-full bg-black/45 border border-white/30 backdrop-blur-sm">
+                <Play className="w-6 h-6 text-white translate-x-[1px]" fill="currentColor" />
+              </span>
             </motion.div>
-            <span className="absolute top-3 left-3 chip z-[3] transition-transform duration-300 group-hover:-translate-y-0.5">{project.category}</span>
-            <span className="absolute top-3 right-3 chip z-[3] transition-transform duration-300 group-hover:-translate-y-0.5">{project.year}</span>
+            <span className="absolute top-3 left-3 chip-overlay z-[3] transition-transform duration-300 group-hover:-translate-y-0.5">
+              {project.category}
+            </span>
+            <span className="absolute top-3 right-3 chip-overlay z-[3] transition-transform duration-300 group-hover:-translate-y-0.5">
+              {project.year}
+            </span>
           </div>
           {/* Info */}
           <div className="p-5">
-            <h3 className="font-heading font-semibold text-lg group-hover:text-primary transition-colors duration-300">
+            <h3 className="font-heading font-semibold text-lg text-foreground transition-colors duration-300">
               {project.title}
             </h3>
-            <p className="text-sm text-muted-foreground mt-2 line-clamp-2 group-hover:text-muted-foreground/80 transition-colors duration-300">{project.summary}</p>
+            <p className="text-sm text-muted-foreground mt-2 line-clamp-2">{project.summary}</p>
             <div className="flex flex-wrap gap-1.5 mt-3">
               {project.tools.slice(0, 3).map((t) => (
                 <span key={t} className="chip text-[10px]">{t}</span>
