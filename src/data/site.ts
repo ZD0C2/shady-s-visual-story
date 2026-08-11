@@ -5,8 +5,10 @@ export const siteData = {
   heroSubline:
     "Cinematic edits, documentary stories, branded films, sports content, and motion-led visual experiences.",
   statusPill: "Open for freelance projects",
-  heroVideo: "/media/previews/documentary-juve-duping.mp4",
-  heroPoster: "/media/thumbnails/documentary-juve-duping.jpg",
+  // 16s muted loop cut from approved final snippets — covers documentary,
+  // directing, motion/3D, sports, brand, social and visual design.
+  heroVideo: "/media/previews/hero-montage.mp4",
+  heroPoster: "/media/thumbnails/hero-montage.jpg",
   stats: [
     { value: "9+", label: "Years Experience" },
     { value: "7", label: "Disciplines" },
@@ -29,6 +31,20 @@ export const siteData = {
   showreelUrl: "https://vimeo.com/shadyart",
 };
 
+/** An alternate clip or still belonging to the same project. */
+export interface ProjectSnippet {
+  title: string;
+  src: string;
+  /** Poster/thumbnail for the chip and the <video> poster attribute. */
+  poster?: string;
+  /** Human-readable duration, e.g. "0:08". */
+  duration?: string;
+  /** What this clip demonstrates, e.g. "Title design". */
+  role?: string;
+  /** Set when the item is a still image rather than a video. */
+  isStill?: boolean;
+}
+
 export interface Project {
   slug: string;
   title: string;
@@ -40,6 +56,8 @@ export interface Project {
   tools: string[];
   thumbnail?: string;
   previewVideo?: string;
+  /** Alternate clips/stills shown as "More from this project" in the modal. */
+  snippets?: ProjectSnippet[];
   featured?: boolean;
   brief: string;
   problem: string;
@@ -661,6 +679,75 @@ export const projects: Project[] = [
     result: "One of a continuing series of motion essays.",
   },
 ];
+
+
+/**
+ * Alternate clips and stills per project, shown as "More from this project"
+ * inside the modal. Kept in a map rather than inline so the project objects
+ * stay readable. Every path points at a shipped folder under /public/media.
+ */
+const S = "/media/final-selected-stills";
+const PRJ = "/media/projects";
+
+const projectSnippets: Record<string, ProjectSnippet[]> = {
+  "vodafone-stars-clash": [
+    { title: "Extended cut", src: `${PRJ}/starsclash-preview.mp4`, poster: `${T}/commercial-vodafone-starsclash.jpg`, duration: "0:28", role: "Full sequence" },
+  ],
+  "ahly-epic": [
+    { title: "Sayed Abdel Hafiz setup", src: `${S}/ahly-epic-shot_10.jpg`, isStill: true, role: "Lighting design" },
+    { title: "Amber wrap setup", src: `${S}/ahly-epic-shot_08.jpg`, isStill: true, role: "Lighting design" },
+    { title: "Blue rim setup", src: `${S}/ahly-epic-shot_02.jpg`, isStill: true, role: "Lighting design" },
+    { title: "Red key setup", src: `${S}/ahly-epic-shot_05.jpg`, isStill: true, role: "Lighting design" },
+    { title: "Gesture inserts", src: `${S}/ahly-epic-hands.jpg`, isStill: true, role: "Cutaway coverage" },
+    { title: "Profile setup", src: `${S}/ahly-epic-shot_12.jpg`, isStill: true, role: "Lighting design" },
+  ],
+  "el-gohary-prime-suspect": [
+    { title: "Evidence board", src: `${S}/elgohary-title-card.jpg`, isStill: true, role: "Title design" },
+    { title: "Fall of the Pharaoh", src: `${S}/elgohary-fall-of-pharaoh.jpg`, isStill: true, role: "Archive treatment" },
+    { title: "The trial", src: `${S}/elgohary-press-trial.jpg`, isStill: true, role: "Scene design" },
+  ],
+  "el-gohary-3d-environments": [
+    { title: "Rain stadium, 5–1", src: `${S}/elgohary-stadium-5-1.jpg`, isStill: true, role: "3D environment" },
+    { title: "Ahwa at dawn", src: `${S}/elgohary-ahwa-interior.jpg`, isStill: true, role: "3D environment" },
+    { title: "Archive animation", src: `${P}/documentary-el-gohary-archive.mp4`, poster: `${T}/documentary-el-gohary-archive.jpg`, duration: "0:09", role: "Companion film" },
+  ],
+  "sef-speaker-reels": [
+    { title: "Akon", src: `${P}/social-sef-akon.mp4`, poster: `${T}/social-sef-akon.jpg`, duration: "0:08", role: "Speaker teaser" },
+    { title: "Steven Bartlett", src: `${P}/social-sef-steven-bartlett.mp4`, poster: `${T}/social-sef-steven-bartlett.jpg`, duration: "0:08", role: "Speaker teaser" },
+    { title: "Extended cut", src: `${PRJ}/sef-reels-preview.mp4`, poster: `${T}/social-sef-mo-gawdat.jpg`, duration: "0:25", role: "Full sequence" },
+  ],
+  "chatgpt-hackathon": [
+    { title: "Extended recap", src: `${PRJ}/sharjah-hackathon-preview.mp4`, poster: `${T}/social-sharjah-hackathon.jpg`, duration: "0:25", role: "Full sequence" },
+  ],
+  "zed-talents": [
+    { title: "Extended cut", src: `${PRJ}/zed-talents-preview.mp4`, poster: `${T}/commercial-zed-talents.jpg`, duration: "0:25", role: "Full sequence" },
+  ],
+  "the-transfer": [
+    { title: "Extended cut", src: `${PRJ}/the-transfer-preview.mp4`, poster: `${T}/motion-the-transfer.jpg`, duration: "0:25", role: "Full sequence" },
+  ],
+  "juve-duping": [
+    { title: "Extended cut", src: `${PRJ}/juve-duping-preview.mp4`, poster: `${T}/documentary-juve-duping.jpg`, duration: "0:30", role: "Full sequence" },
+  ],
+  "maaloul-tribute": [
+    { title: "Filmstrip design", src: `${S}/maaloul-filmstrip.jpg`, isStill: true, role: "Design frame" },
+    { title: "Al Ahly signing", src: `${S}/maaloul-ahly-signing.jpg`, isStill: true, role: "Design frame" },
+  ],
+  "3d-title-series": [
+    { title: "Don't Talk So Much", src: `${S}/3d-titles-dont-talk.jpg`, isStill: true, role: "Episode title" },
+  ],
+  "photo-retouch": [
+    { title: "Duel — before / after", src: `${S}/retouch-ba-duel.jpg`, isStill: true, role: "Before / after" },
+    { title: "Omara — before / after", src: `${S}/retouch-ba-omara.jpg`, isStill: true, role: "Before / after" },
+    { title: "Keeper — before / after", src: `${S}/retouch-ba-keeper.jpg`, isStill: true, role: "Before / after" },
+    { title: "Portrait — before / after", src: `${S}/retouch-ba-portrait.jpg`, isStill: true, role: "Before / after" },
+  ],
+};
+
+// Attach snippets to their projects.
+for (const project of projects) {
+  const extra = projectSnippets[project.slug];
+  if (extra) project.snippets = extra;
+}
 
 export const categories = [
   "All",

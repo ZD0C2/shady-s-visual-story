@@ -1,5 +1,5 @@
 /* Font import must precede all other statements per the CSS spec. */
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -149,19 +149,52 @@
 
   /* Hero name — warm white into soft silver. Must never inherit a dark token,
      since it always sits on imagery. */
+  /* Display face for the name only — Sora is heavier and more cinematic than
+     the UI heading face, which keeps the wordmark distinct from section titles. */
   .hero-title {
-    color: #f5f2eb;
-    background-image: linear-gradient(180deg, #ffffff 0%, #f2efe8 45%, #b8b8bd 100%);
+    font-family: 'Sora', 'Space Grotesk', system-ui, sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    color: #f5f2eb; /* fallback if background-clip is unsupported */
+    /* silver → warm white → champagne gold, oversized so it can drift. */
+    background-image: linear-gradient(
+      100deg,
+      #b9bcc4 0%,
+      #f3f0ea 22%,
+      #ffffff 38%,
+      #e8d9b5 52%,
+      #c8ab6a 62%,
+      #f1ece2 78%,
+      #b9bcc4 100%
+    );
+    background-size: 260% 100%;
+    background-position: 0% 50%;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
-    filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0 8px 30px rgba(0, 0, 0, 0.45));
+    animation: hero-shimmer 9s ease-in-out infinite;
   }
 
-  /* Light theme: the hero art stays dark, so keep the same treatment. */
+  /* The hero art is dark in both themes, so the treatment does not change. */
   .light .hero-title {
     color: #f5f2eb;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-title {
+      animation: none;
+      background-position: 30% 50%;
+    }
+  }
+
+  /* Faint SM stamp in the hero's top-right — a brand mark, not a second logo. */
+  .hero-stamp {
+    font-family: 'Sora', 'Space Grotesk', system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: hsl(40 20% 96% / 0.16);
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
   }
 
   /* The hero artwork is dark in BOTH themes, so hero copy is pinned to
@@ -279,6 +312,13 @@
   .font-body {
     font-family: 'Inter', system-ui, sans-serif;
   }
+}
+
+/* Slow champagne drift across the wordmark. */
+@keyframes hero-shimmer {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 @keyframes marquee {

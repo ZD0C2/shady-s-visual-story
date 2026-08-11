@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Maximize2, Minimize2 } from "lucide-react";
-import { useCallback, useEffect, useRef, useState } from "react";
-import type { Project } from "@/data/site";
+import { X, Maximize2, Minimize2, AlertTriangle, Play } from "lucide-react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import type { Project, ProjectSnippet } from "@/data/site";
 import { getThumbnail } from "@/data/projectImages";
 
 interface ProjectModalProps {
@@ -13,65 +13,64 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
   const stageRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState<number>(-1); // -1 = main video
+  const [failed, setFailed] = useState(false);
 
   const open = !!project;
+  const poster = project ? getThumbnail(project.slug, project.thumbnail) : undefined;
+  const snippets = useMemo(() => project?.snippets ?? [], [project]);
 
-  // Close on ESC, and lock background scroll while open.
+  // The currently displayed item: the project's main preview, or a chosen snippet.
+  const active: ProjectSnippet | null =
+    activeIndex >= 0 && snippets[activeIndex] ? snippets[activeIndex] : null;
+  const currentSrc = active ? active.src : project?.previewVideo;
+  const currentPoster = active ? active.poster ?? poster : poster;
+  const currentIsStill = active?.isStill ?? false;
+
+  // Reset to the main video whenever a different project opens.
+  useEffect(() => {
+    setActiveIndex(-1);
+    setFailed(false);
+  }, [project?.slug]);
+
+  useEffect(() => setFailed(false), [currentSrc]);
+
+  // ESC to close + background scroll lock.
   useEffect(() => {
     if (!open) return;
-
     const onKeyDown = (e: KeyboardEvent) => {
-      // Let the browser handle ESC while natively fullscreen.
       if (e.key === "Escape" && !document.fullscreenElement) {
         e.stopPropagation();
         onClose();
       }
     };
-
     const { overflow } = document.body.style;
     document.body.style.overflow = "hidden";
     document.addEventListener("keydown", onKeyDown);
-
-    // Move focus into the dialog for keyboard users.
-    const focusTimer = window.setTimeout(() => closeRef.current?.focus(), 50);
-
+    const t = window.setTimeout(() => closeRef.current?.focus(), 50);
     return () => {
       document.body.style.overflow = overflow;
       document.removeEventListener("keydown", onKeyDown);
-      window.clearTimeout(focusTimer);
+      window.clearTimeout(t);
     };
   }, [open, onClose]);
 
-  // Track fullscreen state so the button icon reflects reality (including
-  // when the user exits with the browser's own ESC).
   useEffect(() => {
     const onChange = () => setIsFullscreen(!!document.fullscreenElement);
     document.addEventListener("fullscreenchange", onChange);
     return () => document.removeEventListener("fullscreenchange", onChange);
   }, []);
 
-  // Leave fullscreen when the modal closes.
   useEffect(() => {
-    if (!open && document.fullscreenElement) {
-      document.exitFullscreen?.().catch(() => {});
-    }
+    if (!open && document.fullscreenElement) document.exitFullscreen?.().catch(() => {});
   }, [open]);
 
   const toggleFullscreen = useCallback(() => {
     const el = stageRef.current;
     if (!el) return;
-    if (document.fullscreenElement) {
-      document.exitFullscreen?.().catch(() => {});
-    } else {
-      el.requestFullscreen?.().catch(() => {});
-    }
+    if (document.fullscreenElement) document.exitFullscreen?.().catch(() => {});
+    else el.requestFullscreen?.().catch(() => {});
   }, []);
-
-  const videoUrl = project?.videoUrl;
-  const embedUrl = videoUrl
-    ? `${videoUrl.replace("vimeo.com/", "player.vimeo.com/video/")}?autoplay=1&title=0&byline=0&portrait=0`
-    : null;
-  const poster = project ? getThumbnail(project.slug, project.thumbnail) : undefined;
 
   return (
     <AnimatePresence>
@@ -86,7 +85,6 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           aria-modal="true"
           aria-label={`${project.title} — project details`}
         >
-          {/* Backdrop — click outside to close */}
           <motion.div
             className="fixed inset-0 bg-black/85 backdrop-blur-md"
             onClick={onClose}
@@ -95,7 +93,18 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             exit={{ opacity: 0 }}
           />
 
-          {/* Content */}
+          {/* Close button — fixed to the viewport so it is always visible,
+              including while scrolled down or on small screens. */}
+          <button
+            ref={closeRef}
+            type="button"
+            onClick={onClose}
+            aria-label="Close"
+            className="fixed top-4 right-4 sm:top-6 sm:right-6 z-[120] inline-flex items-center justify-center w-11 h-11 rounded-full bg-black/70 hover:bg-black text-white border border-white/30 backdrop-blur-sm shadow-lg transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+          >
+            <X className="w-5 h-5" />
+          </button>
+
           <motion.div
             className="relative z-10 w-full max-w-5xl my-auto"
             initial={{ scale: 0.96, opacity: 0, y: 20 }}
@@ -103,78 +112,101 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             exit={{ scale: 0.96, opacity: 0, y: 20 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
           >
-            {/* Header controls — always reachable, never overlapping the video */}
-            <div className="flex items-center justify-end gap-2 mb-3">
-              {(embedUrl || project.previewVideo) && (
+            <div className="flex items-center justify-between gap-2 mb-3 pr-14">
+              <p className="text-xs uppercase tracking-[0.18em] text-white/60 truncate">
+                {active ? active.title : "Main preview"}
+              </p>
+              {!currentIsStill && !failed && (
                 <button
                   type="button"
                   onClick={toggleFullscreen}
                   aria-label={isFullscreen ? "Exit fullscreen" : "Enlarge video to fullscreen"}
                   className="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/25 text-white text-xs font-medium backdrop-blur-sm transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
                 >
-                  {isFullscreen ? (
-                    <Minimize2 className="w-4 h-4" />
-                  ) : (
-                    <Maximize2 className="w-4 h-4" />
-                  )}
-                  <span className="hidden sm:inline">
-                    {isFullscreen ? "Exit fullscreen" : "Fullscreen"}
-                  </span>
+                  {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
+                  <span className="hidden sm:inline">{isFullscreen ? "Exit fullscreen" : "Fullscreen"}</span>
                 </button>
               )}
-              <button
-                ref={closeRef}
-                type="button"
-                onClick={onClose}
-                aria-label="Close"
-                className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 border border-white/25 text-white backdrop-blur-sm transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-              >
-                <X className="w-5 h-5" />
-              </button>
             </div>
 
-            {/* Video stage — object-contain so vertical 9:16 cuts are not cropped.
-                Height is viewport-bound so the modal never overflows on mobile. */}
+            {/* Stage */}
             <div
               ref={stageRef}
-              className="video-stage relative rounded-2xl overflow-hidden bg-black ring-1 ring-white/10 shadow-2xl flex items-center justify-center max-h-[58vh] sm:max-h-[70vh]"
+              className="video-stage relative rounded-2xl overflow-hidden bg-black ring-1 ring-white/10 shadow-2xl flex items-center justify-center max-h-[52vh] sm:max-h-[66vh]"
             >
-              {embedUrl ? (
-                <div className="w-full aspect-video">
-                  <iframe
-                    src={embedUrl}
-                    className="w-full h-full"
-                    allow="autoplay; fullscreen; picture-in-picture"
-                    allowFullScreen
-                    title={project.title}
-                  />
+              {failed ? (
+                /* Styled fallback — never a blank frame or a white page. */
+                <div className="w-full aspect-video flex flex-col items-center justify-center gap-3 text-center px-6 relative">
+                  {currentPoster && (
+                    <img
+                      src={currentPoster}
+                      alt=""
+                      aria-hidden="true"
+                      className="absolute inset-0 w-full h-full object-cover opacity-30"
+                    />
+                  )}
+                  <div className="relative z-10 flex flex-col items-center gap-2">
+                    <AlertTriangle className="w-7 h-7 text-white/70" />
+                    <p className="text-white font-medium">This clip couldn’t be loaded</p>
+                    <p className="text-white/60 text-sm max-w-sm">
+                      The rest of the project is still below. Try again, or pick another clip.
+                    </p>
+                  </div>
                 </div>
-              ) : project.previewVideo ? (
+              ) : currentIsStill ? (
+                <img
+                  src={currentSrc}
+                  alt={active ? `${project.title} — ${active.title}` : project.title}
+                  loading="lazy"
+                  decoding="async"
+                  onError={() => setFailed(true)}
+                  className="max-h-[52vh] sm:max-h-[66vh] w-auto max-w-full object-contain"
+                />
+              ) : (
                 <video
-                  key={project.slug}
-                  src={project.previewVideo}
-                  poster={poster}
+                  key={currentSrc}
+                  src={currentSrc}
+                  poster={currentPoster}
                   controls
                   muted
                   loop
                   autoPlay
                   playsInline
                   preload="metadata"
+                  onError={() => setFailed(true)}
                   aria-label={`${project.title} preview`}
-                  className="max-h-[58vh] sm:max-h-[70vh] w-auto max-w-full object-contain"
+                  className="max-h-[52vh] sm:max-h-[66vh] w-auto max-w-full object-contain"
                 />
-              ) : poster ? (
-                <img
-                  src={poster}
-                  alt={`${project.title} — ${project.category}`}
-                  loading="lazy"
-                  decoding="async"
-                  className="max-h-[58vh] sm:max-h-[70vh] w-auto max-w-full object-contain"
-                />
-              ) : (
-                <div className="w-full aspect-video bg-secondary" />
               )}
             </div>
+
+            {/* Related snippets */}
+            {snippets.length > 0 && (
+              <div className="mt-4">
+                <p className="text-xs uppercase tracking-[0.18em] text-white/60 mb-2">
+                  More from this project
+                </p>
+                <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1 snap-x">
+                  <SnippetChip
+                    label="Main preview"
+                    poster={poster}
+                    selected={activeIndex === -1}
+                    onSelect={() => setActiveIndex(-1)}
+                  />
+                  {snippets.map((s, i) => (
+                    <SnippetChip
+                      key={s.src}
+                      label={s.title}
+                      meta={s.duration ?? s.role}
+                      poster={s.isStill ? s.src : s.poster}
+                      isStill={s.isStill}
+                      selected={activeIndex === i}
+                      onSelect={() => setActiveIndex(i)}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Details */}
             <div className="mt-5 rounded-2xl bg-card border border-border p-5 sm:p-6">
@@ -218,5 +250,56 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
         </motion.div>
       )}
     </AnimatePresence>
+  );
+}
+
+function SnippetChip({
+  label,
+  meta,
+  poster,
+  isStill,
+  selected,
+  onSelect,
+}: {
+  label: string;
+  meta?: string;
+  poster?: string;
+  isStill?: boolean;
+  selected: boolean;
+  onSelect: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onSelect}
+      aria-pressed={selected}
+      className={`group shrink-0 w-36 sm:w-40 snap-start text-left rounded-xl overflow-hidden border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 ${
+        selected ? "border-white bg-white/10" : "border-white/20 hover:border-white/50 bg-black/40"
+      }`}
+    >
+      <div className="relative aspect-video bg-black/60">
+        {poster ? (
+          <img
+            src={poster}
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        ) : null}
+        {!isStill && (
+          <span className="absolute inset-0 flex items-center justify-center">
+            <span className="w-7 h-7 rounded-full bg-black/60 border border-white/40 flex items-center justify-center">
+              <Play className="w-3 h-3 text-white" fill="currentColor" />
+            </span>
+          </span>
+        )}
+      </div>
+      <div className="px-2 py-1.5">
+        <p className="text-[11px] font-medium text-white truncate">{label}</p>
+        {meta && <p className="text-[10px] text-white/55 truncate">{meta}</p>}
+      </div>
+    </button>
   );
 }

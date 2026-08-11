@@ -108,6 +108,41 @@ describe("ProjectModal", () => {
     expect(Element.prototype.requestFullscreen).toHaveBeenCalled();
   });
 
+  it("always renders a close button pinned to the viewport", () => {
+    render(<ProjectModal project={sample} onClose={vi.fn()} />);
+    const btn = screen.getByRole("button", { name: /close/i });
+    expect(btn).toBeInTheDocument();
+    // Fixed positioning + a high z-index keep it reachable while the modal is
+    // scrolled. (Not asserting toBeVisible: Framer Motion's initial opacity of
+    // 0 never animates in jsdom, so that check would test the environment.)
+    expect(btn.className).toContain("fixed");
+    expect(btn.className).toContain("z-[120]");
+  });
+
+  it("lists related snippets and swaps the main media when one is chosen", () => {
+    const withSnippets = projects.find((p) => (p.snippets?.length ?? 0) > 0)!;
+    expect(withSnippets).toBeTruthy();
+
+    render(<ProjectModal project={withSnippets} onClose={vi.fn()} />);
+    expect(screen.getByText(/more from this project/i)).toBeInTheDocument();
+
+    const first = withSnippets.snippets![0];
+    fireEvent.click(screen.getByRole("button", { name: new RegExp(first.title, "i") }));
+
+    const dialog = screen.getByRole("dialog");
+    const shown = first.isStill
+      ? dialog.querySelector("img[src='" + first.src + "']")
+      : dialog.querySelector("video[src='" + first.src + "']");
+    expect(shown).toBeTruthy();
+  });
+
+  it("shows a styled fallback instead of a blank frame when media fails", () => {
+    render(<ProjectModal project={sample} onClose={vi.fn()} />);
+    const video = screen.getByRole("dialog").querySelector("video") as HTMLVideoElement;
+    fireEvent.error(video);
+    expect(screen.getByText(/couldn’t be loaded/i)).toBeInTheDocument();
+  });
+
   it("locks background scroll while open and restores it on close", () => {
     const { rerender } = render(<ProjectModal project={sample} onClose={vi.fn()} />);
     expect(document.body.style.overflow).toBe("hidden");

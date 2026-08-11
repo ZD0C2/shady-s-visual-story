@@ -1,12 +1,16 @@
 import { useState, useMemo } from "react";
 import { Search } from "lucide-react";
-import { projects, categories } from "@/data/site";
+import { projects, categories, type Project } from "@/data/site";
 import ProjectCard from "@/components/ProjectCard";
+import ProjectModal from "@/components/ProjectModal";
 import SectionHeader from "@/components/SectionHeader";
 
 export default function Work() {
   const [filter, setFilter] = useState("All");
   const [search, setSearch] = useState("");
+  // Cards open a modal here too. Previously /work passed no onClick, so
+  // clicking a card did nothing at all.
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const filtered = useMemo(() => {
     return projects.filter((p) => {
@@ -18,6 +22,7 @@ export default function Work() {
 
   return (
     <main className="pt-24 pb-16">
+      <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
       <div className="container mx-auto px-4 lg:px-8">
         <SectionHeader number="—" title="All Work" subtitle="Browse the full portfolio." />
 
@@ -55,7 +60,7 @@ export default function Work() {
         {/* Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((p, i) => (
-            <ProjectCard key={p.slug} project={p} index={i} />
+            <ProjectCard key={p.slug} project={p} index={i} onClick={setSelectedProject} />
           ))}
         </div>
         {filtered.length === 0 && (

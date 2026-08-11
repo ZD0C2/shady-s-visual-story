@@ -98,6 +98,32 @@ describe("site data integrity", () => {
     }
   });
 
+  it("keeps every snippet path inside a shipped media folder", () => {
+    // Candidate/extraction folders are excluded from the deploy, so a snippet
+    // pointing at one would 404 in production.
+    const shipped = [
+      "/media/previews/",
+      "/media/thumbnails/",
+      "/media/projects/",
+      "/media/final-selected-stills/",
+      "/media/final-selected-snippets/",
+    ];
+    const banned = ["all-candidate", "all-preview-snippets", "new-candidate", "new-preview", "contact-sheets"];
+
+    for (const p of projects) {
+      for (const s of p.snippets ?? []) {
+        expect(shipped.some((prefix) => s.src.startsWith(prefix))).toBe(true);
+        for (const bad of banned) expect(s.src).not.toContain(bad);
+        if (s.poster) expect(shipped.some((prefix) => s.poster!.startsWith(prefix))).toBe(true);
+      }
+    }
+  });
+
+  it("uses the montage as the hero and keeps a poster fallback", () => {
+    expect(siteData.heroVideo).toBe("/media/previews/hero-montage.mp4");
+    expect(siteData.heroPoster).toBe("/media/thumbnails/hero-montage.jpg");
+  });
+
   it("points social links at confirmed profiles only", () => {
     expect(siteData.social.facebook).toBe("https://www.facebook.com/shady.maged.9256");
     // Unconfirmed profiles stay empty so they are not rendered as dead links.

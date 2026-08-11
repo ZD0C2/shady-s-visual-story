@@ -57,7 +57,11 @@ function excludeWorkingMedia(): Plugin {
 
 // https://vitejs.dev/config/
 export default defineConfig(() => ({
-  base: "./",
+  // MUST be absolute. With a relative base ("./"), a hard refresh on a nested
+  // route like /work made the browser request ./assets/… relative to /work/,
+  // i.e. /work/assets/index.js → 404 → blank white page. That is why the site
+  // loaded on one machine (client-side navigation) but not another (direct hit).
+  base: "/",
   server: {
     host: "127.0.0.1",
     port: 8080,

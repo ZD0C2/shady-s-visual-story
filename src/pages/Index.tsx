@@ -170,16 +170,35 @@ export default function Index() {
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
-  // Only load the hero video on larger screens, and never when the visitor
-  // has asked for reduced motion or is on a metered/slow connection.
+  // The hero montage is small (~3.7 MB) so it also runs on mobile. It is still
+  // skipped for reduced-motion and data-saver users.
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
   const [showHeroVideo, setShowHeroVideo] = useState(false);
+  const [heroPlaying, setHeroPlaying] = useState(false);
+
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const wideEnough = window.matchMedia("(min-width: 768px)").matches;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const conn = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
-    setShowHeroVideo(wideEnough && !reduced && !conn?.saveData);
+    setShowHeroVideo(!reduced && !conn?.saveData);
   }, []);
+
+  // Some browsers reject autoplay even when muted. Ask explicitly, and only
+  // cross-fade the video in once it is actually playing.
+  useEffect(() => {
+    const el = heroVideoRef.current;
+    if (!showHeroVideo || !el) return;
+    let cancelled = false;
+    const onPlaying = () => !cancelled && setHeroPlaying(true);
+    el.addEventListener("playing", onPlaying);
+    el.play().catch(() => {
+      if (!cancelled) setHeroPlaying(false);
+    });
+    return () => {
+      cancelled = true;
+      el.removeEventListener("playing", onPlaying);
+    };
+  }, [showHeroVideo]);
 
   return (
     <main>
@@ -194,25 +213,47 @@ export default function Index() {
             className="w-full h-full object-cover opacity-90"
             style={{ objectPosition: "10% top" }}
           />
-          {/* Cinematic video layer — desktop only, muted, reduced-motion aware */}
+          {/* Showreel montage. Muted + playsInline so Chrome/Edge/Safari all
+              autoplay; if the browser still blocks it, the poster below stays
+              visible and nothing breaks. */}
           {showHeroVideo && (
             <video
+              ref={heroVideoRef}
               src={siteData.heroVideo}
               poster={siteData.heroPoster}
               autoPlay
               muted
               loop
               playsInline
-              preload="none"
+              preload="auto"
               aria-hidden="true"
-              className="absolute inset-0 w-full h-full object-cover opacity-60"
+              onError={() => setShowHeroVideo(false)}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+                heroPlaying ? "opacity-90" : "opacity-0"
+              }`}
             />
           )}
+          {/* Poster fallback — always painted underneath the video. */}
+          <img
+            src={siteData.heroPoster}
+            alt=""
+            aria-hidden="true"
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+              heroPlaying ? "opacity-0" : "opacity-80"
+            }`}
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/50 to-background" />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
           {/* Controlled centre scrim: darkens behind the headline so the type
               reads instantly, while the portrait/video stays visible. */}
           <div className="absolute inset-0 hero-center-scrim pointer-events-none" />
+          {/* Faint SM brand stamp, hidden on small screens so it never clutters. */}
+          <span
+            aria-hidden="true"
+            className="hero-stamp hidden md:block absolute top-24 right-8 lg:right-12 text-3xl lg:text-4xl select-none pointer-events-none z-[2]"
+          >
+            SM
+          </span>
         </motion.div>
 
         {/* Film grain overlay */}
