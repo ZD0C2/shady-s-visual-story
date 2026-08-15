@@ -401,7 +401,7 @@ function ProjectCard({ project, index, onOpen }: { project: (typeof projects)[nu
         aria-label={`Play ${project.title}`}
       >
         <img src={project.image} alt="" loading="lazy" />
-        <video ref={videoRef} src={project.video} poster={project.image} muted loop playsInline preload="metadata" aria-hidden="true" />
+        <video ref={videoRef} src={project.video} poster={project.image} muted loop playsInline preload="none" aria-hidden="true" />
         <span className="project-index">{String(index + 1).padStart(2, "0")}</span>
         <span className="play-mark"><span>Play</span><Arrow diagonal /></span>
       </button>
@@ -443,17 +443,31 @@ export default function Home() {
   }, [theme]);
 
   useEffect(() => {
-    if (!activeProject && !contactOpen) return;
+    if (!activeProject && !contactOpen && !menuOpen) return;
     const onKey = (event: KeyboardEvent) => {
       if (event.key !== "Escape") return;
       setActiveProject(null);
       setContactOpen(false);
+      setMenuOpen(false);
     };
-    document.body.classList.add("modal-open");
+    if (activeProject || contactOpen) document.body.classList.add("modal-open");
     window.addEventListener("keydown", onKey);
     return () => {
       document.body.classList.remove("modal-open");
       window.removeEventListener("keydown", onKey);
+    };
+  }, [activeProject, contactOpen, menuOpen]);
+
+  // Move focus into an opened dialog and restore it to the trigger on close.
+  const lastFocused = useRef<HTMLElement | null>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!activeProject && !contactOpen) return;
+    lastFocused.current = document.activeElement as HTMLElement | null;
+    const frame = window.requestAnimationFrame(() => dialogRef.current?.focus());
+    return () => {
+      window.cancelAnimationFrame(frame);
+      lastFocused.current?.focus?.();
     };
   }, [activeProject, contactOpen]);
 
@@ -543,9 +557,26 @@ export default function Home() {
   };
 
   const copyEmail = async () => {
-    await navigator.clipboard.writeText("captinshady90@gmail.com");
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 1800);
+    const email = "captinshady90@gmail.com";
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(email);
+      } else {
+        const field = document.createElement("textarea");
+        field.value = email;
+        field.setAttribute("readonly", "");
+        field.style.position = "fixed";
+        field.style.opacity = "0";
+        document.body.appendChild(field);
+        field.select();
+        document.execCommand("copy");
+        document.body.removeChild(field);
+      }
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1800);
+    } catch {
+      setCopied(false);
+    }
   };
 
   const trackPointer = (event: React.PointerEvent<HTMLElement>) => {
@@ -735,7 +766,7 @@ export default function Home() {
       <footer><span>© {new Date().getFullYear()} Shady Maged</span><span>Film · Motion · Story</span><a href="#top">Back to top ↑</a></footer>
 
       {activeProject && (
-        <div className="project-modal" role="dialog" aria-modal="true" aria-label={`${activeProject.title} project video`} onMouseDown={(event) => event.currentTarget === event.target && setActiveProject(null)}>
+        <div ref={dialogRef} tabIndex={-1} className="project-modal" role="dialog" aria-modal="true" aria-label={`${activeProject.title} project video`} onMouseDown={(event) => event.currentTarget === event.target && setActiveProject(null)}>
           <button className="modal-close" onClick={() => setActiveProject(null)} aria-label="Close project">Close <span>×</span></button>
           <div className="modal-stage">
             <video src={activeProject.video} poster={activeProject.image} autoPlay controls playsInline />
@@ -745,7 +776,7 @@ export default function Home() {
       )}
 
       {contactOpen && (
-        <div className="contact-desk" role="dialog" aria-modal="true" aria-labelledby="contact-desk-title" onMouseDown={(event) => event.currentTarget === event.target && setContactOpen(false)}>
+        <div ref={dialogRef} tabIndex={-1} className="contact-desk" role="dialog" aria-modal="true" aria-labelledby="contact-desk-title" onMouseDown={(event) => event.currentTarget === event.target && setContactOpen(false)}>
           <section>
             <button className="desk-close" onClick={() => setContactOpen(false)} aria-label="Close contact desk">Close <span>×</span></button>
             <p>04 · Contact desk</p>
