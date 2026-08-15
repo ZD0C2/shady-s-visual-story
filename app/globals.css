@@ -43,12 +43,6 @@ a:hover .arrow.diagonal, button:hover .arrow.diagonal { transform: rotate(-45deg
 .menu-button b:last-child { margin-top: -.65rem; transform: scaleX(.65); transform-origin: right; }
 .menu-button.open b { transform: rotate(45deg); }
 .menu-button.open b:last-child { transform: translateY(-.65rem) rotate(-45deg); }
-.mobile-menu { counter-reset: menu; position: fixed; z-index: 60; top: 6.4rem; right: 3.1vw; bottom: clamp(11rem,19vh,14rem); width: min(33rem, calc(100vw - 8rem)); padding: 1.2rem 2.2rem; display: flex; flex-direction: column; justify-content: center; background: #ece9df; color: var(--ink); border: 1px solid rgba(13,14,12,.22); transform: translateX(calc(100% + 5vw)); opacity: 0; pointer-events: none; transition: .55s cubic-bezier(.16,1,.3,1); box-shadow: 0 2rem 8rem rgba(0,0,0,.2); overflow: hidden; }
-.mobile-menu::before { content: ""; position: absolute; inset: -30%; background: radial-gradient(circle at 75% 20%,rgba(217,242,106,.28),transparent 32%),radial-gradient(circle at 15% 76%,rgba(100,194,255,.2),transparent 30%); pointer-events: none; }
-.mobile-menu.open { transform: none; opacity: 1; pointer-events: auto; }
-.mobile-menu a { counter-increment: menu; position: relative; font-family: var(--display); font-size: clamp(2rem,4.2vw,4.2rem); line-height: 1; letter-spacing: -.06em; padding: .22em 0; border-bottom: 1px solid rgba(13,14,12,.16); }
-.mobile-menu a::before { content: "0" counter(menu); margin-right: 1rem; font: .5rem var(--mono); vertical-align: middle; color: #777164; }
-.mobile-menu a:hover { color: #7648d6; padding-left: .3rem; }
 .menu-is-open .hero-kicker span:last-child { opacity: 0; }
 
 .hero {
