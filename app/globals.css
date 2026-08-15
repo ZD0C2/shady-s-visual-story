@@ -90,12 +90,6 @@ a:hover .arrow.diagonal, button:hover .arrow.diagonal { transform: rotate(-45deg
 @keyframes playhead-run { 50% { transform: translateX(24vw) rotate(12deg); } }
 @keyframes glint { 50% { transform: scale(1.75); opacity: .45; } }
 
-.hero-character { position: absolute; z-index: 12; right: clamp(1rem,3.4vw,3.5rem); bottom: 8.5%; width: clamp(7.5rem,11vw,11rem); padding: 0; background: none; cursor: pointer; filter: drop-shadow(0 1.2rem 1.2rem rgba(13,14,12,.18)); animation: character-float 3.8s ease-in-out infinite; }
-.hero-character img { width: 100%; height: auto; }
-.hero-character > span { position: absolute; right: 80%; top: 9%; width: 7.4rem; padding: .65rem .7rem; background: var(--ink); color: white; text-align: left; font: 500 .52rem/1.45 var(--mono); letter-spacing: .08em; text-transform: uppercase; opacity: 0; transform: translateX(.7rem); transition: .3s; }
-.hero-character:hover > span,.hero-character:focus-visible > span { opacity: 1; transform: none; }
-.hero-character:focus-visible { outline: 2px solid #6c3cff; outline-offset: .4rem; }
-@keyframes character-float { 50% { transform: translateY(-1rem) rotate(2deg); } }
 
 .hero-bottom { position: absolute; z-index: 5; left: 3.1vw; right: 3.1vw; bottom: 2.7rem; display: flex; justify-content: space-between; align-items: flex-end; }
 .hero-bottom > p { width: min(25rem,32vw); margin: 0; font-size: clamp(.76rem,1vw,.92rem); line-height: 1.65; opacity: .68; }
@@ -208,12 +202,7 @@ footer { padding: 1.4rem 3.1vw; display: flex; justify-content: space-between; b
 
 .scroll-character { --companion-x: calc(100vw - clamp(7.5rem,10vw,10rem) - 1.5rem); --companion-y: calc(100vh - clamp(10rem,14vw,14rem) - 1rem); position: fixed; z-index: 35; left: var(--companion-x); top: var(--companion-y); width: clamp(7.5rem,10vw,10rem); padding: 0; background: none; cursor: pointer; transform-origin: 50% 100%; transition: left .88s cubic-bezier(.2,.75,.15,1),top .88s cubic-bezier(.2,.75,.15,1),filter .35s; filter: drop-shadow(0 1rem 1.2rem rgba(0,0,0,.22)); }
 .scroll-character img { position: relative; z-index: 2; width: 100%; height: auto; object-fit: contain; transition: filter .35s; }
-.scroll-character[data-face="left"] img { transform: scaleX(-1); }
 .scroll-character.jumping { animation: companion-jump .88s cubic-bezier(.3,.7,.2,1); }
-.scroll-character.phase-edit img { filter: drop-shadow(0 0 1rem rgba(255,84,178,.38)); }
-.scroll-character.phase-motion img { filter: drop-shadow(0 0 1rem rgba(22,216,255,.45)); }
-.scroll-character.phase-play img { filter: drop-shadow(0 0 1rem rgba(217,242,106,.5)); }
-.scroll-character.phase-think img { filter: drop-shadow(0 0 1rem rgba(213,183,116,.45)); }
 .character-prop { position: absolute; z-index: 4; left: 50%; top: 4%; display: grid; place-items: center; min-width: 2rem; height: 2rem; padding: 0 .4rem; border-radius: 1rem; background: var(--ink); color: white; font: .58rem var(--mono); box-shadow: 0 .45rem 1.2rem rgba(0,0,0,.16); animation: prop-float 2.2s ease-in-out infinite; }
 .phase-direct .character-prop::after { content: "REC"; color: #ff5b78; }
 .phase-edit .character-prop::after { content: "✂"; color: #ff54b2; font-size: 1rem; }
@@ -258,7 +247,6 @@ footer { padding: 1.4rem 3.1vw; display: flex; justify-content: space-between; b
   .portrait-frame { inset: 0; }
   .portrait-frame img { top: 8%; height: 142%; }
   .head-motion { top: 12%; width: 43vw; }
-  .hero-character { right: .8rem; bottom: 9%; width: 7.5rem; }
   .hero-bottom { left: 1.2rem; right: 1.2rem; bottom: 1.5rem; }
   .hero-bottom > p { width: 55vw; font-size: .65rem; }
   .round-link { width: 6rem; height: 6rem; margin-right: 8rem; font-size: .52rem; }
@@ -290,8 +278,6 @@ footer { padding: 1.4rem 3.1vw; display: flex; justify-content: space-between; b
   .chip-edit { right: -5%; }
   .chip-motion { right: 0; }
   .chip-grade { left: -2%; }
-  .hero-character { right: .15rem; bottom: 11%; width: 6.2rem; }
-  .hero-character > span { display: none; }
   .hero-bottom > p { width: 65vw; }
   .round-link { width: 5.2rem; height: 5.2rem; margin-right: 5.4rem; }
   .work-section { padding-inline: 1rem; }
