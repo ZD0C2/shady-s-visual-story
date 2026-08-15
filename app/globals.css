@@ -209,9 +209,7 @@ footer { padding: 1.4rem 3.1vw; display: flex; justify-content: space-between; b
 .scroll-character { --companion-x: calc(100vw - clamp(7.5rem,10vw,10rem) - 1.5rem); --companion-y: calc(100vh - clamp(10rem,14vw,14rem) - 1rem); position: fixed; z-index: 35; left: var(--companion-x); top: var(--companion-y); width: clamp(7.5rem,10vw,10rem); padding: 0; background: none; cursor: pointer; transform-origin: 50% 100%; transition: left .88s cubic-bezier(.2,.75,.15,1),top .88s cubic-bezier(.2,.75,.15,1),filter .35s; filter: drop-shadow(0 1rem 1.2rem rgba(0,0,0,.22)); }
 .scroll-character img { position: relative; z-index: 2; width: 100%; height: auto; object-fit: contain; transition: filter .35s; }
 .scroll-character[data-face="left"] img { transform: scaleX(-1); }
-.scroll-character.walking img { animation: companion-walk .28s steps(2,end) infinite; }
 .scroll-character.jumping { animation: companion-jump .88s cubic-bezier(.3,.7,.2,1); }
-.scroll-character.celebrating img { animation: companion-celebrate 1.05s cubic-bezier(.2,.8,.2,1); }
 .scroll-character.phase-edit img { filter: drop-shadow(0 0 1rem rgba(255,84,178,.38)); }
 .scroll-character.phase-motion img { filter: drop-shadow(0 0 1rem rgba(22,216,255,.45)); }
 .scroll-character.phase-play img { filter: drop-shadow(0 0 1rem rgba(217,242,106,.5)); }
