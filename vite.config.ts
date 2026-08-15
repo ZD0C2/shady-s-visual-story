@@ -1,78 +1,64 @@
-import { defineConfig, type Plugin } from "vite";
-import react from "@vitejs/plugin-react-swc";
-import path from "path";
-import fs from "fs";
+import vinext from "vinext";
+import { defineConfig } from "vite";
+import hostingConfig from "./.openai/hosting.json";
+import { sites } from "./build/sites-vite-plugin";
 
-/**
- * Working media folders live under public/media so they can be reviewed locally,
- * but they must never ship to production — they contain thousands of raw
- * candidate stills and snippets. Vite copies all of public/ verbatim, so we
- * prune these from the build output after it is written.
- */
-// These now live in `_media-workspace/` (outside public/), so they are already
-// excluded from the build. This list stays as a safety net in case a working
-// folder is ever moved back under public/ during review.
-const WORKING_MEDIA = [
-  "media/all-candidate-stills",
-  "media/all-preview-snippets",
-  "media/contact-sheets",
-  "media/new-candidate-stills",
-  "media/new-preview-snippets",
-  "media/new-contact-sheets",
-  "media/REVIEW_GALLERY.html",
-  "media/EXTRACTION_CANDIDATES.csv",
-  "media/NEW_MEDIA_INVENTORY.csv",
-  "media/PORTFOLIO_CATEGORIES.md",
-  "media/PORTFOLIO_NAMING_RECOMMENDATIONS.md",
-];
+const SITE_CREATOR_PLACEHOLDER_DATABASE_ID =
+  "00000000-0000-4000-8000-000000000000";
 
-function excludeWorkingMedia(): Plugin {
-  // Resolve the real output directory rather than assuming "dist" — the outDir
-  // can be overridden from the CLI, and hardcoding it silently skipped pruning.
-  let outDir = path.resolve(__dirname, "dist");
+const { d1, r2 } = hostingConfig;
+
+// macOS Seatbelt blocks FSEvents, so Codex previews need polling for HMR.
+const isCodexSeatbeltSandbox = process.env.CODEX_SANDBOX === "seatbelt";
+
+const localBindingConfig = {
+  main: "./worker/index.ts",
+  compatibility_flags: ["nodejs_compat"],
+  d1_databases: d1
+    ? [
+        {
+          binding: d1,
+          database_name: "site-creator-d1",
+          database_id: SITE_CREATOR_PLACEHOLDER_DATABASE_ID,
+        },
+      ]
+    : [],
+  r2_buckets: r2
+    ? [
+        {
+          binding: r2,
+          bucket_name: "site-creator-r2",
+        },
+      ]
+    : [],
+};
+
+export default defineConfig(async () => {
+  // Keep Wrangler and Miniflare state project-local. These are non-secret tool
+  // settings; application environment belongs in ignored `.env*` files.
+  process.env.WRANGLER_WRITE_LOGS ??= "false";
+  process.env.WRANGLER_LOG_PATH ??= ".wrangler/logs";
+  process.env.MINIFLARE_REGISTRY_PATH ??= ".wrangler/registry";
+
+  // Wrangler snapshots its log path while the Cloudflare plugin is imported.
+  const { cloudflare } = await import("@cloudflare/vite-plugin");
+
   return {
-    name: "exclude-working-media",
-    apply: "build",
-    configResolved(config) {
-      outDir = path.resolve(config.root, config.build.outDir);
+    server: {
+      host: "0.0.0.0",
+      allowedHosts: ["terminal.local"],
+      ...(isCodexSeatbeltSandbox
+        ? { watch: { useFsEvents: false, usePolling: true } }
+        : {}),
     },
-    closeBundle() {
-      for (const rel of WORKING_MEDIA) {
-        const target = path.join(outDir, rel);
-        if (!fs.existsSync(target)) continue;
-        try {
-          fs.rmSync(target, { recursive: true, force: true });
-          this.info?.(`excluded from build: ${rel}`);
-        } catch (err) {
-          // Never fail a build over cleanup; surface it instead.
-          this.warn?.(
-            `could not prune ${rel} from the build output (${(err as Error).message}). ` +
-              `Remove it manually before deploying.`,
-          );
-        }
-      }
-    },
+    plugins: [
+      vinext(),
+      sites(),
+      cloudflare({
+        viteEnvironment: { name: "rsc", childEnvironments: ["ssr"] },
+        inspectorPort: false,
+        config: localBindingConfig,
+      }),
+    ],
   };
-}
-
-// https://vitejs.dev/config/
-export default defineConfig(() => ({
-  // MUST be absolute. With a relative base ("./"), a hard refresh on a nested
-  // route like /work made the browser request ./assets/… relative to /work/,
-  // i.e. /work/assets/index.js → 404 → blank white page. That is why the site
-  // loaded on one machine (client-side navigation) but not another (direct hit).
-  base: "/",
-  server: {
-    host: "127.0.0.1",
-    port: 8080,
-    hmr: {
-      overlay: false,
-    },
-  },
-  plugins: [react(), excludeWorkingMedia()],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
-    },
-  },
-}));
+});
