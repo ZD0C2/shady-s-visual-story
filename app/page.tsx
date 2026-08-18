@@ -626,7 +626,7 @@ export default function Home() {
         <div className="portrait-stage">
           <div className="portrait-frame">
             <img
-              src="/shady-hero-hyperclear.png"
+              src="/shady-hero-hyperclear.webp"
               alt="Portrait of Shady Maged"
             />
           </div>
