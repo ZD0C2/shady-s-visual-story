@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const mediaBase = "https://shady-s-visual-story.vercel.app/media";
+const mediaBase = "/media";
 
 const categories = [
   "All",
