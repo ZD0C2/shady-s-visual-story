@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Search } from "lucide-react";
 import { projects, categories, type Project } from "@/data/site";
 import ProjectCard from "@/components/ProjectCard";
@@ -6,7 +7,14 @@ import ProjectModal from "@/components/ProjectModal";
 import SectionHeader from "@/components/SectionHeader";
 
 export default function Work() {
-  const [filter, setFilter] = useState("All");
+  const [searchParams] = useSearchParams();
+  // Homepage category-reel cards deep-link here as /work?category=<name>
+  // so the filter opens already applied. Falls back to "All" for a bare
+  // /work visit or an unrecognised category value.
+  const initialCategory = searchParams.get("category");
+  const [filter, setFilter] = useState(
+    initialCategory && categories.includes(initialCategory) ? initialCategory : "All"
+  );
   const [search, setSearch] = useState("");
   // Cards open a modal here too. Previously /work passed no onClick, so
   // clicking a card did nothing at all.

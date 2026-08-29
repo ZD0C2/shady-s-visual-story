@@ -19,7 +19,7 @@ import {
   Languages,
 } from "lucide-react";
 import heroBg from "@/assets/hero-bg.png";
-import { siteData, projects, services, experience, education, skills, categories, about, type Project } from "@/data/site";
+import { siteData, projects, services, experience, education, skills, categories, categoryReels, about, type Project } from "@/data/site";
 import SectionHeader from "@/components/SectionHeader";
 import ProjectCard from "@/components/ProjectCard";
 import Marquee from "@/components/Marquee";
@@ -39,6 +39,74 @@ function RotatingWord() {
     <span className="gradient-text inline-block min-w-[140px]">
       {siteData.rotatingWords[idx]}
     </span>
+  );
+}
+
+function CategoryReelCard({
+  reel,
+  index,
+}: {
+  reel: { category: string; video: string; poster: string };
+  index: number;
+}) {
+  const [hovered, setHovered] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const prefersReducedMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
+  const handleEnter = () => {
+    if (prefersReducedMotion) return;
+    setHovered(true);
+    videoRef.current?.play().catch(() => {});
+  };
+  const handleLeave = () => {
+    setHovered(false);
+    videoRef.current?.pause();
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.4, delay: index * 0.06 }}
+    >
+      <Link
+        to={`/work?category=${encodeURIComponent(reel.category)}`}
+        onMouseEnter={handleEnter}
+        onMouseLeave={handleLeave}
+        onFocus={handleEnter}
+        onBlur={handleLeave}
+        className="group block relative aspect-video rounded-xl overflow-hidden glass-card-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+      >
+        <img
+          src={reel.poster}
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <video
+          ref={videoRef}
+          src={reel.video}
+          muted
+          loop
+          playsInline
+          preload="none"
+          poster={reel.poster}
+          aria-hidden="true"
+          tabIndex={-1}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+            hovered ? "opacity-100" : "opacity-0"
+          }`}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/30 group-hover:from-black/55 transition-colors duration-500" />
+        <span className="absolute bottom-3 left-3 right-3 font-heading font-semibold text-sm text-white drop-shadow">
+          {reel.category}
+        </span>
+      </Link>
+    </motion.div>
   );
 }
 
@@ -399,6 +467,22 @@ export default function Index() {
           >
             <ArrowDown className="w-5 h-5 text-muted-foreground" />
           </motion.div>
+        </div>
+      </section>
+
+      {/* ===== EXPLORE BY DISCIPLINE ===== */}
+      <section className="py-24 border-t border-border/40">
+        <div className="container mx-auto px-4 lg:px-8">
+          <SectionHeader
+            number="00"
+            title="Explore by Discipline"
+            subtitle="Seven disciplines, one continuous practice — hover a reel to preview, click to see the work."
+          />
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            {categoryReels.map((reel, i) => (
+              <CategoryReelCard key={reel.category} reel={reel} index={i} />
+            ))}
+          </div>
         </div>
       </section>
 

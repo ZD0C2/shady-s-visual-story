@@ -678,6 +678,1308 @@ export const projects: Project[] = [
     breakdown: "Highlighted text treatments, archive photography, layered composites.",
     result: "One of a continuing series of motion essays.",
   },
+
+  /* ---------------- New Showreel Ingest (2026-08-29) ---------------- */
+  {
+    slug: "juve-duping-full-cut",
+    title: "Juve Duping — Full Cut",
+    category: "Documentary & Directing",
+    year: "2024",
+    summary:
+      "The complete cut of a noir-toned narrative documentary, built on multi-camera interview lighting and graded contrast.",
+    role: "Director & Editor",
+    tools: ["Premiere Pro", "DaVinci Resolve"],
+    previewVideo: `${P}/documentary-juve-duping-full-cut.mp4`,
+    thumbnail: `${T}/documentary-juve-duping-full-cut.jpg`,
+    brief:
+      "Deliver the full-length cut of the Juve Duping documentary alongside its shorter derivatives.",
+    problem:
+      "A long-form noir narrative needed to hold tension and pacing across a full runtime, not just in a trailer-length cut.",
+    approach:
+      "Structured the film in acts, leaning on lighting and a controlled colour palette to keep the noir register consistent scene to scene.",
+    breakdown:
+      "Structured the film in acts, leaning on lighting and a controlled colour palette to keep the noir register consistent scene to scene.",
+    result:
+      "A complete director's-cut documentary alongside the shorter promotional versions already on the reel.",
+  },
+  {
+    slug: "documentary-moments",
+    title: "Moments",
+    category: "Documentary & Directing",
+    year: "2024",
+    summary:
+      "A quieter observational cutdown built from documentary B-roll and candid interview moments.",
+    role: "Editor",
+    tools: ["Premiere Pro", "DaVinci Resolve"],
+    previewVideo: `${P}/documentary-moments.mp4`,
+    thumbnail: `${T}/documentary-moments.jpg`,
+    brief:
+      "Assemble a short observational piece from documentary coverage that didn't make the main narrative cut.",
+    problem:
+      "Strong B-roll and candid moments existed outside the main story's structure and needed a home.",
+    approach:
+      "Cut a loose, moment-led sequence prioritising tone and rhythm over plot.",
+    breakdown:
+      "Cut a loose, moment-led sequence prioritising tone and rhythm over plot.",
+    result:
+      "A standalone mood piece that complements the main documentary without repeating it.",
+  },
+  {
+    slug: "documentary-touching-scene",
+    title: "A Touching Scene",
+    category: "Documentary & Directing",
+    year: "2024",
+    summary:
+      "A single emotional beat pulled from long-form documentary footage, cut for pacing and impact.",
+    role: "Editor",
+    tools: ["Premiere Pro"],
+    previewVideo: `${P}/documentary-touching-scene.mp4`,
+    thumbnail: `${T}/documentary-touching-scene.jpg`,
+    brief:
+      "Isolate and pace a key emotional scene from a larger documentary shoot.",
+    problem:
+      "The moment needed room to breathe without losing the audience's attention.",
+    approach:
+      "Trimmed around the performance rather than the dialogue, letting silence and reaction carry the beat.",
+    breakdown:
+      "Trimmed around the performance rather than the dialogue, letting silence and reaction carry the beat.",
+    result:
+      "A self-contained emotional scene that reads clearly outside the context of the full film.",
+  },
+  {
+    slug: "documentary-showreel-teaser",
+    title: "Showreel Teaser",
+    category: "Documentary & Directing",
+    year: "2024",
+    summary:
+      "A longer-form teaser cut drawing on documentary and directing footage, built for festival/showreel submission.",
+    role: "Director & Editor",
+    tools: ["Premiere Pro", "DaVinci Resolve"],
+    previewVideo: `${P}/documentary-showreel-teaser.mp4`,
+    thumbnail: `${T}/documentary-showreel-teaser.jpg`,
+    brief:
+      "Cut an extended teaser suitable for a showreel or festival submission.",
+    problem:
+      "Existing short teasers didn't give enough room to show directing and lighting range together.",
+    approach:
+      "Combined multiple scenes into one continuous teaser, prioritising visual variety over a single narrative thread.",
+    breakdown:
+      "Combined multiple scenes into one continuous teaser, prioritising visual variety over a single narrative thread.",
+    result:
+      "A longer teaser used to demonstrate range across lighting, blocking and pacing in one cut.",
+  },
+  {
+    slug: "maaloul-3d-feature",
+    title: "Ali Maaloul — 3D Tribute (Feature Cut)",
+    category: "Motion & 3D",
+    year: "2023",
+    summary:
+      "A longer 3D motion tribute piece built around footballer Ali Maaloul, combining live footage with 3D typography and effects.",
+    role: "Motion Designer & Editor",
+    tools: ["After Effects", "Cinema 4D"],
+    previewVideo: `${P}/motion-maaloul-3d-feature.mp4`,
+    thumbnail: `${T}/motion-maaloul-3d-feature.jpg`,
+    brief:
+      "Build a 3D-led tribute piece around a football player using motion graphics and archival footage.",
+    problem:
+      "Archival match footage alone didn't carry the celebratory tone the tribute needed.",
+    approach:
+      "Layered 3D title cards and particle/light effects over graded footage to lift the moments the edit wanted to emphasise.",
+    breakdown:
+      "Layered 3D title cards and particle/light effects over graded footage to lift the moments the edit wanted to emphasise.",
+    result:
+      "A feature-length 3D tribute cut used as the flagship version of the piece.",
+  },
+  {
+    slug: "maaloul-3d-cutdown",
+    title: "Ali Maaloul — 3D Tribute (Cutdown)",
+    category: "Motion & 3D",
+    year: "2023",
+    summary:
+      "A short-form cutdown of the Ali Maaloul 3D tribute, trimmed for social and homepage use.",
+    role: "Motion Designer & Editor",
+    tools: ["After Effects", "Cinema 4D"],
+    previewVideo: `${P}/motion-maaloul-3d-cutdown.mp4`,
+    thumbnail: `${T}/motion-maaloul-3d-cutdown.jpg`,
+    brief:
+      "Produce a short cutdown of the 3D tribute piece for feed-length placements.",
+    problem:
+      "The full tribute ran too long for social and homepage placements.",
+    approach:
+      "Selected the strongest 3D beat from the feature cut and re-timed it to a standalone short.",
+    breakdown:
+      "Selected the strongest 3D beat from the feature cut and re-timed it to a standalone short.",
+    result:
+      "A compact highlight version reusing the same 3D asset library as the feature cut.",
+  },
+  {
+    slug: "3d-motion-reel-2",
+    title: "3D & Motion Reel — Vol. 2",
+    category: "Motion & 3D",
+    year: "2023",
+    summary:
+      "A compiled reel of 3D render and motion graphics work, showcasing type and object animation.",
+    role: "Motion Designer",
+    tools: ["After Effects", "Cinema 4D"],
+    previewVideo: `${P}/motion-3d-reel-2.mp4`,
+    thumbnail: `${T}/motion-3d-reel-2.jpg`,
+    brief:
+      "Compile a second volume of 3D and motion design shots into one reel.",
+    problem:
+      "Individual 3D shots were strong on their own but scattered across projects.",
+    approach:
+      "Grouped complementary shots by rhythm and colour so the compilation reads as one continuous reel.",
+    breakdown:
+      "Grouped complementary shots by rhythm and colour so the compilation reads as one continuous reel.",
+    result:
+      "A dedicated 3D/motion reel used to demonstrate range beyond client-specific work.",
+  },
+  {
+    slug: "3d-motion-reel-3",
+    title: "3D & Motion Reel — Vol. 3",
+    category: "Motion & 3D",
+    year: "2023",
+    summary:
+      "A further compiled reel of 3D and After Effects motion work.",
+    role: "Motion Designer",
+    tools: ["After Effects", "Cinema 4D"],
+    previewVideo: `${P}/motion-3d-reel-3.mp4`,
+    thumbnail: `${T}/motion-3d-reel-3.jpg`,
+    brief:
+      "Compile a third volume of 3D and motion design shots into one reel.",
+    problem:
+      "Newer 3D shots needed a showcase separate from the client projects they came from.",
+    approach:
+      "Sequenced shots for visual variety, matching move speed and colour temperature between cuts.",
+    breakdown:
+      "Sequenced shots for visual variety, matching move speed and colour temperature between cuts.",
+    result:
+      "A third reel extending the 3D/motion showcase started in Vol. 2.",
+  },
+  {
+    slug: "articles-motion-reel-1",
+    title: "Articles — Motion Essay Reel 1",
+    category: "Motion & 3D",
+    year: "2023",
+    summary:
+      "Part of the 'Articles' motion-essay series — original football writing turned into narrated, animated pieces.",
+    role: "Writer, Motion Designer & Editor",
+    tools: ["After Effects", "Premiere Pro"],
+    previewVideo: `${P}/motion-articles-reel-1.mp4`,
+    thumbnail: `${T}/motion-articles-reel-1.jpg`,
+    brief:
+      "Adapt an original written football piece into a narrated motion-graphics essay.",
+    problem:
+      "A written article needed a visual language that matched its tone without simply reading text on screen.",
+    approach:
+      "Built kinetic typography and archival-style imagery around the narration, pacing reveals to the read.",
+    breakdown:
+      "Built kinetic typography and archival-style imagery around the narration, pacing reveals to the read.",
+    result:
+      "One instalment in an ongoing motion-essay format built from original writing.",
+  },
+  {
+    slug: "motion-articles-reel-2",
+    title: "Articles — Motion Essay Reel 2",
+    category: "Motion & 3D",
+    year: "2023",
+    summary:
+      "Another instalment in the Articles motion-essay series.",
+    role: "Writer, Motion Designer & Editor",
+    tools: ["After Effects", "Premiere Pro"],
+    previewVideo: `${P}/motion-articles-reel-2.mp4`,
+    thumbnail: `${T}/motion-articles-reel-2.jpg`,
+    brief:
+      "Continue the Articles format with a new subject and script.",
+    problem:
+      "Each article needed its own visual identity while staying recognisably part of the same series.",
+    approach:
+      "Reused the series' typographic system while varying imagery and pacing to suit the new subject.",
+    breakdown:
+      "Reused the series' typographic system while varying imagery and pacing to suit the new subject.",
+    result:
+      "A second instalment reinforcing the motion-essay format as a repeatable series.",
+  },
+  {
+    slug: "motion-articles-reel-3",
+    title: "Articles — Motion Essay Reel 3",
+    category: "Motion & 3D",
+    year: "2023",
+    summary:
+      "A further instalment in the Articles motion-essay series.",
+    role: "Writer, Motion Designer & Editor",
+    tools: ["After Effects", "Premiere Pro"],
+    previewVideo: `${P}/motion-articles-reel-3.mp4`,
+    thumbnail: `${T}/motion-articles-reel-3.jpg`,
+    brief:
+      "Produce another entry in the Articles motion-essay series.",
+    problem:
+      "The series needed to keep finding fresh archival and stock material to match new scripts.",
+    approach:
+      "Sourced and graded reference footage to sit consistently alongside the series' existing library.",
+    breakdown:
+      "Sourced and graded reference footage to sit consistently alongside the series' existing library.",
+    result:
+      "A third instalment continuing the series' authorial voice.",
+  },
+  {
+    slug: "motion-articles-reel-4",
+    title: "Articles — Motion Essay Reel 4",
+    category: "Motion & 3D",
+    year: "2023",
+    summary:
+      "A short instalment in the Articles motion-essay series.",
+    role: "Writer, Motion Designer & Editor",
+    tools: ["After Effects", "Premiere Pro"],
+    previewVideo: `${P}/motion-articles-reel-4.mp4`,
+    thumbnail: `${T}/motion-articles-reel-4.jpg`,
+    brief:
+      "Produce a short-form entry in the Articles series.",
+    problem:
+      "Not every article needed a long runtime — some ideas worked better told briefly.",
+    approach:
+      "Compressed the format's typographic language into a shorter runtime without losing legibility.",
+    breakdown:
+      "Compressed the format's typographic language into a shorter runtime without losing legibility.",
+    result:
+      "A short instalment showing the format also works at short-form length.",
+  },
+  {
+    slug: "tarikh-w-korafia",
+    title: "Tarikh w Korafia — Shady Habashy",
+    category: "Brand & Commercial",
+    year: "2019",
+    client: "Shady Habashy (YouTube)",
+    summary:
+      "Creative direction and editing for YouTuber Shady Habashy's history/folklore series 'Tarikh w Korafia'.",
+    role: "Creative Director & Editor",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/commercial-football-history-tales.mp4`,
+    thumbnail: `${T}/commercial-football-history-tales.jpg`,
+    brief:
+      "Serve as creative director and editor for a YouTube history and folklore series.",
+    problem:
+      "Long narrated episodes needed pacing and visual variety to hold a YouTube audience.",
+    approach:
+      "Built a repeatable graphic template for titles and captions, paired with archival-style imagery to match the narration.",
+    breakdown:
+      "Built a repeatable graphic template for titles and captions, paired with archival-style imagery to match the narration.",
+    result:
+      "An ongoing series format delivered across multiple episodes for the channel.",
+  },
+  {
+    slug: "minglings-promo-full",
+    title: "Minglings — Promo (Full Cut)",
+    category: "Brand & Commercial",
+    year: "2019",
+    client: "Minglings Café & Restaurant",
+    summary:
+      "The full-length version of the Minglings promotional film, ahead of its social cutdowns.",
+    role: "Editor",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/commercial-minglings-promo.mp4`,
+    thumbnail: `${T}/commercial-minglings-promo.jpg`,
+    brief:
+      "Cut the master promotional film for a café and restaurant brand.",
+    problem:
+      "The venue needed one master edit that shorter social versions could be trimmed from.",
+    approach:
+      "Built the story and graphic system at full length first, then treated shorter cuts as derivatives.",
+    breakdown:
+      "Built the story and graphic system at full length first, then treated shorter cuts as derivatives.",
+    result:
+      "A master promo film used as the source for the brand's shorter social deliverables.",
+  },
+  {
+    slug: "leeloo-brand-film",
+    title: "LeeLoo — Brand Film",
+    category: "Brand & Commercial",
+    year: "2019",
+    client: "LeeLoo Café & Restaurant",
+    summary:
+      "A longer brand film for LeeLoo, pairing food cinematography with the venue's atmosphere.",
+    role: "Creative Director & Editor",
+    tools: ["Premiere Pro", "DaVinci Resolve"],
+    previewVideo: `${P}/commercial-leeloo-brand-film.mp4`,
+    thumbnail: `${T}/commercial-leeloo-brand-film.jpg`,
+    brief:
+      "Produce a longer-form brand film for a premium café and restaurant.",
+    problem:
+      "The brand needed a piece that read as a short film rather than a straight advert.",
+    approach:
+      "Combined slow, appetite-driven food shots with ambient venue footage and a warm grade.",
+    breakdown:
+      "Combined slow, appetite-driven food shots with ambient venue footage and a warm grade.",
+    result:
+      "A brand film used alongside the shorter LeeLoo cutdowns already on the reel.",
+  },
+  {
+    slug: "gold-era-1",
+    title: "Gold Era — App Promo (Cut 1)",
+    category: "Brand & Commercial",
+    year: "2019",
+    client: "Gold Era",
+    summary:
+      "A promotional edit for the Gold Era application.",
+    role: "Editor",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/commercial-gold-era-1.mp4`,
+    thumbnail: `${T}/commercial-gold-era-1.jpg`,
+    brief:
+      "Cut a promotional film introducing the Gold Era application.",
+    problem:
+      "An app product needed to be explained and sold in a short, watchable format.",
+    approach:
+      "Paired screen-capture UI footage with motion graphics call-outs and a driving music edit.",
+    breakdown:
+      "Paired screen-capture UI footage with motion graphics call-outs and a driving music edit.",
+    result:
+      "A promo film introducing the app's core features.",
+  },
+  {
+    slug: "gold-era-2",
+    title: "Gold Era — App Promo (Cut 2)",
+    category: "Brand & Commercial",
+    year: "2019",
+    client: "Gold Era",
+    summary:
+      "An alternate promotional cut for the Gold Era application.",
+    role: "Editor",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/commercial-gold-era-2.mp4`,
+    thumbnail: `${T}/commercial-gold-era-2.jpg`,
+    brief:
+      "Produce an alternate-length promo for the Gold Era application.",
+    problem:
+      "A shorter placement needed the same message as the primary promo in less time.",
+    approach:
+      "Re-cut the primary promo's strongest beats into a tighter runtime.",
+    breakdown:
+      "Re-cut the primary promo's strongest beats into a tighter runtime.",
+    result:
+      "A second promo version for shorter ad placements.",
+  },
+  {
+    slug: "drjob-pro-1",
+    title: "Dr.Job Pro — Promo 1",
+    category: "Brand & Commercial",
+    year: "2021",
+    client: "Dr.Job",
+    summary:
+      "One of a series of promotional edits for the Dr.Job Pro recruitment platform.",
+    role: "Editor",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/commercial-drjob-pro-1.mp4`,
+    thumbnail: `${T}/commercial-drjob-pro-1.jpg`,
+    brief:
+      "Cut a promotional film for the Dr.Job Pro platform.",
+    problem:
+      "A recruitment platform needed to explain its value quickly to a professional audience.",
+    approach:
+      "Combined UI walkthroughs with motion-graphic call-outs explaining key features.",
+    breakdown:
+      "Combined UI walkthroughs with motion-graphic call-outs explaining key features.",
+    result:
+      "One instalment in a promo series for the platform, alongside the existing Dr.Job Pro edit on the reel.",
+  },
+  {
+    slug: "drjob-pro-2",
+    title: "Dr.Job Pro — Promo 2",
+    category: "Brand & Commercial",
+    year: "2021",
+    client: "Dr.Job",
+    summary:
+      "A second promotional edit for the Dr.Job Pro platform.",
+    role: "Editor",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/commercial-drjob-pro-2.mp4`,
+    thumbnail: `${T}/commercial-drjob-pro-2.jpg`,
+    brief:
+      "Produce a second promotional cut for the Dr.Job Pro platform.",
+    problem:
+      "A different feature set needed its own dedicated explainer.",
+    approach:
+      "Reused the established graphic system with new UI capture and messaging.",
+    breakdown:
+      "Reused the established graphic system with new UI capture and messaging.",
+    result:
+      "A second promo extending the Dr.Job Pro series.",
+  },
+  {
+    slug: "drjob-pro-3",
+    title: "Dr.Job Pro — Promo 3",
+    category: "Brand & Commercial",
+    year: "2021",
+    client: "Dr.Job",
+    summary:
+      "A third promotional edit for the Dr.Job Pro platform.",
+    role: "Editor",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/commercial-drjob-pro-3.mp4`,
+    thumbnail: `${T}/commercial-drjob-pro-3.jpg`,
+    brief:
+      "Produce a third promotional cut for the Dr.Job Pro platform.",
+    problem:
+      "The platform's promo series needed a closing instalment covering remaining features.",
+    approach:
+      "Matched pacing and graphic language to the earlier two cuts for series consistency.",
+    breakdown:
+      "Matched pacing and graphic language to the earlier two cuts for series consistency.",
+    result:
+      "A third and closing promo completing the Dr.Job Pro series.",
+  },
+  {
+    slug: "starsclash-tayam-vs-amar",
+    title: "StarsClash — Tayam vs M.Amar",
+    category: "Brand & Commercial",
+    year: "2021",
+    client: "Vodafone / StarsClash",
+    summary:
+      "A studio-challenge episode from the Vodafone StarsClash format, pitting two contestants head-to-head.",
+    role: "Video Editor",
+    tools: ["Premiere Pro", "After Effects", "Audition"],
+    previewVideo: `${P}/commercial-starsclash-tayam-vs-amar.mp4`,
+    thumbnail: `${T}/commercial-starsclash-tayam-vs-amar.jpg`,
+    brief:
+      "Cut an episode of the recurring Vodafone StarsClash studio format.",
+    problem:
+      "Multi-camera studio coverage needed to stay energetic across a full head-to-head challenge.",
+    approach:
+      "Applied the format's established graphic language — name cards, scoring accents and reaction cutaways.",
+    breakdown:
+      "Applied the format's established graphic language — name cards, scoring accents and reaction cutaways.",
+    result:
+      "An episode cut consistent with the format's other instalments on the reel.",
+  },
+  {
+    slug: "starsclash-teaser-2",
+    title: "StarsClash — Teaser Cut 2",
+    category: "Brand & Commercial",
+    year: "2021",
+    client: "Vodafone / StarsClash",
+    summary:
+      "An alternate teaser cut for the Vodafone StarsClash format.",
+    role: "Video Editor",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/commercial-starsclash-teaser-2.mp4`,
+    thumbnail: `${T}/commercial-starsclash-teaser-2.jpg`,
+    brief:
+      "Produce an alternate teaser for the StarsClash format's promotion.",
+    problem:
+      "Different placements needed different teaser lengths and openings.",
+    approach:
+      "Re-sequenced highlight beats from the episode footage into a standalone teaser.",
+    breakdown:
+      "Re-sequenced highlight beats from the episode footage into a standalone teaser.",
+    result:
+      "A second teaser version used alongside the episode cut.",
+  },
+  {
+    slug: "zed-talents-2",
+    title: "Zed Talents — Vol. 2",
+    category: "Brand & Commercial",
+    year: "2021",
+    client: "ZED FC × Decathlon × Sawiris Foundation",
+    summary:
+      "Part of the Zed Talents bilingual sports template system, applied to a new batch of drill films.",
+    role: "Editor & Template Designer",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/commercial-zed-talents-2.mp4`,
+    thumbnail: `${T}/commercial-zed-talents-2.jpg`,
+    brief:
+      "Apply the Zed Talents bilingual template system to a further batch of talent-discovery footage.",
+    problem:
+      "Each new drill film needed the same bilingual lower-third and branding system applied consistently.",
+    approach:
+      "Reused the established English/Arabic lower-third template and stage/age-group structure.",
+    breakdown:
+      "Reused the established English/Arabic lower-third template and stage/age-group structure.",
+    result:
+      "A further set of drill films delivered consistently with the wider Zed Talents system.",
+  },
+  {
+    slug: "zed-talents-3",
+    title: "Zed Talents — Vol. 3",
+    category: "Brand & Commercial",
+    year: "2021",
+    client: "ZED FC × Decathlon × Sawiris Foundation",
+    summary:
+      "A further batch of Zed Talents drill films using the bilingual template system.",
+    role: "Editor & Template Designer",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/commercial-zed-talents-3.mp4`,
+    thumbnail: `${T}/commercial-zed-talents-3.jpg`,
+    brief:
+      "Continue the Zed Talents template system across additional drill footage.",
+    problem:
+      "The programme's footage volume required the template to scale to hundreds of near-identical films without drifting.",
+    approach:
+      "Kept a shared project template and asset library so each new film reused the same settings.",
+    breakdown:
+      "Kept a shared project template and asset library so each new film reused the same settings.",
+    result:
+      "Consistent delivery across a large batch of drill films.",
+  },
+  {
+    slug: "zed-talents-launch",
+    title: "Zed x Talents — Launch Film",
+    category: "Brand & Commercial",
+    year: "2021",
+    client: "ZED FC × Decathlon × Sawiris Foundation",
+    summary:
+      "A launch/mainsell film introducing the Zed Talents programme.",
+    role: "Editor",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/commercial-zed-talents-launch.mp4`,
+    thumbnail: `${T}/commercial-zed-talents-launch.jpg`,
+    brief:
+      "Cut the mainsell launch film introducing the Zed Talents talent-discovery programme.",
+    problem:
+      "A new programme needed one film that explained its purpose to parents and partners at once.",
+    approach:
+      "Combined programme footage with bilingual titles explaining the stages and partners involved.",
+    breakdown:
+      "Combined programme footage with bilingual titles explaining the stages and partners involved.",
+    result:
+      "A launch film used to introduce the programme ahead of the wider drill-film library.",
+  },
+  {
+    slug: "zed-talents-sample-2",
+    title: "Zed Talents — Sample Cut 2",
+    category: "Brand & Commercial",
+    year: "2021",
+    client: "ZED FC × Decathlon × Sawiris Foundation",
+    summary:
+      "A sample/reference cut from the Zed Talents drill-film library.",
+    role: "Editor",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/commercial-zed-talents-sample-2.mp4`,
+    thumbnail: `${T}/commercial-zed-talents-sample-2.jpg`,
+    brief:
+      "Produce a reference sample cut representing the Zed Talents drill-film format.",
+    problem:
+      "Stakeholders needed a representative sample without reviewing the full library.",
+    approach:
+      "Selected and finished one drill film to stand in as the template's reference example.",
+    breakdown:
+      "Selected and finished one drill film to stand in as the template's reference example.",
+    result:
+      "A sample cut used as the format's reference version.",
+  },
+  {
+    slug: "zed-talents-registration",
+    title: "Zed Talents — Registration Walkthrough",
+    category: "Brand & Commercial",
+    year: "2021",
+    client: "ZED FC × Decathlon × Sawiris Foundation",
+    summary:
+      "An animated app-UI walkthrough explaining how to register for the Zed Talents programme.",
+    role: "Motion Designer",
+    tools: ["After Effects"],
+    previewVideo: `${P}/commercial-zed-talents-registration.mp4`,
+    thumbnail: `${T}/commercial-zed-talents-registration.jpg`,
+    brief:
+      "Animate a UI walkthrough showing how families register for the programme.",
+    problem:
+      "A multi-step registration flow needed to be explained clearly to a non-technical audience.",
+    approach:
+      "Used device mockups, callout arrows and annotated fields to walk through each screen in order.",
+    breakdown:
+      "Used device mockups, callout arrows and annotated fields to walk through each screen in order.",
+    result:
+      "A clear registration explainer distinct from the programme's film-editing work.",
+  },
+  {
+    slug: "ora-preloader",
+    title: "Ora — Preloader Animation",
+    category: "Brand & Commercial",
+    year: "2021",
+    client: "Ora",
+    summary:
+      "A short branded preloader animation for the Ora identity system.",
+    role: "Motion Designer",
+    tools: ["After Effects"],
+    previewVideo: `${P}/commercial-ora-preloader.mp4`,
+    thumbnail: `${T}/commercial-ora-preloader.jpg`,
+    brief:
+      "Animate a loading-state preloader consistent with the Ora brand identity.",
+    problem:
+      "The brand needed a loading moment that still felt on-identity rather than generic.",
+    approach:
+      "Built a shape-based animation matching the wordmark's construction logic.",
+    breakdown:
+      "Built a shape-based animation matching the wordmark's construction logic.",
+    result:
+      "A reusable preloader delivered as part of the wider Ora identity-in-motion suite.",
+  },
+  {
+    slug: "ora-preloader-off",
+    title: "Ora — Preloader Animation (Alt Colourway)",
+    category: "Brand & Commercial",
+    year: "2021",
+    client: "Ora",
+    summary:
+      "An alternate colourway of the Ora preloader animation.",
+    role: "Motion Designer",
+    tools: ["After Effects"],
+    previewVideo: `${P}/commercial-ora-preloader-off.mp4`,
+    thumbnail: `${T}/commercial-ora-preloader-off.jpg`,
+    brief:
+      "Produce an alternate-colourway version of the Ora preloader for different backgrounds.",
+    problem:
+      "A single colourway didn't work across every placement background.",
+    approach:
+      "Reworked the animation's palette while keeping its timing and shape logic identical.",
+    breakdown:
+      "Reworked the animation's palette while keeping its timing and shape logic identical.",
+    result:
+      "A second colourway extending the preloader's usable placements.",
+  },
+  {
+    slug: "ora-shape-logo-3",
+    title: "Ora — Shape Animation Logo (Design 3)",
+    category: "Brand & Commercial",
+    year: "2021",
+    client: "Ora",
+    summary:
+      "One of four shape-animation logo builds developed for the Ora identity system.",
+    role: "Motion Designer",
+    tools: ["After Effects", "Illustrator"],
+    previewVideo: `${P}/commercial-ora-shape-logo-3.mp4`,
+    thumbnail: `${T}/commercial-ora-shape-logo-3.jpg`,
+    brief:
+      "Animate one of several shape-based logo build options for the Ora identity.",
+    problem:
+      "The identity needed several logo-build directions to choose between before committing.",
+    approach:
+      "Built the wordmark from simple animated shapes, keeping restraint central to the design.",
+    breakdown:
+      "Built the wordmark from simple animated shapes, keeping restraint central to the design.",
+    result:
+      "One of four logo-build options delivered for the Ora identity system.",
+  },
+  {
+    slug: "visual-snippets-1",
+    title: "Visual Snippets — Vol. 1",
+    category: "Sports",
+    year: "2023",
+    summary:
+      "A compiled reel of sports visual snippets and cutaways.",
+    role: "Editor",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/sports-visual-snippets-1.mp4`,
+    thumbnail: `${T}/sports-visual-snippets-1.jpg`,
+    brief:
+      "Compile a reel of standalone sports visual moments.",
+    problem:
+      "Strong individual sports shots existed without a single project to anchor them.",
+    approach:
+      "Sequenced the shots by energy and colour so the compilation reads as one continuous piece.",
+    breakdown:
+      "Sequenced the shots by energy and colour so the compilation reads as one continuous piece.",
+    result:
+      "A sports visual reel usable as a standalone showcase.",
+  },
+  {
+    slug: "visual-snippets-2",
+    title: "Visual Snippets — Vol. 2",
+    category: "Sports",
+    year: "2023",
+    summary:
+      "A second compiled reel of sports visual snippets.",
+    role: "Editor",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/sports-visual-snippets-2.mp4`,
+    thumbnail: `${T}/sports-visual-snippets-2.jpg`,
+    brief:
+      "Compile a further reel of sports visual moments.",
+    problem:
+      "Newer sports footage needed its own showcase separate from Vol. 1.",
+    approach:
+      "Applied the same sequencing approach as Vol. 1 to keep the two reels consistent.",
+    breakdown:
+      "Applied the same sequencing approach as Vol. 1 to keep the two reels consistent.",
+    result:
+      "A second sports visual reel extending the showcase.",
+  },
+  {
+    slug: "sports-squads",
+    title: "Squads",
+    category: "Sports",
+    year: "2023",
+    summary:
+      "A squad-announcement/roster-style sports edit.",
+    role: "Editor",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/sports-squads.mp4`,
+    thumbnail: `${T}/sports-squads.jpg`,
+    brief:
+      "Cut a squad-style roster piece for a sports audience.",
+    problem:
+      "A list of players/names needed to feel dynamic rather than static on screen.",
+    approach:
+      "Paired player footage with animated name cards timed to a driving edit rhythm.",
+    breakdown:
+      "Paired player footage with animated name cards timed to a driving edit rhythm.",
+    result:
+      "A squad reveal-style edit for social and highlight use.",
+  },
+  {
+    slug: "gary-neville-is-red",
+    title: "Gary Neville Is Red",
+    category: "Sports",
+    year: "2023",
+    summary:
+      "A football fan/commentary-style sports edit built around Gary Neville.",
+    role: "Editor",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/sports-gary-neville-is-red.mp4`,
+    thumbnail: `${T}/sports-gary-neville-is-red.jpg`,
+    brief:
+      "Cut a fan-style football commentary piece.",
+    problem:
+      "Commentary and reaction footage needed comedic/dramatic timing to land.",
+    approach:
+      "Cut tightly to reaction beats, using captions and sound design to punctuate the humour.",
+    breakdown:
+      "Cut tightly to reaction beats, using captions and sound design to punctuate the humour.",
+    result:
+      "A fan-style edit built for social sharing.",
+  },
+  {
+    slug: "gary-neville-is-red-2",
+    title: "Gary Neville Is Red — Cut 2",
+    category: "Sports",
+    year: "2023",
+    summary:
+      "An alternate cut of the Gary Neville Is Red piece.",
+    role: "Editor",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/sports-gary-neville-is-red-2.mp4`,
+    thumbnail: `${T}/sports-gary-neville-is-red-2.jpg`,
+    brief:
+      "Produce an alternate-length version of the piece.",
+    problem:
+      "A shorter placement needed the same joke in less time.",
+    approach:
+      "Trimmed the original cut down to its strongest single beat.",
+    breakdown:
+      "Trimmed the original cut down to its strongest single beat.",
+    result:
+      "A shorter alternate version for feed placements.",
+  },
+  {
+    slug: "amoory-like-fares-outro",
+    title: "Amoory Like Fares — Outro",
+    category: "Sports",
+    year: "2023",
+    summary:
+      "The closing/outro section of a football storytelling piece comparing two players.",
+    role: "Editor",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/sports-amoory-like-fares-outro.mp4`,
+    thumbnail: `${T}/sports-amoory-like-fares-outro.jpg`,
+    brief:
+      "Cut the outro sequence for a player-comparison storytelling piece.",
+    problem:
+      "A comparison narrative needed a satisfying closing beat rather than an abrupt stop.",
+    approach:
+      "Built a slower-paced outro contrasting with the main piece's rhythm, resolving on a single image.",
+    breakdown:
+      "Built a slower-paced outro contrasting with the main piece's rhythm, resolving on a single image.",
+    result:
+      "A closing sequence completing the wider comparison piece.",
+  },
+  {
+    slug: "vesba-story-fhd",
+    title: "Vesba Story — Extended Cut",
+    category: "Sports",
+    year: "2023",
+    summary:
+      "An extended full-HD cut of the Vesba Story piece.",
+    role: "Editor",
+    tools: ["Premiere Pro", "DaVinci Resolve"],
+    previewVideo: `${P}/sports-vesba-story-fhd.mp4`,
+    thumbnail: `${T}/sports-vesba-story-fhd.jpg`,
+    brief:
+      "Produce an extended cut of the Vesba Story piece at full HD.",
+    problem:
+      "The short version on the reel didn't leave room for the full story arc.",
+    approach:
+      "Restored additional scenes trimmed from the shorter cut and re-graded for consistency.",
+    breakdown:
+      "Restored additional scenes trimmed from the shorter cut and re-graded for consistency.",
+    result:
+      "A longer version of the story sitting alongside the existing short cut.",
+  },
+  {
+    slug: "abou-ali",
+    title: "Abou Ali",
+    category: "Sports",
+    year: "2023",
+    summary:
+      "A football storytelling piece centred on player Abou Ali.",
+    role: "Editor",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/sports-abou-ali.mp4`,
+    thumbnail: `${T}/sports-abou-ali.jpg`,
+    brief:
+      "Cut a storytelling piece centred on a football player's journey.",
+    problem:
+      "Match footage alone doesn't tell a player's story — it needed narrative framing.",
+    approach:
+      "Structured the edit around a clear arc, using captions and music to carry the narrative between clips.",
+    breakdown:
+      "Structured the edit around a clear arc, using captions and music to carry the narrative between clips.",
+    result:
+      "A player-focused storytelling edit for the sports reel.",
+  },
+  {
+    slug: "brazil-squad",
+    title: "Brazil Squad",
+    category: "Sports",
+    year: "2023",
+    summary:
+      "A squad-focused sports edit centred on the Brazilian national team.",
+    role: "Editor",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/sports-brazil-squad.mp4`,
+    thumbnail: `${T}/sports-brazil-squad.jpg`,
+    brief:
+      "Cut a squad-focused piece for a national-team audience.",
+    problem:
+      "Iconic footage needed fresh pacing to feel current rather than archival.",
+    approach:
+      "Paired archival clips with modern graphic titles and a contemporary music edit.",
+    breakdown:
+      "Paired archival clips with modern graphic titles and a contemporary music edit.",
+    result:
+      "A squad-focused edit for the sports reel.",
+  },
+  {
+    slug: "squat-fitness",
+    title: "Squat — Fitness Title Treatment",
+    category: "Sports",
+    year: "2023",
+    summary:
+      "A fitness-focused edit featuring a distinctive neon 'FITNESS' title card treatment.",
+    role: "Editor & Motion Designer",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/sports-squat-fitness.mp4`,
+    thumbnail: `${T}/sports-squat-fitness.jpg`,
+    brief:
+      "Cut a fitness-training piece with a strong opening title treatment.",
+    problem:
+      "Straight training footage needed a hook to stand out from generic gym content.",
+    approach:
+      "Designed a neon-style animated 'FITNESS' title card to open the piece before cutting into the training footage.",
+    breakdown:
+      "Designed a neon-style animated 'FITNESS' title card to open the piece before cutting into the training footage.",
+    result:
+      "A fitness edit distinguished by its title-card treatment.",
+  },
+  {
+    slug: "saba7o-korah-nsoo7y",
+    title: "Saba7o Korah — Nsoo7y Channel Promo",
+    category: "Sports",
+    year: "2019",
+    client: "Nsoo7y (YouTube)",
+    summary:
+      "A sample promotional edit produced for the Nsoo7y YouTube channel's football-talk format.",
+    role: "Editor",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/sports-sabaho-korah.mp4`,
+    thumbnail: `${T}/sports-sabaho-korah.jpg`,
+    brief:
+      "Produce a sample promo for a football-talk YouTube channel.",
+    problem:
+      "The channel needed a promo that reflected its casual, conversational football-talk format.",
+    approach:
+      "Cut a fast-paced highlight-and-reaction promo matching the channel's tone.",
+    breakdown:
+      "Cut a fast-paced highlight-and-reaction promo matching the channel's tone.",
+    result:
+      "A sample promo delivered for the channel.",
+  },
+  {
+    slug: "shady-habashy-story",
+    title: "Shady Habashy — Story",
+    category: "Visual Design",
+    year: "2023",
+    client: "Shady Habashy (YouTube)",
+    summary:
+      "A visual-design-led piece built around the Shady Habashy channel's storytelling format.",
+    role: "Editor & Motion Designer",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/visual-shady-habashy-story.mp4`,
+    thumbnail: `${T}/visual-shady-habashy-story.jpg`,
+    brief:
+      "Design a visual treatment for a story-format piece on the Shady Habashy channel.",
+    problem:
+      "A narrated story needed strong visual design to hold attention across its runtime.",
+    approach:
+      "Combined typography, imagery and pacing choices that matched the channel's established look.",
+    breakdown:
+      "Combined typography, imagery and pacing choices that matched the channel's established look.",
+    result:
+      "A visual-design-forward piece for the channel.",
+  },
+  {
+    slug: "wessam-abou-ali-2",
+    title: "Wessam Abou Ali — Cut 2",
+    category: "Visual Design",
+    year: "2023",
+    summary:
+      "An alternate visual-design cut of a piece centred on Wessam Abou Ali.",
+    role: "Editor & Motion Designer",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/visual-wessam-abou-ali-2.mp4`,
+    thumbnail: `${T}/visual-wessam-abou-ali-2.jpg`,
+    brief:
+      "Produce an alternate visual-design cut for a different placement.",
+    problem:
+      "A different placement needed its own pacing and title treatment.",
+    approach:
+      "Rebuilt the opening titles and re-timed the edit for the new placement.",
+    breakdown:
+      "Rebuilt the opening titles and re-timed the edit for the new placement.",
+    result:
+      "A second visual-design version of the piece.",
+  },
+  {
+    slug: "visual-frames-showcase",
+    title: "Visual Frames — Showcase",
+    category: "Visual Design",
+    year: "2023",
+    summary:
+      "A short showcase reel of standalone graded frames and visual-design stills in motion.",
+    role: "Editor & Colourist",
+    tools: ["DaVinci Resolve", "Premiere Pro"],
+    previewVideo: `${P}/visual-frames-showcase.mp4`,
+    thumbnail: `${T}/visual-frames-showcase.jpg`,
+    brief:
+      "Turn a set of strong graded frames into a short moving showcase.",
+    problem:
+      "Individual strong frames existed without a piece to present them together.",
+    approach:
+      "Sequenced the frames with subtle motion and pacing to let each one register before the next.",
+    breakdown:
+      "Sequenced the frames with subtle motion and pacing to let each one register before the next.",
+    result:
+      "A short showcase reel of visual-design frames.",
+  },
+  {
+    slug: "visual-ali-maaloul-2",
+    title: "Ali Maaloul — Visual Design Cut",
+    category: "Visual Design",
+    year: "2023",
+    summary:
+      "A visual-design-focused edit built around footballer Ali Maaloul, distinct from the 3D tribute pieces.",
+    role: "Editor & Motion Designer",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/visual-ali-maaloul-2.mp4`,
+    thumbnail: `${T}/visual-ali-maaloul-2.jpg`,
+    brief:
+      "Produce a visual-design-led cut distinct from the 3D-effects tribute pieces.",
+    problem:
+      "The subject needed a treatment led by typography and grading rather than 3D effects.",
+    approach:
+      "Prioritised type layout, colour grade and composition over animated 3D elements.",
+    breakdown:
+      "Prioritised type layout, colour grade and composition over animated 3D elements.",
+    result:
+      "A visual-design cut sitting alongside the 3D tribute pieces in the Motion & 3D category.",
+  },
+  {
+    slug: "before-and-after",
+    title: "Before & After",
+    category: "Visual Design",
+    year: "2023",
+    summary:
+      "A colour-grading and retouch before/after showcase piece.",
+    role: "Colourist & Retoucher",
+    tools: ["DaVinci Resolve", "Photoshop"],
+    previewVideo: `${P}/visual-before-and-after.mp4`,
+    thumbnail: `${T}/visual-before-and-after.jpg`,
+    brief:
+      "Demonstrate colour-grading and retouch work through direct before/after comparison.",
+    problem:
+      "Grading and retouch work is hard to appreciate without seeing the starting point.",
+    approach:
+      "Built direct wipes/cuts between ungraded source and finished frame across several examples.",
+    breakdown:
+      "Built direct wipes/cuts between ungraded source and finished frame across several examples.",
+    result:
+      "A before/after showcase reel demonstrating grading and retouch craft.",
+  },
+  {
+    slug: "reels-mix-1",
+    title: "Reels — Mix 1",
+    category: "Social Reels",
+    year: "2023",
+    summary:
+      "A vertical social reels compilation mixing several short-form pieces.",
+    role: "Editor",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/social-reels-mix-1.mp4`,
+    thumbnail: `${T}/social-reels-mix-1.jpg`,
+    brief:
+      "Compile a mix of vertical social reels into one showcase.",
+    problem:
+      "Individual reels lived on different channels without one place to see the range together.",
+    approach:
+      "Sequenced clips by energy and format so the mix reads as one continuous reel.",
+    breakdown:
+      "Sequenced clips by energy and format so the mix reads as one continuous reel.",
+    result:
+      "A vertical showcase mix representing the social-reels category.",
+  },
+  {
+    slug: "reels-mix-2",
+    title: "Reels — Mix 2",
+    category: "Social Reels",
+    year: "2023",
+    summary:
+      "A second vertical social reels compilation.",
+    role: "Editor",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/social-reels-mix-2.mp4`,
+    thumbnail: `${T}/social-reels-mix-2.jpg`,
+    brief:
+      "Compile a second mix of vertical social reels.",
+    problem:
+      "Newer short-form work needed its own showcase separate from Mix 1.",
+    approach:
+      "Applied the same sequencing approach as Mix 1 for consistency across the two reels.",
+    breakdown:
+      "Applied the same sequencing approach as Mix 1 for consistency across the two reels.",
+    result:
+      "A second vertical showcase mix.",
+  },
+  {
+    slug: "karim-hanafy",
+    title: "Karim Hanafy",
+    category: "Social Reels",
+    year: "2023",
+    summary:
+      "A vertical social piece built around speaker/creator Karim Hanafy.",
+    role: "Editor",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/social-karim-hanafy.mp4`,
+    thumbnail: `${T}/social-karim-hanafy.jpg`,
+    brief:
+      "Cut a vertical social piece for a speaker/creator feature.",
+    problem:
+      "Talking-head footage needed styled captions and pacing to work as a vertical feed piece.",
+    approach:
+      "Applied branded caption styling and tight cuts to keep pace in a 9:16 frame.",
+    breakdown:
+      "Applied branded caption styling and tight cuts to keep pace in a 9:16 frame.",
+    result:
+      "A vertical social piece for feed placement.",
+  },
+  {
+    slug: "sef-2023-recap",
+    title: "SEF 2023 — Recap",
+    category: "Social Reels",
+    year: "2023",
+    client: "Sharjah Entrepreneurship Festival",
+    summary:
+      "A recap edit of the Sharjah Entrepreneurship Festival (SEF) 2023.",
+    role: "Editor",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/social-sef-2023-recap.mp4`,
+    thumbnail: `${T}/social-sef-2023-recap.jpg`,
+    brief:
+      "Cut a recap piece summarising the SEF 2023 event.",
+    problem:
+      "A multi-day festival's highlights needed compressing into a shareable recap.",
+    approach:
+      "Selected key moments across speakers and stages, cut to an upbeat recap rhythm.",
+    breakdown:
+      "Selected key moments across speakers and stages, cut to an upbeat recap rhythm.",
+    result:
+      "A festival recap piece for social distribution.",
+  },
+  {
+    slug: "chatgpt-recap-update-2",
+    title: "ChatGPT Recap — Update 2",
+    category: "Social Reels",
+    year: "2023",
+    summary:
+      "An updated recap edit covering ChatGPT-related event content.",
+    role: "Editor",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/social-chatgpt-recap-update-2.mp4`,
+    thumbnail: `${T}/social-chatgpt-recap-update-2.jpg`,
+    brief:
+      "Update an earlier recap piece with new event coverage.",
+    problem:
+      "New coverage needed folding into the recap format without starting from scratch.",
+    approach:
+      "Reused the established recap template and swapped in newer footage and captions.",
+    breakdown:
+      "Reused the established recap template and swapped in newer footage and captions.",
+    result:
+      "An updated recap version for continued social distribution.",
+  },
+  {
+    slug: "chatgpt-hackathon-3",
+    title: "ChatGPT Hackathon — Version 3",
+    category: "Social Reels",
+    year: "2023",
+    client: "SHERAA",
+    summary:
+      "One of several finished cuts of the ChatGPT Hackathon recap, from a series of iterated versions.",
+    role: "Editor",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/social-chatgpt-hackathon-3.mp4`,
+    thumbnail: `${T}/social-chatgpt-hackathon-3.jpg`,
+    brief:
+      "Iterate a hackathon recap edit through several finished versions.",
+    problem:
+      "Stakeholder feedback across versions needed incorporating without losing the recap's pace.",
+    approach:
+      "Kept the core structure stable while swapping specific beats and the closing card between versions.",
+    breakdown:
+      "Kept the core structure stable while swapping specific beats and the closing card between versions.",
+    result:
+      "A third iterated version of the hackathon recap.",
+  },
+  {
+    slug: "chatgpt-interviews",
+    title: "ChatGPT Interviews",
+    category: "Social Reels",
+    year: "2023",
+    client: "SHERAA",
+    summary:
+      "A vertical interview-format piece built around ChatGPT/AI event conversations.",
+    role: "Editor",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/social-chatgpt-interviews.mp4`,
+    thumbnail: `${T}/social-chatgpt-interviews.jpg`,
+    brief:
+      "Cut a vertical interview series from an AI/tech event.",
+    problem:
+      "Long-form interview footage needed condensing into shareable vertical segments.",
+    approach:
+      "Selected the strongest soundbites and paired them with styled captions for accessibility.",
+    breakdown:
+      "Selected the strongest soundbites and paired them with styled captions for accessibility.",
+    result:
+      "A vertical interview series for social distribution.",
+  },
+  {
+    slug: "suggest-a-speaker-sef23",
+    title: "Suggest a Speaker — SEF23",
+    category: "Social Reels",
+    year: "2023",
+    client: "Sharjah Entrepreneurship Festival",
+    summary:
+      "A promotional/call-for-speakers piece for SEF 2023.",
+    role: "Editor",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/social-suggest-a-speaker-sef23.mp4`,
+    thumbnail: `${T}/social-suggest-a-speaker-sef23.jpg`,
+    brief:
+      "Cut a call-to-action piece inviting speaker suggestions for the festival.",
+    problem:
+      "A simple ask needed enough energy to prompt audience action on social.",
+    approach:
+      "Used direct-to-camera framing and a clear on-screen CTA over a short, energetic cut.",
+    breakdown:
+      "Used direct-to-camera framing and a clear on-screen CTA over a short, energetic cut.",
+    result:
+      "A call-for-speakers promo for the festival's social channels.",
+  },
+  {
+    slug: "sons-of-yusuf-teaser",
+    title: "Sons of Yusuf — Teaser",
+    category: "Social Reels",
+    year: "2023",
+    summary:
+      "A vertical teaser cut for the 'Sons of Yusuf' project.",
+    role: "Editor",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/social-sons-of-yusuf-teaser.mp4`,
+    thumbnail: `${T}/social-sons-of-yusuf-teaser.jpg`,
+    brief:
+      "Cut a vertical teaser to promote the Sons of Yusuf project on social.",
+    problem:
+      "A longer-form project needed a vertical hook distinct from its landscape teaser.",
+    approach:
+      "Reframed and re-cut key beats specifically for a 9:16 feed placement.",
+    breakdown:
+      "Reframed and re-cut key beats specifically for a 9:16 feed placement.",
+    result:
+      "A vertical teaser used for social promotion of the project.",
+  },
+  {
+    slug: "emma-reels-1",
+    title: "EMMA Reels — Vol. 1",
+    category: "Social Reels",
+    year: "2023",
+    summary:
+      "A glitch/collage-style editorial motion piece for the EMMA reels format.",
+    role: "Editor & Motion Designer",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/social-emma-reels-1.mp4`,
+    thumbnail: `${T}/social-emma-reels-1.jpg`,
+    brief:
+      "Cut an editorial motion piece using a glitch/collage visual style.",
+    problem:
+      "Straight cuts didn't match the format's intended editorial, magazine-like energy.",
+    approach:
+      "Layered glitch transitions and collage-style compositing between clips.",
+    breakdown:
+      "Layered glitch transitions and collage-style compositing between clips.",
+    result:
+      "A stylised editorial reel distinct from the more straightforward social cuts.",
+  },
+  {
+    slug: "digital-art-studio",
+    title: "Art Studio",
+    category: "Digital & YouTube Content",
+    year: "2023",
+    summary:
+      "A YouTube/digital piece documenting work inside an art studio.",
+    role: "Editor",
+    tools: ["Premiere Pro", "DaVinci Resolve"],
+    previewVideo: `${P}/digital-art-studio.mp4`,
+    thumbnail: `${T}/digital-art-studio.jpg`,
+    brief:
+      "Cut a digital/YouTube piece documenting studio-based creative work.",
+    problem:
+      "Process footage needed shaping into a watchable narrative rather than raw documentation.",
+    approach:
+      "Selected process beats and paired them with a calm, observational pacing and grade.",
+    breakdown:
+      "Selected process beats and paired them with a calm, observational pacing and grade.",
+    result:
+      "A studio-process piece for digital/YouTube distribution.",
+  },
+  {
+    slug: "sons-of-yusuf-intro-2",
+    title: "Sons of Yusuf — Intro (Cut 2)",
+    category: "Digital & YouTube Content",
+    year: "2023",
+    summary:
+      "An alternate intro cut for the 'Sons of Yusuf' digital/YouTube project.",
+    role: "Editor",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/digital-sons-of-yusuf-intro-2.mp4`,
+    thumbnail: `${T}/digital-sons-of-yusuf-intro-2.jpg`,
+    brief:
+      "Produce an alternate opening for the Sons of Yusuf project's YouTube release.",
+    problem:
+      "The primary intro didn't fit every platform's pacing expectations.",
+    approach:
+      "Re-timed the opening beats and title card for a YouTube-native pace.",
+    breakdown:
+      "Re-timed the opening beats and title card for a YouTube-native pace.",
+    result:
+      "An alternate intro version for the project's YouTube release.",
+  },
 ];
 
 
@@ -758,6 +2060,49 @@ export const categories = [
   "Visual Design",
   "Social Reels",
   "Digital & YouTube Content",
+];
+
+/**
+ * One muted highlight reel per work category, used on the homepage to let
+ * visitors preview each discipline before filtering into /work. Same spirit
+ * and compression profile as heroVideo — 1600x900, ~15s, no audio.
+ */
+export const categoryReels: { category: string; video: string; poster: string }[] = [
+  {
+    category: "Documentary & Directing",
+    video: `${P}/documentary-directing-promo.mp4`,
+    poster: `${T}/documentary-directing-promo.jpg`,
+  },
+  {
+    category: "Motion & 3D",
+    video: `${P}/motion-3d-promo.mp4`,
+    poster: `${T}/motion-3d-promo.jpg`,
+  },
+  {
+    category: "Brand & Commercial",
+    video: `${P}/brand-commercial-promo.mp4`,
+    poster: `${T}/brand-commercial-promo.jpg`,
+  },
+  {
+    category: "Sports",
+    video: `${P}/sports-promo.mp4`,
+    poster: `${T}/sports-promo.jpg`,
+  },
+  {
+    category: "Visual Design",
+    video: `${P}/visual-design-promo.mp4`,
+    poster: `${T}/visual-design-promo.jpg`,
+  },
+  {
+    category: "Social Reels",
+    video: `${P}/social-reels-promo.mp4`,
+    poster: `${T}/social-reels-promo.jpg`,
+  },
+  {
+    category: "Digital & YouTube Content",
+    video: `${P}/digital-youtube-content-promo.mp4`,
+    poster: `${T}/digital-youtube-content-promo.jpg`,
+  },
 ];
 
 export const services = [
