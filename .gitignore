@@ -40,3 +40,6 @@ next-env.d.ts
 /.sites-runtime/
 /outputs/
 /work/
+
+# Media now hosted on Cloudflare R2, not git - see mediaBase in app/page.tsx
+public/media/

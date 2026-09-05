@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const mediaBase = "/media";
+const mediaBase = "https://pub-f8b978c7d5d048dc89b05ff4b470b067.r2.dev";
 
 const categories = [
   "All",
