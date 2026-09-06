@@ -1059,6 +1059,42 @@ const projects = [
     tone: "red",
     featured: false,
   },
+  {
+    title: "Ebbe Sand — In His Own Words",
+    category: "Motion & 3D",
+    year: "2023",
+    role: "Editor & Motion Designer",
+    description:
+      "A kinetic-typography retrospective built from an archival interview transcript and restored match photography, paired with torn-paper quote reveals.",
+    image: `${mediaBase}/thumbnails/motion-ebbe-sand.jpg`,
+    video: `${mediaBase}/previews/motion-ebbe-sand.mp4`,
+    tone: "silver",
+    featured: false,
+  },
+  {
+    title: "Know Your Rights — Roadside Stop",
+    category: "Motion & 3D",
+    year: "2023",
+    role: "Motion Designer",
+    description:
+      "A punchy extruded-3D title package for a legal-explainer short, built around a night-time traffic-stop dramatization.",
+    image: `${mediaBase}/thumbnails/motion-know-your-rights.jpg`,
+    video: `${mediaBase}/previews/motion-know-your-rights.mp4`,
+    tone: "blue",
+    featured: false,
+  },
+  {
+    title: "Archive Carousel — Scene Transitions",
+    category: "Motion & 3D",
+    year: "2023",
+    role: "Motion Designer & 3D Artist",
+    description:
+      "A 3D coverflow transition system built to move between archival football photography and newspaper print without a hard cut.",
+    image: `${mediaBase}/thumbnails/motion-scene-transitions.jpg`,
+    video: `${mediaBase}/previews/motion-scene-transitions.mp4`,
+    tone: "warm",
+    featured: false,
+  },
 ];
 
 /** One muted highlight reel per work category, previewed on hover in the "Explore by Discipline" section. */
