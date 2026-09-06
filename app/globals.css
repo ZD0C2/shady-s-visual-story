@@ -238,13 +238,20 @@ footer { padding: 1.4rem 3.1vw; display: flex; justify-content: space-between; b
 @keyframes modal-in { from { opacity: 0; } }
 .modal-close { position: absolute; top: 1.2rem; right: 2rem; padding: .7rem 0; background: none; color: var(--paper); cursor: pointer; font: .62rem var(--mono); letter-spacing: .1em; text-transform: uppercase; }
 .modal-close span { display: inline-grid; place-items: center; width: 2rem; height: 2rem; margin-left: .5rem; border: 1px solid rgba(255,255,255,.35); border-radius: 50%; font-size: 1.2rem; }
-.modal-stage { width: min(88rem,100%); max-height: 88vh; display: grid; grid-template-rows: minmax(0,1fr) auto; }
+.modal-stage { width: min(88rem,100%); max-height: 88vh; display: grid; grid-template-rows: minmax(0,1fr) auto auto; }
 .modal-stage video { width: 100%; max-height: 70vh; object-fit: contain; background: #000; }
 .modal-caption { display: grid; grid-template-columns: 1fr auto; gap: 2rem; padding: 1.2rem 0 0; border-top: 1px solid rgba(255,255,255,.15); }
 .modal-caption > div:last-child { text-align: right; }
 .modal-caption p { margin: 0 0 .35rem; font: .56rem var(--mono); letter-spacing: .1em; text-transform: uppercase; color: #aaa89e; }
 .modal-caption h2 { margin: 0; font: 600 clamp(1.8rem,3vw,3.5rem) var(--display); letter-spacing: -.055em; }
 .modal-caption span { font: .65rem var(--mono); }
+.modal-clip-rail { display: flex; gap: .7rem; padding-top: 1rem; overflow-x: auto; }
+.modal-clip { flex: 0 0 auto; width: 7.5rem; padding: 0; border: 1px solid transparent; background: none; cursor: pointer; text-align: left; color: var(--paper); opacity: .55; transition: opacity .25s, border-color .25s; }
+.modal-clip img { display: block; width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 2px; }
+.modal-clip span { display: block; margin-top: .4rem; font: .58rem var(--mono); letter-spacing: .02em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.modal-clip:hover { opacity: .85; }
+.modal-clip.active { opacity: 1; }
+.modal-clip.active img { outline: 2px solid var(--acid); outline-offset: 2px; }
 
 @media (max-width: 900px) {
   .site-nav { height: 5.7rem; padding: 0 1.2rem; }

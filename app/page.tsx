@@ -15,7 +15,24 @@ const categories = [
   "Digital & YouTube Content",
 ] as const;
 
-const projects = [
+/** An alternate clip belonging to the same project - shown as "More from this project" in the watch modal. */
+type ProjectClip = { title: string; video: string; poster: string; duration?: string; role?: string };
+
+type Project = {
+  title: string;
+  category: (typeof categories)[number] | (string & {});
+  year: string;
+  role: string;
+  description: string;
+  image: string;
+  video: string;
+  tone: "warm" | "dark" | "red" | "silver" | "blue";
+  featured: boolean;
+  /** Extra videos for the same project (e.g. an archive cut, an extended full film). Shown as a clip rail in the watch modal. */
+  extraClips?: ProjectClip[];
+};
+
+const projects: Project[] = [
   {
     title: "Ahly Epic",
     category: "Documentary & Directing",
@@ -39,6 +56,10 @@ const projects = [
     video: `${mediaBase}/previews/documentary-el-gohary.mp4`,
     tone: "dark",
     featured: true,
+    extraClips: [
+      { title: "Archive animation", video: `${mediaBase}/previews/documentary-el-gohary-archive.mp4`, poster: `${mediaBase}/thumbnails/documentary-el-gohary-archive.jpg`, duration: "0:09", role: "Companion film" },
+      { title: "Full film", video: `${mediaBase}/previews/documentary-el-gohary-epic.mp4`, poster: `${mediaBase}/thumbnails/documentary-el-gohary-epic.jpg`, duration: "4:06", role: "Extended cut" },
+    ],
   },
   {
     title: "El Gohary — Archive Cut",
@@ -50,6 +71,9 @@ const projects = [
     video: `${mediaBase}/previews/documentary-el-gohary-archive.mp4`,
     tone: "warm",
     featured: false,
+    extraClips: [
+      { title: "Full film", video: `${mediaBase}/previews/documentary-el-gohary-epic.mp4`, poster: `${mediaBase}/thumbnails/documentary-el-gohary-epic.jpg`, duration: "4:06", role: "Extended cut" },
+    ],
   },
   {
     title: "Juve — The Duping",
@@ -1184,6 +1208,7 @@ function ProjectCard({ project, index, onOpen }: { project: (typeof projects)[nu
 
 export default function Home() {
   const [activeProject, setActiveProject] = useState<(typeof projects)[number] | null>(null);
+  const [activeClip, setActiveClip] = useState<ProjectClip | null>(null);
   const [activeCategory, setActiveCategory] = useState<(typeof categories)[number]>("All");
   const [menuOpen, setMenuOpen] = useState(false);
   const [companionPhase, setCompanionPhase] = useState("direct");
@@ -1197,6 +1222,10 @@ export default function Home() {
   const filteredProjects = projects.filter((project) =>
     activeCategory === "All" ? project.featured : project.category === activeCategory,
   );
+
+  useEffect(() => {
+    setActiveClip(null);
+  }, [activeProject]);
 
   useEffect(() => {
     const savedTheme = window.localStorage.getItem("shady-theme");
@@ -1556,8 +1585,22 @@ export default function Home() {
         <div ref={dialogRef} tabIndex={-1} className="project-modal" role="dialog" aria-modal="true" aria-label={`${activeProject.title} project video`} onMouseDown={(event) => event.currentTarget === event.target && setActiveProject(null)}>
           <button className="modal-close" onClick={() => setActiveProject(null)} aria-label="Close project">Close <span>×</span></button>
           <div className="modal-stage">
-            <video src={activeProject.video} poster={activeProject.image} autoPlay controls playsInline />
-            <div className="modal-caption"><div><p>{activeProject.category}</p><h2>{activeProject.title}</h2></div><div><p>{activeProject.role}</p><span>{activeProject.year}</span></div></div>
+            <video key={activeClip ? activeClip.video : activeProject.video} src={activeClip ? activeClip.video : activeProject.video} poster={activeClip ? activeClip.poster : activeProject.image} autoPlay controls playsInline />
+            <div className="modal-caption"><div><p>{activeProject.category}</p><h2>{activeProject.title}</h2></div><div><p>{activeClip ? activeClip.role || activeProject.role : activeProject.role}</p><span>{activeClip ? activeClip.duration || activeProject.year : activeProject.year}</span></div></div>
+            {activeProject.extraClips && activeProject.extraClips.length > 0 && (
+              <div className="modal-clip-rail" role="tablist" aria-label="More from this project">
+                <button role="tab" aria-selected={!activeClip} className={"modal-clip" + (!activeClip ? " active" : "")} onClick={() => setActiveClip(null)}>
+                  <img src={activeProject.image} alt="" loading="lazy" />
+                  <span>{activeProject.title}</span>
+                </button>
+                {activeProject.extraClips.map((clip) => (
+                  <button key={clip.video} role="tab" aria-selected={activeClip?.video === clip.video} className={"modal-clip" + (activeClip?.video === clip.video ? " active" : "")} onClick={() => setActiveClip(clip)}>
+                    <img src={clip.poster} alt="" loading="lazy" />
+                    <span>{clip.title}</span>
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       )}
