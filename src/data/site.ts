@@ -68,8 +68,8 @@ export interface Project {
   images?: string[];
 }
 
-const P = "/media/previews";
-const T = "/media/thumbnails";
+const P = "https://pub-f8b978c7d5d048dc89b05ff4b470b067.r2.dev/previews";
+const T = "https://pub-f8b978c7d5d048dc89b05ff4b470b067.r2.dev/thumbnails";
 
 export const projects: Project[] = [
   /* ---------------- Brand & Commercial ---------------- */
