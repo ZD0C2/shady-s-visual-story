@@ -28,9 +28,23 @@ export default function Work() {
     });
   }, [filter, search]);
 
+  // More footage for the full-screen watch view: other work in the same
+  // discipline, offered alongside the headline.
+  const related = useMemo(() => {
+    if (!selectedProject) return [];
+    return projects
+      .filter((p) => p.category === selectedProject.category && p.slug !== selectedProject.slug)
+      .slice(0, 8);
+  }, [selectedProject]);
+
   return (
     <main className="pt-24 pb-16">
-      <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+      <ProjectModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+        onSelectProject={setSelectedProject}
+        related={related}
+      />
       <div className="container mx-auto px-4 lg:px-8">
         <SectionHeader number="—" title="All Work" subtitle="Browse the full portfolio." />
 

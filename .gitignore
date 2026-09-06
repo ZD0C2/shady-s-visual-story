@@ -41,3 +41,8 @@ public/media/contact-sheets/
 
 # Stale verification build dirs
 dist-check/
+
+.vercel
+.env*
+
+public/media/

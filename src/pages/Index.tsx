@@ -222,6 +222,15 @@ export default function Index() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [workFilter, setWorkFilter] = useState("All");
 
+  // More footage for the full-screen watch view: other work in the same
+  // discipline, offered alongside the headline.
+  const relatedProjects = useMemo(() => {
+    if (!selectedProject) return [];
+    return projects
+      .filter((p) => p.category === selectedProject.category && p.slug !== selectedProject.slug)
+      .slice(0, 8);
+  }, [selectedProject]);
+
   const filteredProjects = useMemo(() => {
     // "All" shows the curated featured set; a category filter shows that category.
     const base =
@@ -271,7 +280,12 @@ export default function Index() {
   return (
     <main>
       <ShowreelModal open={showreelOpen} onClose={() => setShowreelOpen(false)} videoUrl={siteData.showreelUrl} />
-      <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+      <ProjectModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+        onSelectProject={setSelectedProject}
+        related={relatedProjects}
+      />
       {/* ===== HERO ===== */}
       <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <motion.div className="absolute inset-0" style={{ y: bgY, scale: bgScale }}>

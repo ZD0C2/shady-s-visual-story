@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Maximize2, Minimize2, AlertTriangle, Play } from "lucide-react";
+import { X, Maximize2, Minimize2, AlertTriangle, Play, Volume2, VolumeX } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Project, ProjectSnippet } from "@/data/site";
 import { getThumbnail } from "@/data/projectImages";
@@ -7,33 +7,104 @@ import { getThumbnail } from "@/data/projectImages";
 interface ProjectModalProps {
   project: Project | null;
   onClose: () => void;
+  /** Called when the viewer picks another project from the "More from this
+   *  category" rail. Optional — omit to hide that rail entirely. */
+  onSelectProject?: (project: Project) => void;
+  /** Other projects to surface as further footage alongside the headline
+   *  (typically same-category siblings, current project excluded). */
+  related?: Project[];
 }
 
-export default function ProjectModal({ project, onClose }: ProjectModalProps) {
+export default function ProjectModal({
+  project,
+  onClose,
+  onSelectProject,
+  related = [],
+}: ProjectModalProps) {
   const stageRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const sidebarRef = useRef<HTMLDivElement>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number>(-1); // -1 = main video
   const [failed, setFailed] = useState(false);
+
+  /**
+   * Sound is opt-in. Browsers block autoplay with sound, so playback always
+   * starts muted; the user unmutes with a click. The preference then persists
+   * across snippet switches within the session.
+   */
+  const [soundOn, setSoundOn] = useState(false);
+  /** null = not yet known, true/false once metadata has loaded. */
+  const [hasAudio, setHasAudio] = useState<boolean | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const open = !!project;
   const poster = project ? getThumbnail(project.slug, project.thumbnail) : undefined;
   const snippets = useMemo(() => project?.snippets ?? [], [project]);
 
-  // The currently displayed item: the project's main preview, or a chosen snippet.
+  // The currently displayed item: the project's full video, or a chosen snippet.
   const active: ProjectSnippet | null =
     activeIndex >= 0 && snippets[activeIndex] ? snippets[activeIndex] : null;
   const currentSrc = active ? active.src : project?.previewVideo;
   const currentPoster = active ? active.poster ?? poster : poster;
   const currentIsStill = active?.isStill ?? false;
 
-  // Reset to the main video whenever a different project opens.
+  // Reset to the full video and scroll the info column to the top whenever a
+  // different project opens (including hopping over via the related rail).
   useEffect(() => {
     setActiveIndex(-1);
     setFailed(false);
+    if (typeof sidebarRef.current?.scrollTo === "function") {
+      sidebarRef.current.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+    }
   }, [project?.slug]);
 
-  useEffect(() => setFailed(false), [currentSrc]);
+  useEffect(() => {
+    setFailed(false);
+    setHasAudio(null); // re-detect for each new source
+  }, [currentSrc]);
+
+  /**
+   * Detect whether the loaded file actually carries an audio track, so we can
+   * hide the sound control entirely rather than offering a dead button.
+   * Uses the non-standard readers where available and falls back to assuming
+   * audio exists (the control then simply has no effect on a silent file).
+   */
+  const detectAudio = useCallback(() => {
+    const el = videoRef.current as
+      | (HTMLVideoElement & {
+          mozHasAudio?: boolean;
+          webkitAudioDecodedByteCount?: number;
+          audioTracks?: { length: number };
+        })
+      | null;
+    if (!el) return;
+    if (typeof el.mozHasAudio === "boolean") return setHasAudio(el.mozHasAudio);
+    if (typeof el.webkitAudioDecodedByteCount === "number")
+      return setHasAudio(el.webkitAudioDecodedByteCount > 0);
+    if (el.audioTracks) return setHasAudio(el.audioTracks.length > 0);
+    setHasAudio(true);
+  }, []);
+
+  // Keep the element's muted property in sync with user intent. Never force
+  // muted=true after the user has opted in.
+  useEffect(() => {
+    const el = videoRef.current;
+    if (el) el.muted = !soundOn;
+  }, [soundOn, currentSrc]);
+
+  const toggleSound = useCallback(() => {
+    const el = videoRef.current;
+    setSoundOn((prev) => {
+      const next = !prev;
+      if (el) {
+        el.muted = !next;
+        // Unmuting counts as a user gesture, so this play() is allowed.
+        if (next) el.play().catch(() => {});
+      }
+      return next;
+    });
+  }, []);
 
   // ESC to close + background scroll lock.
   useEffect(() => {
@@ -76,14 +147,14 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
     <AnimatePresence>
       {project && (
         <motion.div
-          className="fixed inset-0 z-[100] flex items-start sm:items-center justify-center overflow-y-auto overscroll-contain p-4 sm:p-6"
+          className="fixed inset-0 z-[100]"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25 }}
           role="dialog"
           aria-modal="true"
-          aria-label={`${project.title} — project details`}
+          aria-label={`${project.title} — full-screen watch view`}
         >
           <motion.div
             className="fixed inset-0 bg-black/85 backdrop-blur-md"
@@ -105,146 +176,211 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             <X className="w-5 h-5" />
           </button>
 
+          {/* Full-screen watch view — video on one side, headline, footage
+              and the full write-up on the other. Stacks on small screens. */}
           <motion.div
-            className="relative z-10 w-full max-w-5xl my-auto"
-            initial={{ scale: 0.96, opacity: 0, y: 20 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.96, opacity: 0, y: 20 }}
+            className="relative z-10 w-full h-full flex flex-col md:flex-row overflow-y-auto md:overflow-hidden bg-[#050505]"
+            initial={{ scale: 0.98, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.98, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
           >
-            <div className="flex items-center justify-between gap-2 mb-3 pr-14">
-              <p className="text-xs uppercase tracking-[0.18em] text-white/60 truncate">
-                {active ? active.title : "Main preview"}
-              </p>
-              {!currentIsStill && !failed && (
-                <button
-                  type="button"
-                  onClick={toggleFullscreen}
-                  aria-label={isFullscreen ? "Exit fullscreen" : "Enlarge video to fullscreen"}
-                  className="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/25 text-white text-xs font-medium backdrop-blur-sm transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-                >
-                  {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
-                  <span className="hidden sm:inline">{isFullscreen ? "Exit fullscreen" : "Fullscreen"}</span>
-                </button>
-              )}
-            </div>
-
-            {/* Stage */}
-            <div
-              ref={stageRef}
-              className="video-stage relative rounded-2xl overflow-hidden bg-black ring-1 ring-white/10 shadow-2xl flex items-center justify-center max-h-[52vh] sm:max-h-[66vh]"
-            >
-              {failed ? (
-                /* Styled fallback — never a blank frame or a white page. */
-                <div className="w-full aspect-video flex flex-col items-center justify-center gap-3 text-center px-6 relative">
-                  {currentPoster && (
-                    <img
-                      src={currentPoster}
-                      alt=""
-                      aria-hidden="true"
-                      className="absolute inset-0 w-full h-full object-cover opacity-30"
-                    />
-                  )}
-                  <div className="relative z-10 flex flex-col items-center gap-2">
-                    <AlertTriangle className="w-7 h-7 text-white/70" />
-                    <p className="text-white font-medium">This clip couldn’t be loaded</p>
-                    <p className="text-white/60 text-sm max-w-sm">
-                      The rest of the project is still below. Try again, or pick another clip.
-                    </p>
-                  </div>
-                </div>
-              ) : currentIsStill ? (
-                <img
-                  src={currentSrc}
-                  alt={active ? `${project.title} — ${active.title}` : project.title}
-                  loading="lazy"
-                  decoding="async"
-                  onError={() => setFailed(true)}
-                  className="max-h-[52vh] sm:max-h-[66vh] w-auto max-w-full object-contain"
-                />
-              ) : (
-                <video
-                  key={currentSrc}
-                  src={currentSrc}
-                  poster={currentPoster}
-                  controls
-                  muted
-                  loop
-                  autoPlay
-                  playsInline
-                  preload="metadata"
-                  onError={() => setFailed(true)}
-                  aria-label={`${project.title} preview`}
-                  className="max-h-[52vh] sm:max-h-[66vh] w-auto max-w-full object-contain"
-                />
-              )}
-            </div>
-
-            {/* Related snippets */}
-            {snippets.length > 0 && (
-              <div className="mt-4">
-                <p className="text-xs uppercase tracking-[0.18em] text-white/60 mb-2">
-                  More from this project
+            {/* Video column */}
+            <div className="relative w-full md:flex-[1.4] md:h-full min-h-[38vh] sm:min-h-[46vh] md:min-h-0 bg-black flex items-center justify-center shrink-0">
+              <div className="absolute top-0 inset-x-0 z-20 flex items-center justify-between gap-2 p-3 sm:p-4 pr-16 md:pr-4 bg-gradient-to-b from-black/75 via-black/30 to-transparent">
+                <p className="text-xs uppercase tracking-[0.18em] text-white/70 truncate">
+                  {active ? active.title : "Full video"}
                 </p>
-                <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1 snap-x">
-                  <SnippetChip
-                    label="Main preview"
-                    poster={poster}
-                    selected={activeIndex === -1}
-                    onSelect={() => setActiveIndex(-1)}
+                <div className="flex items-center gap-2 shrink-0">
+                  {/* Sound control — hidden entirely when the file has no audio. */}
+                  {!currentIsStill && !failed && hasAudio !== false && (
+                    <button
+                      type="button"
+                      onClick={toggleSound}
+                      title={soundOn ? "Mute" : "Play with sound"}
+                      aria-label={soundOn ? "Mute video" : "Play video with sound"}
+                      aria-pressed={soundOn}
+                      className={`inline-flex items-center gap-2 px-3 py-2 rounded-full border text-xs font-medium backdrop-blur-sm transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C8A96A] ${
+                        soundOn
+                          ? "bg-[#C8A96A] text-[#080808] border-[#C8A96A] hover:bg-[#9A7444] hover:border-[#9A7444]"
+                          : "bg-white/10 hover:bg-white/20 border-white/25 text-white"
+                      }`}
+                    >
+                      {soundOn ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+                      <span className="hidden sm:inline">{soundOn ? "Mute" : "Play with sound"}</span>
+                    </button>
+                  )}
+                  {!currentIsStill && !failed && hasAudio === false && (
+                    <span className="text-[11px] text-white/45 hidden sm:inline">No audio in this clip</span>
+                  )}
+                  {!currentIsStill && !failed && (
+                    <button
+                      type="button"
+                      onClick={toggleFullscreen}
+                      aria-label={isFullscreen ? "Exit fullscreen" : "Enlarge video to fullscreen"}
+                      className="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/25 text-white text-xs font-medium backdrop-blur-sm transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+                    >
+                      {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
+                      <span className="hidden sm:inline">{isFullscreen ? "Exit fullscreen" : "Fullscreen"}</span>
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              <div
+                ref={stageRef}
+                className="video-stage relative w-full h-full flex items-center justify-center"
+              >
+                {failed ? (
+                  /* Styled fallback — never a blank frame or a white page. */
+                  <div className="w-full h-full flex flex-col items-center justify-center gap-3 text-center px-6 relative">
+                    {currentPoster && (
+                      <img
+                        src={currentPoster}
+                        alt=""
+                        aria-hidden="true"
+                        className="absolute inset-0 w-full h-full object-cover opacity-30"
+                      />
+                    )}
+                    <div className="relative z-10 flex flex-col items-center gap-2">
+                      <AlertTriangle className="w-7 h-7 text-white/70" />
+                      <p className="text-white font-medium">This clip couldn’t be loaded</p>
+                      <p className="text-white/60 text-sm max-w-sm">
+                        The rest of the project is still alongside. Try again, or pick another clip.
+                      </p>
+                    </div>
+                  </div>
+                ) : currentIsStill ? (
+                  <img
+                    src={currentSrc}
+                    alt={active ? `${project.title} — ${active.title}` : project.title}
+                    loading="lazy"
+                    decoding="async"
+                    onError={() => setFailed(true)}
+                    className="max-h-full max-w-full w-auto h-auto object-contain"
                   />
-                  {snippets.map((s, i) => (
-                    <SnippetChip
-                      key={s.src}
-                      label={s.title}
-                      meta={s.duration ?? s.role}
-                      poster={s.isStill ? s.src : s.poster}
-                      isStill={s.isStill}
-                      selected={activeIndex === i}
-                      onSelect={() => setActiveIndex(i)}
-                    />
+                ) : (
+                  <video
+                    key={currentSrc}
+                    ref={videoRef}
+                    src={currentSrc}
+                    poster={currentPoster}
+                    controls
+                    /* Bound to state, not hardcoded: starts muted so autoplay is
+                       permitted, and follows the user's choice thereafter. Full
+                       projects play once through rather than looping. */
+                    muted={!soundOn}
+                    loop={false}
+                    autoPlay
+                    playsInline
+                    preload="metadata"
+                    onLoadedMetadata={detectAudio}
+                    onError={() => setFailed(true)}
+                    aria-label={`${project.title} — full video`}
+                    className="max-h-full max-w-full w-auto h-auto object-contain"
+                  />
+                )}
+              </div>
+            </div>
+
+            {/* Info column — headline, footage, and the full write-up sit
+                beside the video rather than stacked underneath it. */}
+            <div
+              ref={sidebarRef}
+              className="relative w-full md:flex-1 md:h-full md:overflow-y-auto bg-[#0b0b0b] border-t md:border-t-0 md:border-l border-white/10"
+            >
+              <div className="p-5 sm:p-7 lg:p-8 pb-16">
+                {/* Headline */}
+                <div className="flex flex-wrap items-center gap-3">
+                  <h1 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-white">
+                    {project.title}
+                  </h1>
+                  <span className="chip">{project.year}</span>
+                  <span className="chip">{project.category}</span>
+                  {project.featured && <span className="chip">Featured</span>}
+                </div>
+
+                {project.client && (
+                  <p className="mt-2 text-sm text-white/60">
+                    <span className="text-white font-medium">Client:</span> {project.client}
+                  </p>
+                )}
+                {project.role && (
+                  <p className="mt-1 text-sm text-white/60">
+                    <span className="text-white font-medium">Role:</span> {project.role}
+                  </p>
+                )}
+
+                <div className="flex flex-wrap gap-2 mt-4">
+                  {project.tools.map((tool) => (
+                    <span key={tool} className="chip">
+                      {tool}
+                    </span>
                   ))}
                 </div>
-              </div>
-            )}
 
-            {/* Details */}
-            <div className="mt-5 rounded-2xl bg-card border border-border p-5 sm:p-6">
-              <div className="flex flex-wrap items-center gap-3">
-                <h2 className="font-heading text-xl sm:text-2xl md:text-3xl font-bold text-foreground">
-                  {project.title}
-                </h2>
-                <span className="chip">{project.year}</span>
-                <span className="chip">{project.category}</span>
-              </div>
+                {/* More footage, right alongside the headline: alternate
+                    clips/stills from this project, then other work from the
+                    same discipline. */}
+                {snippets.length > 0 && (
+                  <div className="mt-6">
+                    <p className="text-xs uppercase tracking-[0.18em] text-white/50 mb-2">
+                      More from this project
+                    </p>
+                    <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1 snap-x">
+                      <FootageChip
+                        label="Full video"
+                        poster={poster}
+                        selected={activeIndex === -1}
+                        onSelect={() => setActiveIndex(-1)}
+                      />
+                      {snippets.map((s, i) => (
+                        <FootageChip
+                          key={s.src}
+                          label={s.title}
+                          meta={s.duration ?? s.role}
+                          poster={s.isStill ? s.src : s.poster}
+                          isStill={s.isStill}
+                          selected={activeIndex === i}
+                          onSelect={() => setActiveIndex(i)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
 
-              {project.client && (
-                <p className="mt-2 text-sm text-muted-foreground">
-                  <span className="text-foreground font-medium">Client:</span> {project.client}
+                {related.length > 0 && onSelectProject && (
+                  <div className="mt-6">
+                    <p className="text-xs uppercase tracking-[0.18em] text-white/50 mb-2">
+                      More from {project.category}
+                    </p>
+                    <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1 snap-x">
+                      {related.map((r) => (
+                        <FootageChip
+                          key={r.slug}
+                          label={r.title}
+                          meta={r.year}
+                          poster={getThumbnail(r.slug, r.thumbnail)}
+                          onSelect={() => onSelectProject(r)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* The full write-up. */}
+                <div className="mt-8 space-y-6">
+                  <InfoSection label="Brief" text={project.brief || project.summary} />
+                  <InfoSection label="The Challenge" text={project.problem} />
+                  <InfoSection label="Approach" text={project.approach} />
+                  <InfoSection label="Breakdown" text={project.breakdown} />
+                  <InfoSection label="Result" text={project.result} />
+                </div>
+
+                <p className="mt-8 text-xs text-white/40">
+                  Muted by default — use the sound control above the video to play with audio.
                 </p>
-              )}
-
-              <p className="mt-3 text-sm md:text-base leading-relaxed text-muted-foreground">
-                {project.brief || project.summary}
-              </p>
-
-              {project.role && (
-                <p className="mt-3 text-sm text-muted-foreground">
-                  <span className="text-foreground font-medium">Role:</span> {project.role}
-                </p>
-              )}
-
-              <div className="flex flex-wrap gap-2 mt-4">
-                {project.tools.map((tool) => (
-                  <span key={tool} className="chip">
-                    {tool}
-                  </span>
-                ))}
               </div>
-
-              <p className="mt-4 text-xs text-muted-foreground/80">
-                Preview clip — muted by default. Use the player controls for sound.
-              </p>
             </div>
           </motion.div>
         </motion.div>
@@ -253,7 +389,17 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
   );
 }
 
-function SnippetChip({
+function InfoSection({ label, text }: { label: string; text?: string }) {
+  if (!text) return null;
+  return (
+    <div>
+      <p className="text-xs uppercase tracking-[0.18em] text-white/50 mb-1.5">{label}</p>
+      <p className="text-sm md:text-[15px] leading-relaxed text-white/75">{text}</p>
+    </div>
+  );
+}
+
+function FootageChip({
   label,
   meta,
   poster,
@@ -265,7 +411,7 @@ function SnippetChip({
   meta?: string;
   poster?: string;
   isStill?: boolean;
-  selected: boolean;
+  selected?: boolean;
   onSelect: () => void;
 }) {
   return (

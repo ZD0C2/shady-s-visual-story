@@ -84,7 +84,7 @@ export const projects: Project[] = [
       "Branded studio entertainment show pitting celebrity guests against each other across sports challenges, cut with a bold graphic identity.",
     role: "Video Editor",
     tools: ["Premiere Pro", "After Effects", "Audition"],
-    previewVideo: `${P}/commercial-vodafone-starsclash.mp4`,
+    previewVideo: `${P}/commercial-starsclash-teaser-2.mp4`,
     thumbnail: `${T}/commercial-vodafone-starsclash.jpg`,
     brief:
       "Cut a recurring branded show format for Vodafone in which two guests compete across in-studio sports challenges.",
@@ -107,7 +107,7 @@ export const projects: Project[] = [
       "Appetite-driven food cinematography paired with a 3D architectural visualisation of the venue and its illuminated signage.",
     role: "Creative Director & Editor",
     tools: ["Premiere Pro", "After Effects", "DaVinci Resolve"],
-    previewVideo: `${P}/commercial-leeloo.mp4`,
+    previewVideo: `${P}/commercial-leeloo-brand-film.mp4`,
     thumbnail: `${T}/commercial-leeloo.jpg`,
     brief: "Capture the atmosphere and menu of a premium café and restaurant.",
     problem:
@@ -129,7 +129,7 @@ export const projects: Project[] = [
       "Vertical-first promo built for social feeds, using presenter-led delivery and graphic sticker accents.",
     role: "Editor",
     tools: ["Premiere Pro", "After Effects"],
-    previewVideo: `${P}/commercial-minglings.mp4`,
+    previewVideo: `${P}/commercial-minglings-promo.mp4`,
     thumbnail: `${T}/commercial-minglings.jpg`,
     brief: "Produce a social-native promo for a café and restaurant brand.",
     problem: "The message had to land in a vertical frame within the first seconds.",
@@ -165,7 +165,7 @@ export const projects: Project[] = [
       "Product promo for a recruitment platform, delivered in both English and Arabic versions.",
     role: "Editor",
     tools: ["Premiere Pro", "After Effects"],
-    previewVideo: `${P}/commercial-drjob-pro.mp4`,
+    previewVideo: `${P}/commercial-drjob-pro-1.mp4`,
     thumbnail: `${T}/commercial-drjob-pro.jpg`,
     brief: "Explain a recruitment product clearly and quickly.",
     problem: "Platform features needed to be legible without a heavy voiceover load.",
@@ -264,6 +264,66 @@ export const projects: Project[] = [
       "A set of reusable 3D environments that carry the film's key beats and title moments.",
   },
   {
+    slug: "ebbe-sand",
+    title: "Ebbe Sand — In His Own Words",
+    category: "Motion & 3D",
+    year: "2023",
+    summary:
+      "A kinetic-typography retrospective built from an archival interview transcript and restored match photography, paired with torn-paper quote reveals.",
+    role: "Editor & Motion Designer",
+    tools: ["Premiere Pro", "After Effects"],
+    previewVideo: `${P}/motion-ebbe-sand.mp4`,
+    thumbnail: `${T}/motion-ebbe-sand.jpg`,
+    brief: "Turn an archival interview transcript into a watchable retrospective.",
+    problem:
+      "The only usable source was a text interview and scattered old match photography — no interview footage existed to cut against.",
+    approach:
+      "Built a torn-newspaper quote treatment that reveals the interview as kinetic type, intercut with restored match photography timed to the pacing of the words.",
+    breakdown:
+      "Torn-paper reveal animation, kinetic typography, photo restoration and parallax, archival colour grading.",
+    result: "A 95-second retrospective built entirely from print and photography.",
+  },
+  {
+    slug: "know-your-rights",
+    title: "Know Your Rights — Roadside Stop",
+    category: "Motion & 3D",
+    year: "2023",
+    summary:
+      "A punchy extruded-3D title package for a legal-explainer short, built around a night-time traffic-stop dramatization.",
+    role: "Motion Designer",
+    tools: ["After Effects", "Cinema 4D"],
+    previewVideo: `${P}/motion-know-your-rights.mp4`,
+    thumbnail: `${T}/motion-know-your-rights.jpg`,
+    brief: "Give a legal-rights explainer clip a title package with real weight.",
+    problem:
+      "A short, plainly-shot dramatization needed to read as a produced explainer rather than a stock clip.",
+    approach:
+      "Chunky extruded 3D titles timed to the beats of the dialogue, holding over the dramatization instead of a plain lower-third.",
+    breakdown:
+      "Extruded 3D typography, beat-matched title timing, colour grading to match the night exterior.",
+    result: "A 19-second title package ready to lead a longer explainer series.",
+  },
+  {
+    slug: "archive-scene-transitions",
+    title: "Archive Carousel — Scene Transitions",
+    category: "Motion & 3D",
+    year: "2023",
+    summary:
+      "A 3D coverflow transition system built to move between archival football photography and newspaper print without a hard cut.",
+    role: "Motion Designer & 3D Artist",
+    tools: ["After Effects", "Cinema 4D"],
+    previewVideo: `${P}/motion-scene-transitions.mp4`,
+    thumbnail: `${T}/motion-scene-transitions.jpg`,
+    brief: "Move between archival stills and print without breaking the read.",
+    problem:
+      "A run of archival photography and newspaper clippings needed to feel like one continuous sequence, not a slideshow.",
+    approach:
+      "A 3D carousel rig that turns each still into a physical card, so the camera move itself becomes the transition.",
+    breakdown:
+      "3D card rig, camera-driven transitions, paper and photo material shaders.",
+    result: "A reusable transition system now available for any archive-driven edit.",
+  },
+  {
     slug: "maaloul-tribute",
     title: "Ali Maâloul — Career Tribute",
     category: "Motion & 3D",
@@ -272,7 +332,7 @@ export const projects: Project[] = [
       "Career-retrospective design piece for Ali Maâloul, built from layered 3D composites: floating screens of career moments, trophy montages and filmstrip sequences.",
     role: "Motion Designer & Editor",
     tools: ["After Effects", "Photoshop", "Cinema 4D"],
-    previewVideo: `${P}/sports-maaloul-tribute.mp4`,
+    previewVideo: `${P}/motion-maaloul-3d-feature.mp4`,
     thumbnail: `${T}/sports-maaloul-tribute.jpg`,
     brief:
       "Celebrate a full club-and-country career in a single design-led sequence.",
@@ -297,7 +357,7 @@ export const projects: Project[] = [
       "A bilingual visual system for a football talent-discovery platform — applied consistently across roughly 200 films, plus app-UI motion and campaign cutdowns.",
     role: "Editor & Motion Designer",
     tools: ["Premiere Pro", "After Effects", "Photoshop"],
-    previewVideo: `${P}/commercial-zed-talents.mp4`,
+    previewVideo: `${P}/commercial-zed-talents-launch.mp4`,
     thumbnail: `${T}/commercial-zed-talents.jpg`,
     brief:
       "Build the video language for a platform scouting footballers aged 8–18, delivered in collaboration with Decathlon and the Sawiris Foundation.",
@@ -356,7 +416,7 @@ export const projects: Project[] = [
       "Episodic 3D kinetic-typography treatments set inside a cinematic night scene, built as a repeatable series format.",
     role: "Motion Designer",
     tools: ["After Effects", "Element 3D", "Photoshop"],
-    previewVideo: `${P}/motion-3d-titles.mp4`,
+    previewVideo: `${P}/motion-3d-reel-2.mp4`,
     thumbnail: `${T}/motion-3d-titles.jpg`,
     brief: "Give an explainer series a title system with real physical presence.",
     problem:
@@ -395,7 +455,7 @@ export const projects: Project[] = [
       "Long-form narrative documentary shot in 4K with a noir visual treatment — directed, lit and cut in-house.",
     role: "Director / DP / Editor",
     tools: ["Premiere Pro", "DaVinci Resolve", "After Effects"],
-    previewVideo: `${P}/documentary-juve-duping.mp4`,
+    previewVideo: `${P}/documentary-juve-duping-full-cut.mp4`,
     thumbnail: `${T}/documentary-juve-duping.jpg`,
     brief: "Tell a long-form football story with the visual language of a narrative film.",
     problem:
@@ -434,7 +494,7 @@ export const projects: Project[] = [
       "Long-form teaser cut built to establish tone and hold anticipation across its runtime.",
     role: "Editor",
     tools: ["Premiere Pro", "After Effects"],
-    previewVideo: `${P}/documentary-teaser.mp4`,
+    previewVideo: `${P}/documentary-showreel-teaser.mp4`,
     thumbnail: `${T}/documentary-teaser.jpg`,
     brief: "Introduce a documentary project without giving away its story.",
     problem: "Teasers must create curiosity while withholding resolution.",
@@ -450,7 +510,7 @@ export const projects: Project[] = [
     summary: "Narrative brand story told in a documentary register.",
     role: "Editor",
     tools: ["Premiere Pro", "DaVinci Resolve"],
-    previewVideo: `${P}/documentary-vesba-story.mp4`,
+    previewVideo: `${P}/sports-vesba-story-fhd.mp4`,
     thumbnail: `${T}/documentary-vesba-story.jpg`,
     brief: "Tell a story-led brand piece with documentary pacing.",
     problem: "Brand stories can feel like ads; this needed to feel observed.",
@@ -513,7 +573,7 @@ export const projects: Project[] = [
       "Vertical event recap for an AI hackathon, closing on the event lockup and a sold-out card.",
     role: "Editor",
     tools: ["Premiere Pro", "After Effects"],
-    previewVideo: `${P}/social-sharjah-hackathon.mp4`,
+    previewVideo: `${P}/social-chatgpt-hackathon-3.mp4`,
     thumbnail: `${T}/social-sharjah-hackathon.jpg`,
     brief: "Recap a tech hackathon for social distribution.",
     problem:
@@ -559,7 +619,7 @@ export const projects: Project[] = [
       "Logo animation suite and interface preloaders, delivered across colourways, formats and alpha variants.",
     role: "Motion Designer",
     tools: ["After Effects", "Illustrator"],
-    previewVideo: `${P}/motion-ora-logo.mp4`,
+    previewVideo: `${P}/commercial-ora-shape-logo-3.mp4`,
     thumbnail: `${T}/motion-ora-logo.jpg`,
     brief: "Bring a brand identity into motion for digital products.",
     problem:
@@ -581,7 +641,7 @@ export const projects: Project[] = [
       "Identity animation and product promo for a gold-investment app — particle logo reveal with Arabic typography and trading-UI motion.",
     role: "Motion Designer & Editor",
     tools: ["After Effects", "Premiere Pro", "Element 3D"],
-    previewVideo: `${P}/logo-gold-era.mp4`,
+    previewVideo: `${P}/commercial-gold-era-1.mp4`,
     thumbnail: `${T}/logo-gold-era.jpg`,
     brief: "Launch a gold-investment application with a premium identity animation.",
     problem:
@@ -2007,11 +2067,13 @@ const projectSnippets: Record<string, ProjectSnippet[]> = {
     { title: "Evidence board", src: `${S}/elgohary-title-card.jpg`, isStill: true, role: "Title design" },
     { title: "Fall of the Pharaoh", src: `${S}/elgohary-fall-of-pharaoh.jpg`, isStill: true, role: "Archive treatment" },
     { title: "The trial", src: `${S}/elgohary-press-trial.jpg`, isStill: true, role: "Scene design" },
+    { title: "Full film", src: `${P}/documentary-el-gohary-epic.mp4`, poster: `${T}/documentary-el-gohary-epic.jpg`, duration: "4:06", role: "Extended cut" },
   ],
   "el-gohary-3d-environments": [
     { title: "Rain stadium, 5–1", src: `${S}/elgohary-stadium-5-1.jpg`, isStill: true, role: "3D environment" },
     { title: "Ahwa at dawn", src: `${S}/elgohary-ahwa-interior.jpg`, isStill: true, role: "3D environment" },
     { title: "Archive animation", src: `${P}/documentary-el-gohary-archive.mp4`, poster: `${T}/documentary-el-gohary-archive.jpg`, duration: "0:09", role: "Companion film" },
+    { title: "Full film", src: `${P}/documentary-el-gohary-epic.mp4`, poster: `${T}/documentary-el-gohary-epic.jpg`, duration: "4:06", role: "Extended cut" },
   ],
   "sef-speaker-reels": [
     { title: "Akon", src: `${P}/social-sef-akon.mp4`, poster: `${T}/social-sef-akon.jpg`, duration: "0:08", role: "Speaker teaser" },
@@ -2067,41 +2129,44 @@ export const categories = [
  * visitors preview each discipline before filtering into /work. Same spirit
  * and compression profile as heroVideo — 1600x900, ~15s, no audio.
  */
+// Each category's promo is its single strongest full video, picked from
+// the ingested footage — not a cut-together reel. Points straight at that
+// project's own (untrimmed) preview + thumbnail files.
 export const categoryReels: { category: string; video: string; poster: string }[] = [
   {
     category: "Documentary & Directing",
-    video: `${P}/documentary-directing-promo.mp4`,
-    poster: `${T}/documentary-directing-promo.jpg`,
+    video: `${P}/documentary-showreel-teaser.mp4`,
+    poster: `${T}/documentary-showreel-teaser.jpg`,
   },
   {
     category: "Motion & 3D",
-    video: `${P}/motion-3d-promo.mp4`,
-    poster: `${T}/motion-3d-promo.jpg`,
+    video: `${P}/motion-maaloul-3d-feature.mp4`,
+    poster: `${T}/motion-maaloul-3d-feature.jpg`,
   },
   {
     category: "Brand & Commercial",
-    video: `${P}/brand-commercial-promo.mp4`,
-    poster: `${T}/brand-commercial-promo.jpg`,
+    video: `${P}/commercial-minglings-promo.mp4`,
+    poster: `${T}/commercial-minglings-promo.jpg`,
   },
   {
     category: "Sports",
-    video: `${P}/sports-promo.mp4`,
-    poster: `${T}/sports-promo.jpg`,
+    video: `${P}/sports-vesba-story-fhd.mp4`,
+    poster: `${T}/sports-vesba-story-fhd.jpg`,
   },
   {
     category: "Visual Design",
-    video: `${P}/visual-design-promo.mp4`,
-    poster: `${T}/visual-design-promo.jpg`,
+    video: `${P}/visual-shady-habashy-story.mp4`,
+    poster: `${T}/visual-shady-habashy-story.jpg`,
   },
   {
     category: "Social Reels",
-    video: `${P}/social-reels-promo.mp4`,
-    poster: `${T}/social-reels-promo.jpg`,
+    video: `${P}/social-reels-mix-1.mp4`,
+    poster: `${T}/social-reels-mix-1.jpg`,
   },
   {
     category: "Digital & YouTube Content",
-    video: `${P}/digital-youtube-content-promo.mp4`,
-    poster: `${T}/digital-youtube-content-promo.jpg`,
+    video: `${P}/digital-art-studio.mp4`,
+    poster: `${T}/digital-art-studio.jpg`,
   },
 ];
 
