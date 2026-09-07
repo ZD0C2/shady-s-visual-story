@@ -1044,6 +1044,9 @@ const categoryReels: { category: (typeof categories)[number]; video: string; pos
   { category: "Digital & YouTube Content", video: `${mediaBase}/previews/digital-youtube-content-promo.mp4`, poster: `${mediaBase}/thumbnails/digital-youtube-content-promo.jpg` },
 ];
 
+/** Thumbnails used in the drifting frame rail between the hero and the discipline grid. */
+const railFrames = projects.filter((p) => p.featured).slice(0, 10).map((p) => p.image);
+
 const disciplines = [
   ["01", "Direct", "Treatment, interview direction, lighting and on-set visual decisions."],
   ["02", "Edit", "Rhythm, narrative architecture and the exact frame where the story turns."],
@@ -1108,6 +1111,7 @@ function ProjectCard({ project, index, onOpen }: { project: (typeof projects)[nu
         <video ref={videoRef} src={project.video} poster={project.image} muted loop playsInline preload="none" aria-hidden="true" />
         <span className="project-index">{String(index + 1).padStart(2, "0")}</span>
         <span className="play-mark"><span>Play</span><Arrow diagonal /></span>
+        <span className="card-plate"><b>{project.title}</b><i>{project.year}</i></span>
       </button>
       <div className="project-copy">
         <p>{project.category}</p>
@@ -1125,7 +1129,7 @@ export default function Home() {
   const [activeCategory, setActiveCategory] = useState<(typeof categories)[number]>("All");
   const [menuOpen, setMenuOpen] = useState(false);
   const [companionPhase, setCompanionPhase] = useState("direct");
-  const [viewMode, setViewMode] = useState<"editorial" | "iconic">("editorial");
+  const [viewMode, setViewMode] = useState<"editorial" | "iconic">("iconic");
   const [theme, setTheme] = useState<"light" | "graphite">("light");
   const [contactOpen, setContactOpen] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -1368,6 +1372,16 @@ export default function Home() {
         <div>
           <span>Direction</span><i>✦</i><span>Film editing</span><i>✦</i><span>Motion design</span><i>✦</i><span>Visual systems</span><i>✦</i>
           <span>Direction</span><i>✦</i><span>Film editing</span><i>✦</i><span>Motion design</span><i>✦</i><span>Visual systems</span><i>✦</i>
+        </div>
+      </section>
+
+      <section className="stills-rail" aria-label="Selected frames">
+        <div className="stills-track">
+          {[...railFrames, ...railFrames].map((src, i) => (
+            <div className="stills-frame" key={`${src}-${i}`} aria-hidden={i >= railFrames.length}>
+              <img src={src} alt="" loading="lazy" />
+            </div>
+          ))}
         </div>
       </section>
 
