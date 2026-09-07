@@ -33,7 +33,15 @@ a:hover .arrow.diagonal, button:hover .arrow.diagonal { transform: rotate(-45deg
   display: flex; align-items: center; justify-content: space-between; padding: 0 3.1vw;
   color: var(--ink);
 }
-.monogram { width: 3.2rem; height: 3.2rem; border: 1px solid currentColor; display: grid; place-items: center; position: relative; font-family: var(--display); font-weight: 700; line-height: .65; letter-spacing: -.08em; }
+.monogram { width: 3.2rem; height: 3.2rem; border: 1px solid currentColor; display: grid; place-items: center; position: relative; font-family: var(--display); font-weight: 700; line-height: .65; letter-spacing: -.08em; background: none; color: inherit; cursor: pointer; padding: 0; perspective: 400px; transform-style: preserve-3d; transition: transform .5s cubic-bezier(.2,.9,.25,1), box-shadow .5s, border-color .35s; }
+.monogram::before { content: ""; position: absolute; inset: -1px; border: 1px solid var(--acid); opacity: 0; transform: translateZ(-14px) scale(.94); transition: opacity .4s, transform .5s cubic-bezier(.2,.9,.25,1); }
+.monogram:hover, .monogram:focus-visible { transform: rotateX(14deg) rotateY(-16deg) translateZ(6px); box-shadow: -6px 6px 0 rgba(0,0,0,.16); border-color: var(--acid); }
+.monogram:hover::before, .monogram:focus-visible::before { opacity: 1; transform: translateZ(-14px) scale(1.06); }
+.monogram:hover span:first-child { transform: translate(-.4rem,.02rem) translateZ(12px); }
+.monogram:hover span:last-child { transform: translate(.44rem,.28rem) translateZ(4px); opacity: 1; color: var(--acid); }
+.monogram:active { transform: rotateX(6deg) rotateY(-7deg) translateZ(0) scale(.96); }
+.monogram span { transition: transform .5s cubic-bezier(.2,.9,.25,1), opacity .4s, color .4s; }
+@media (prefers-reduced-motion: reduce) { .monogram, .monogram span, .monogram::before { transition: none; } .monogram:hover { transform: none; } }
 .monogram span:first-child { transform: translate(-.28rem,.04rem); }
 .monogram span:last-child { position: absolute; transform: translate(.31rem,.24rem); opacity: .7; }
 .nav-center { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: .65rem; font: 400 .68rem var(--mono); letter-spacing: .14em; text-transform: uppercase; }
@@ -466,3 +474,28 @@ footer { padding: 1.4rem 3.1vw; display: flex; justify-content: space-between; b
   .desk-actions a,.desk-actions button { grid-template-columns: 1fr auto; }
   .desk-actions b { grid-column: 1 / -1; grid-row: 2; }
 }
+
+/* ---------- About / bio panel (opened from the SM monogram) ---------- */
+.bio-veil { position: fixed; inset: 0; z-index: 90; display: grid; place-items: center; padding: clamp(1rem,4vw,3rem); background: rgba(8,8,7,.86); backdrop-filter: blur(7px); animation: bio-veil-in .35s ease both; }
+@keyframes bio-veil-in { from { opacity: 0; } to { opacity: 1; } }
+.bio-panel { position: relative; width: min(52rem,100%); max-height: 88vh; overflow-y: auto; padding: clamp(1.8rem,3.5vw,3.2rem); color: #f3f1ea; background: linear-gradient(152deg,#1c1b18 0%,#232220 46%,#141311 100%); border: 1px solid rgba(255,255,255,.13); border-radius: 3px; box-shadow: 0 40px 90px rgba(0,0,0,.55); animation: bio-panel-in .5s cubic-bezier(.16,1,.3,1) both; }
+@keyframes bio-panel-in { from { opacity: 0; transform: translateY(22px) scale(.985); } to { opacity: 1; transform: none; } }
+.bio-grain { position: absolute; inset: 0; pointer-events: none; opacity: .5; mix-blend-mode: overlay; background-image: radial-gradient(rgba(255,255,255,.11) 1px, transparent 1px), radial-gradient(rgba(0,0,0,.16) 1px, transparent 1px); background-size: 3px 3px, 5px 5px; background-position: 0 0, 1px 2px; }
+.bio-panel > * { position: relative; }
+.bio-head { display: flex; align-items: center; gap: 1.1rem; padding-bottom: 1.4rem; border-bottom: 1px solid rgba(255,255,255,.14); }
+.bio-mark { position: relative; flex: 0 0 auto; display: grid; place-items: center; width: 3.4rem; height: 3.4rem; border: 1px solid rgba(255,255,255,.5); font: 700 1.5rem/.65 var(--display); letter-spacing: -.08em; }
+.bio-mark span:first-child { transform: translate(-.3rem,.04rem); }
+.bio-mark span:last-child { position: absolute; transform: translate(.33rem,.26rem); color: var(--acid); }
+.bio-head h2 { margin: 0; font: 600 clamp(1.7rem,3vw,2.5rem) var(--display); letter-spacing: -.05em; }
+.bio-head p { margin: .3rem 0 0; font: .58rem var(--mono); letter-spacing: .13em; text-transform: uppercase; color: #a8a69c; }
+.bio-lede { margin: 1.5rem 0 1.3rem; font: 500 clamp(1.1rem,1.9vw,1.5rem) var(--display); letter-spacing: -.02em; color: var(--acid); }
+.bio-body p, .bio-manifesto p { margin: 0 0 .85rem; font-size: .96rem; line-height: 1.62; color: #d9d6cc; }
+.bio-manifesto { margin: 1.6rem 0; padding: 1.3rem 1.4rem; border-left: 2px solid var(--acid); background: rgba(255,255,255,.035); }
+.bio-manifesto p { color: #efece2; }
+.bio-manifesto p:last-child { margin-bottom: 0; }
+.bio-manifesto b { color: var(--acid); font-weight: 600; }
+.bio-sign { margin: 1.4rem 0 1.8rem; font: 600 clamp(1.05rem,1.7vw,1.35rem) var(--display); letter-spacing: -.025em; }
+.bio-actions { display: flex; flex-wrap: wrap; gap: .7rem; }
+.bio-actions button { display: inline-flex; align-items: center; gap: .55rem; padding: .8rem 1.3rem; border: 1px solid rgba(255,255,255,.28); background: none; color: #f3f1ea; cursor: pointer; font: .62rem var(--mono); letter-spacing: .1em; text-transform: uppercase; transition: background .3s, border-color .3s, color .3s; }
+.bio-actions button:hover { background: var(--acid); border-color: var(--acid); color: #14130f; }
+.bio-actions .arrow { width: 1rem; height: 1rem; }

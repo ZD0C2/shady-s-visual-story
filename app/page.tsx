@@ -293,7 +293,7 @@ const projects: Project[] = [
     category: "Digital & YouTube Content",
     year: "2023",
     role: "Editor & motion designer",
-    description: "A high-tempo tournament promo built for a competitive gaming audience and fast digital attention.",
+    description: "A tournament promo cut around a prize-reveal payoff, pairing celebratory fireworks footage with bold bilingual type and a build-to-the-number rhythm.",
     image: `${mediaBase}/thumbnails/commercial-hareef-gaming.jpg`,
     video: `${mediaBase}/previews/commercial-hareef-gaming.mp4`,
     tone: "red",
@@ -1121,6 +1121,7 @@ function ProjectCard({ project, index, onOpen }: { project: (typeof projects)[nu
 export default function Home() {
   const [activeProject, setActiveProject] = useState<(typeof projects)[number] | null>(null);
   const [activeClip, setActiveClip] = useState<ProjectClip | null>(null);
+  const [bioOpen, setBioOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState<(typeof categories)[number]>("All");
   const [menuOpen, setMenuOpen] = useState(false);
   const [companionPhase, setCompanionPhase] = useState("direct");
@@ -1152,33 +1153,34 @@ export default function Home() {
   }, [theme]);
 
   useEffect(() => {
-    if (!activeProject && !contactOpen && !menuOpen) return;
+    if (!activeProject && !contactOpen && !menuOpen && !bioOpen) return;
     const onKey = (event: KeyboardEvent) => {
       if (event.key !== "Escape") return;
       setActiveProject(null);
       setContactOpen(false);
       setMenuOpen(false);
+      setBioOpen(false);
     };
-    if (activeProject || contactOpen) document.body.classList.add("modal-open");
+    if (activeProject || contactOpen || bioOpen) document.body.classList.add("modal-open");
     window.addEventListener("keydown", onKey);
     return () => {
       document.body.classList.remove("modal-open");
       window.removeEventListener("keydown", onKey);
     };
-  }, [activeProject, contactOpen, menuOpen]);
+  }, [activeProject, contactOpen, menuOpen, bioOpen]);
 
   // Move focus into an opened dialog and restore it to the trigger on close.
   const lastFocused = useRef<HTMLElement | null>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (!activeProject && !contactOpen) return;
+    if (!activeProject && !contactOpen && !bioOpen) return;
     lastFocused.current = document.activeElement as HTMLElement | null;
     const frame = window.requestAnimationFrame(() => dialogRef.current?.focus());
     return () => {
       window.cancelAnimationFrame(frame);
       lastFocused.current?.focus?.();
     };
-  }, [activeProject, contactOpen]);
+  }, [activeProject, contactOpen, bioOpen]);
 
   useEffect(() => {
     const character = characterRef.current;
@@ -1299,7 +1301,7 @@ export default function Home() {
   return (
     <main className={`site-shell theme-${theme} phase-${companionPhase} ${menuOpen ? "menu-is-open" : ""}`} onClick={moveCompanion}>
       <nav className="site-nav" aria-label="Main navigation">
-        <a className="monogram" href="#top" aria-label="Shady Maged home"><span>S</span><span>M</span></a>
+        <button className="monogram" onClick={() => setBioOpen(true)} aria-label="About Shady Maged"><span>S</span><span>M</span></button>
         <div className="nav-center"><span>Film</span><i /> <span>Motion</span><i /> <span>Story</span></div>
         <div className="nav-actions">
           <button className="theme-toggle" onClick={() => setTheme(theme === "light" ? "graphite" : "light")} aria-label={`Switch to ${theme === "light" ? "graphite" : "light"} theme`}>
@@ -1513,6 +1515,45 @@ export default function Home() {
                 ))}
               </div>
             )}
+          </div>
+        </div>
+      )}
+
+      {bioOpen && (
+        <div className="bio-veil" role="dialog" aria-modal="true" aria-labelledby="bio-title" onMouseDown={(event) => event.currentTarget === event.target && setBioOpen(false)}>
+          <button className="modal-close" onClick={() => setBioOpen(false)} aria-label="Close about panel">Close <span>×</span></button>
+          <div className="bio-panel">
+            <div className="bio-grain" aria-hidden="true" />
+            <header className="bio-head">
+              <span className="bio-mark"><span>S</span><span>M</span></span>
+              <div>
+                <h2 id="bio-title">Shady Maged</h2>
+                <p>Creative Director · Video Editor · Storyteller</p>
+              </div>
+            </header>
+
+            <p className="bio-lede">&ldquo;Turning vision into cinematic reality.&rdquo;</p>
+
+            <div className="bio-body">
+              <p>Hi, I&rsquo;m Shady Maged. I&rsquo;m a video editor and creative director with around 8 years of experience.</p>
+              <p>I&rsquo;ve worked with different types of clients — content creators, YouTubers, and companies — across fields like education, sports, and art.</p>
+              <p>I think people enjoy working with me because I keep things simple and clear, and I always try to deliver more than expected. I really enjoy turning ideas into stories, and creating content that keeps people engaged.</p>
+              <p>I don&rsquo;t just see footage or a timeline — I see the story behind it. And I always try to create visuals that speak louder than words.</p>
+            </div>
+
+            <div className="bio-manifesto">
+              <p><b>Different eyes.</b> They see footage… I see potential. They see effects… I see emotion.</p>
+              <p>Emotion comes before effects. Every frame has a purpose. Every detail has a voice.</p>
+              <p>I don&rsquo;t edit videos. I build emotions. I direct attention. I craft stories people remember.</p>
+              <p>Editing is where the story ends. Creative direction is where it begins.</p>
+            </div>
+
+            <p className="bio-sign">Let&rsquo;s create something worth remembering.</p>
+
+            <div className="bio-actions">
+              <button onClick={() => { setBioOpen(false); setContactOpen(true); }}>Get in touch <Arrow diagonal /></button>
+              <button onClick={() => { setBioOpen(false); document.getElementById("work")?.scrollIntoView({ behavior: "smooth" }); }}>See the work <Arrow diagonal /></button>
+            </div>
           </div>
         </div>
       )}
