@@ -1387,14 +1387,14 @@ export default function Home() {
 
         <div className="hero-type" aria-label="Shady Maged — director, editor and motion designer">
           <span className="hero-line line-one">Shady</span>
-          <span className="hero-line line-two">Maged</span>
+          <span className="hero-line line-two">M<span className="ace-a">A</span>GED</span>
           <span className="hero-line line-three">Direct · Edit · Design</span>
         </div>
 
         <div className="portrait-stage">
           <div className="portrait-frame">
             <img
-              src="/shady-hero-hyperclear.webp"
+              src="/shady-hero-cutout-v2.png"
               alt="Portrait of Shady Maged"
             />
           </div>
