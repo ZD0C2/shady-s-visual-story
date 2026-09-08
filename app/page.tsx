@@ -1,8 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { caseStudies } from "./data/case-studies";
 
 const mediaBase = "https://pub-f8b978c7d5d048dc89b05ff4b470b067.r2.dev";
+
+/** Basename (no extension) of a media path — used to key case-study copy and derive still-frame URLs. */
+function slugFromVideo(video: string) {
+  const file = video.split("/").pop() ?? video;
+  return file.replace(/\.mp4$/, "");
+}
 
 const categories = [
   "All",
@@ -1509,29 +1516,71 @@ export default function Home() {
 
       <footer><span>© {new Date().getFullYear()} Shady Maged</span><span>Film · Motion · Story</span><a href="#top">Back to top ↑</a></footer>
 
-      {activeProject && (
-        <div ref={dialogRef} tabIndex={-1} className="project-modal" role="dialog" aria-modal="true" aria-label={`${activeProject.title} project video`} onMouseDown={(event) => event.currentTarget === event.target && setActiveProject(null)}>
-          <button className="modal-close" onClick={() => setActiveProject(null)} aria-label="Close project">Close <span>×</span></button>
-          <div className="modal-stage">
-            <video key={activeClip ? activeClip.video : activeProject.video} src={activeClip ? activeClip.video : activeProject.video} poster={activeClip ? activeClip.poster : activeProject.image} autoPlay controls playsInline />
-            <div className="modal-caption"><div><p>{activeProject.category}</p><h2>{activeProject.title}</h2></div><div><p>{activeClip ? activeClip.role || activeProject.role : activeProject.role}</p><span>{activeClip ? activeClip.duration || activeProject.year : activeProject.year}</span></div></div>
-            {activeProject.extraClips && activeProject.extraClips.length > 0 && (
-              <div className="modal-clip-rail" role="tablist" aria-label="More from this project">
-                <button role="tab" aria-selected={!activeClip} className={"modal-clip" + (!activeClip ? " active" : "")} onClick={() => setActiveClip(null)}>
-                  <img src={activeProject.image} alt="" loading="lazy" />
-                  <span>{activeProject.title}</span>
-                </button>
-                {activeProject.extraClips.map((clip) => (
-                  <button key={clip.video} role="tab" aria-selected={activeClip?.video === clip.video} className={"modal-clip" + (activeClip?.video === clip.video ? " active" : "")} onClick={() => setActiveClip(clip)}>
-                    <img src={clip.poster} alt="" loading="lazy" />
-                    <span>{clip.title}</span>
+      {activeProject && (() => {
+        const stillsSlug = slugFromVideo(activeProject.video);
+        const study = caseStudies[activeProject.video.split("/").pop() ?? ""];
+        const stills = [`${mediaBase}/stills/${stillsSlug}-01.jpg`, `${mediaBase}/stills/${stillsSlug}-02.jpg`];
+        return (
+        <div ref={dialogRef} tabIndex={-1} className="project-modal" role="dialog" aria-modal="true" aria-label={`${activeProject.title} project video`}>
+          <div className="screening-top">
+            <span>Shady's screening room</span>
+            <button className="modal-close" onClick={() => setActiveProject(null)} aria-label="Close project">Close <span>×</span></button>
+          </div>
+          <div className="modal-body">
+            <div className="modal-heading">
+              <div><p className="modal-kicker">{activeProject.category}</p><h2>{activeProject.title}</h2></div>
+              <div className="modal-meta">{activeClip ? activeClip.role || activeProject.role : activeProject.role}<br />{activeClip ? activeClip.duration || activeProject.year : activeProject.year}</div>
+            </div>
+            <div className="modal-stage">
+              <video key={activeClip ? activeClip.video : activeProject.video} src={activeClip ? activeClip.video : activeProject.video} poster={activeClip ? activeClip.poster : activeProject.image} autoPlay controls playsInline />
+              <div className="modal-caption"><div><p>Now playing</p><h3>{activeClip ? activeClip.title : activeProject.title}</h3></div><div><p>{activeClip ? activeClip.role || activeProject.role : activeProject.role}</p><span>{activeClip ? activeClip.duration || activeProject.year : activeProject.year}</span></div></div>
+              {activeProject.extraClips && activeProject.extraClips.length > 0 && (
+                <div className="modal-clip-rail" role="tablist" aria-label="More from this project">
+                  <button role="tab" aria-selected={!activeClip} className={"modal-clip" + (!activeClip ? " active" : "")} onClick={() => setActiveClip(null)}>
+                    <img src={activeProject.image} alt="" loading="lazy" />
+                    <span>{activeProject.title}</span>
                   </button>
+                  {activeProject.extraClips.map((clip) => (
+                    <button key={clip.video} role="tab" aria-selected={activeClip?.video === clip.video} className={"modal-clip" + (activeClip?.video === clip.video ? " active" : "")} onClick={() => setActiveClip(clip)}>
+                      <img src={clip.poster} alt="" loading="lazy" />
+                      <span>{clip.title}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="stills-gallery">
+              <div className="stills-gallery-heading"><h4>Selected frames</h4><span>From the shoot</span></div>
+              <div className="stills-strip">
+                {stills.map((src, i) => (
+                  <figure key={src}>
+                    <img src={src} alt="" loading="lazy" onError={(e) => { (e.currentTarget.closest("figure") as HTMLElement).style.display = "none"; }} />
+                    <figcaption>{activeProject.title} — frame {i + 1}</figcaption>
+                  </figure>
                 ))}
+              </div>
+            </div>
+
+            {study && (
+              <div className="project-story">
+                <p className="project-summary">{activeProject.description}</p>
+                <dl className="project-facts">
+                  <div><dt>Contribution</dt><dd>{activeProject.role}</dd></div>
+                  <div><dt>Format</dt><dd>{study.format}</dd></div>
+                  <div><dt>Toolkit</dt><dd>{study.toolkit.join(" · ")}</dd></div>
+                </dl>
+                <div className="project-process">
+                  <div><h5>The challenge</h5><p>{study.challenge}</p></div>
+                  <div><h5>The approach</h5><p>{study.approach}</p></div>
+                  <div><h5>In the final frame</h5><p>{study.finalFrame}</p></div>
+                </div>
               </div>
             )}
           </div>
         </div>
-      )}
+        );
+      })()}
 
       {bioOpen && (
         <div className="bio-veil" role="dialog" aria-modal="true" aria-labelledby="bio-title" onMouseDown={(event) => event.currentTarget === event.target && setBioOpen(false)}>
