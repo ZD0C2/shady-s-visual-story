@@ -1140,6 +1140,7 @@ export default function Home() {
   const [theme, setTheme] = useState<"light" | "graphite">("light");
   const [contactOpen, setContactOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const heroRef = useRef<HTMLElement>(null);
   const characterRef = useRef<HTMLDivElement>(null);
 
@@ -1149,6 +1150,7 @@ export default function Home() {
 
   useEffect(() => {
     setActiveClip(null);
+    setLightboxIndex(null);
   }, [activeProject]);
 
   useEffect(() => {
@@ -1167,6 +1169,10 @@ export default function Home() {
     if (!activeProject && !contactOpen && !menuOpen && !bioOpen) return;
     const onKey = (event: KeyboardEvent) => {
       if (event.key !== "Escape") return;
+      if (lightboxIndex !== null) {
+        setLightboxIndex(null);
+        return;
+      }
       setActiveProject(null);
       setContactOpen(false);
       setMenuOpen(false);
@@ -1178,7 +1184,7 @@ export default function Home() {
       document.body.classList.remove("modal-open");
       window.removeEventListener("keydown", onKey);
     };
-  }, [activeProject, contactOpen, menuOpen, bioOpen]);
+  }, [activeProject, contactOpen, menuOpen, bioOpen, lightboxIndex]);
 
   // Move focus into an opened dialog and restore it to the trigger on close.
   const lastFocused = useRef<HTMLElement | null>(null);
@@ -1369,7 +1375,7 @@ export default function Home() {
         </div>
 
         <div className="hero-bottom">
-          <p>Editor, director and motion designer building cinematic work from the first idea to the final frame.</p>
+          <p>Independent vision. Every frame considered.</p>
           <a href="#work" className="round-link"><span>View work</span><Arrow /></a>
         </div>
         <div className="scroll-cue" aria-hidden="true"><span>Scroll to enter</span><i /></div>
@@ -1485,8 +1491,9 @@ export default function Home() {
 
       <section id="contact" className="contact-section">
         <div className="contact-orbit" aria-hidden="true"><span>LET’S MAKE THE FRAME MATTER · </span></div>
-        <p><span>04</span> Start a project</p>
-        <h2>Have a story<br />that needs <em>movement?</em></h2>
+        <p><span>04</span> Start with a story</p>
+        <h2>The next frame<br /><em>starts here.</em></h2>
+        <p className="contact-subtext">A film to shape. A world to build. An idea that won&rsquo;t leave you alone.</p>
         <button className="contact-link" onClick={() => setContactOpen(true)}>
           <span>Let’s talk about it</span><Arrow diagonal />
         </button>
@@ -1555,12 +1562,37 @@ export default function Home() {
               <div className="stills-strip">
                 {stills.map((src, i) => (
                   <figure key={src}>
-                    <img src={src} alt="" loading="lazy" onError={(e) => { (e.currentTarget.closest("figure") as HTMLElement).style.display = "none"; }} />
+                    <button type="button" onClick={() => setLightboxIndex(i)} aria-label={`Open frame ${i + 1} of ${activeProject.title}`}>
+                      <img src={src} alt="" loading="lazy" onError={(e) => { (e.currentTarget.closest("figure") as HTMLElement).style.display = "none"; }} />
+                    </button>
                     <figcaption>{activeProject.title} — frame {i + 1}</figcaption>
                   </figure>
                 ))}
               </div>
             </div>
+
+            {lightboxIndex !== null && (
+              <div className="stills-lightbox" role="dialog" aria-modal="true" aria-label="Frame viewer">
+                <button className="stills-lightbox-close" onClick={() => setLightboxIndex(null)} aria-label="Close frame viewer">×</button>
+                <div className="stills-lightbox-stage">
+                  <img src={stills[lightboxIndex]} alt="" />
+                </div>
+                <div className="stills-lightbox-caption">{activeProject.title} — frame {lightboxIndex + 1} of {stills.length}</div>
+                <div className="stills-lightbox-strip">
+                  {stills.map((src, i) => (
+                    <button
+                      key={src}
+                      className={"stills-lightbox-thumb" + (i === lightboxIndex ? " active" : "")}
+                      onClick={() => setLightboxIndex(i)}
+                      aria-current={i === lightboxIndex}
+                      aria-label={`Frame ${i + 1}`}
+                    >
+                      <img src={src} alt="" loading="lazy" />
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {study && (
               <div className="project-story">
@@ -1590,32 +1622,25 @@ export default function Home() {
             <header className="bio-head">
               <span className="bio-mark"><span>S</span><span>M</span></span>
               <div>
-                <h2 id="bio-title">Shady Maged</h2>
-                <p>Creative Director · Video Editor · Storyteller</p>
+                <p className="bio-kicker">The Eye Behind the Frame</p>
+                <h2 id="bio-title">Curiosity first. <em>Camera second.</em></h2>
               </div>
             </header>
 
-            <p className="bio-lede">&ldquo;Turning vision into cinematic reality.&rdquo;</p>
-
             <div className="bio-body">
-              <p>Hi, I&rsquo;m Shady Maged. I&rsquo;m a video editor and creative director with around 8 years of experience.</p>
-              <p>I&rsquo;ve worked with different types of clients — content creators, YouTubers, and companies — across fields like education, sports, and art.</p>
-              <p>I think people enjoy working with me because I keep things simple and clear, and I always try to deliver more than expected. I really enjoy turning ideas into stories, and creating content that keeps people engaged.</p>
-              <p>I don&rsquo;t just see footage or a timeline — I see the story behind it. And I always try to create visuals that speak louder than words.</p>
+              <p>I&rsquo;m Shady, a director, editor and motion designer. I find stories in testimony, in archive, in the split second between two frames.</p>
+              <p>My work moves between documentary, branded film, sports and constructed worlds. I light, write, design and cut—so the idea can stay intact all the way through.</p>
             </div>
 
-            <div className="bio-manifesto">
-              <p><b>Different eyes.</b> They see footage… I see potential. They see effects… I see emotion.</p>
-              <p>Emotion comes before effects. Every frame has a purpose. Every detail has a voice.</p>
-              <p>I don&rsquo;t edit videos. I build emotions. I direct attention. I craft stories people remember.</p>
-              <p>Editing is where the story ends. Creative direction is where it begins.</p>
+            <div className="bio-facts">
+              <span>Based in Cairo</span>
+              <span>English &amp; Arabic</span>
+              <span>9+ years in post</span>
             </div>
-
-            <p className="bio-sign">Let&rsquo;s create something worth remembering.</p>
 
             <div className="bio-actions">
+              <button onClick={() => { setBioOpen(false); document.getElementById("work")?.scrollIntoView({ behavior: "smooth" }); }}>The story so far <Arrow diagonal /></button>
               <button onClick={() => { setBioOpen(false); setContactOpen(true); }}>Get in touch <Arrow diagonal /></button>
-              <button onClick={() => { setBioOpen(false); document.getElementById("work")?.scrollIntoView({ behavior: "smooth" }); }}>See the work <Arrow diagonal /></button>
             </div>
           </div>
         </div>
