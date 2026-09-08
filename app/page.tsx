@@ -11,6 +11,12 @@ function slugFromVideo(video: string) {
   return file.replace(/\.mp4$/, "");
 }
 
+/** Projects with a real, hand-picked frame library (from Astra's Drive archive) get more than the default 2 stills. */
+const extendedStillsCount: Record<string, number> = {
+  "documentary-ahly-epic.mp4": 6,
+  "articles-pavel-nedved.mp4": 6,
+};
+
 const categories = [
   "All",
   "Documentary & Directing",
@@ -1526,7 +1532,8 @@ export default function Home() {
       {activeProject && (() => {
         const stillsSlug = slugFromVideo(activeProject.video);
         const study = caseStudies[activeProject.video.split("/").pop() ?? ""];
-        const stills = [`${mediaBase}/stills/${stillsSlug}-01.jpg`, `${mediaBase}/stills/${stillsSlug}-02.jpg`];
+        const stillsCount = extendedStillsCount[activeProject.video.split("/").pop() ?? ""] ?? 2;
+        const stills = Array.from({ length: stillsCount }, (_, i) => `${mediaBase}/stills/${stillsSlug}-0${i + 1}.jpg`);
         return (
         <div ref={dialogRef} tabIndex={-1} className="project-modal" role="dialog" aria-modal="true" aria-label={`${activeProject.title} project video`}>
           <div className="screening-top">
