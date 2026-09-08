@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { caseStudies } from "./data/case-studies";
 
 const mediaBase = "https://pub-f8b978c7d5d048dc89b05ff4b470b067.r2.dev";
@@ -1075,7 +1075,23 @@ function Arrow({ diagonal = false }: { diagonal?: boolean }) {
   );
 }
 
-function DisciplineReelCard({ reel, onSelect }: { reel: (typeof categoryReels)[number]; onSelect: () => void }) {
+function DisciplineReelCard({
+  reel,
+  index,
+  total,
+  hovered,
+  onHover,
+  onLeave,
+  onSelect,
+}: {
+  reel: (typeof categoryReels)[number];
+  index: number;
+  total: number;
+  hovered: number | null;
+  onHover: () => void;
+  onLeave: () => void;
+  onSelect: () => void;
+}) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const play = () => videoRef.current?.play().catch(() => undefined);
   const pause = () => {
@@ -1083,14 +1099,31 @@ function DisciplineReelCard({ reel, onSelect }: { reel: (typeof categoryReels)[n
     videoRef.current.pause();
     videoRef.current.currentTime = 0;
   };
+
+  const center = (total - 1) / 2;
+  const offset = index - center;
+  const isHovered = hovered === index;
+  const restAngle = offset * 7;
+  const restDrop = Math.pow(offset, 2) * 4;
+  const pushAway = hovered !== null && !isHovered ? Math.sign(index - hovered) * (16 / (1 + Math.abs(index - hovered))) : 0;
+
+  const style: CSSProperties = isHovered
+    ? { transform: "rotate(0deg) translateY(-1rem) scale(1.12)", zIndex: 5 }
+    : {
+        transform: `rotate(${restAngle}deg) translateY(${restDrop}px) translateX(${pushAway}px)`,
+        zIndex: 1,
+        marginLeft: index === 0 ? 0 : "clamp(-2.2rem,-3vw,-1.4rem)",
+      };
+
   return (
     <button
-      className="discipline-reel-card"
+      className={"discipline-reel-card fan-card" + (isHovered ? " is-hovered" : "")}
+      style={style}
       onClick={onSelect}
-      onMouseEnter={play}
-      onMouseLeave={pause}
-      onFocus={play}
-      onBlur={pause}
+      onMouseEnter={() => { onHover(); play(); }}
+      onMouseLeave={() => { onLeave(); pause(); }}
+      onFocus={() => { onHover(); play(); }}
+      onBlur={() => { onLeave(); pause(); }}
       aria-label={`Explore ${reel.category}`}
     >
       <img src={reel.poster} alt="" loading="lazy" />
@@ -1147,6 +1180,7 @@ export default function Home() {
   const [contactOpen, setContactOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [hoveredDiscipline, setHoveredDiscipline] = useState<number | null>(null);
   const heroRef = useRef<HTMLElement>(null);
   const characterRef = useRef<HTMLDivElement>(null);
 
@@ -1409,11 +1443,16 @@ export default function Home() {
           <p><span>00</span> Explore by discipline</p>
           <h2>Seven ways into <em>the work.</em></h2>
         </header>
-        <div className="discipline-reels-grid">
-          {categoryReels.map((reel) => (
+        <div className="discipline-reels-grid" onMouseLeave={() => setHoveredDiscipline(null)}>
+          {categoryReels.map((reel, index) => (
             <DisciplineReelCard
               key={reel.category}
               reel={reel}
+              index={index}
+              total={categoryReels.length}
+              hovered={hoveredDiscipline}
+              onHover={() => setHoveredDiscipline(index)}
+              onLeave={() => {}}
               onSelect={() => {
                 setActiveCategory(reel.category);
                 document.getElementById("work")?.scrollIntoView({ behavior: "smooth" });
@@ -1464,7 +1503,7 @@ export default function Home() {
       <section id="approach" className="approach-section">
         <div className="approach-title">
           <p><span>02</span> One connected craft</p>
-          <h2>From treatment<br />to <em>timeline.</em></h2>
+          <h2>From the first idea<br />to the <em>final frame.</em></h2>
         </div>
         <div className="discipline-list">
           {disciplines.map(([number, title, description]) => (
@@ -1481,11 +1520,11 @@ export default function Home() {
           <span>00:16 — Selected motion</span>
         </div>
         <div className="manifesto-copy">
-          <p><span>03</span> About Shady</p>
-          <h2>I don’t separate story from design. <em>They should move as one.</em></h2>
+          <p><span>03</span> The Eye Behind the Frame</p>
+          <h2>Curiosity first. <em>Camera second.</em></h2>
           <div className="manifesto-body">
-            <p>Shady Maged is a video editor, director and motion designer working across documentary, branded film, sports storytelling and bilingual visual systems.</p>
-            <p>His work combines cinematic structure with graphic precision—from lighting a long-form interview to designing the motion language that holds an entire series together.</p>
+            <p>I&rsquo;m Shady, a director, editor and motion designer. I find stories in testimony, in archive, in the split second between two frames.</p>
+            <p>My work moves between documentary, branded film, sports and constructed worlds. I light, write, design and cut—so the idea can stay intact all the way through.</p>
           </div>
           <div className="stats">
             <div><b>9+</b><span>Years in post-production</span></div>
