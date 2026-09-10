@@ -1360,6 +1360,7 @@ export default function Home() {
   return (
     <main className={`site-shell theme-${theme} phase-${companionPhase} ${menuOpen ? "menu-is-open" : ""}`} onClick={moveCompanion}>
       <nav className="site-nav" aria-label="Main navigation">
+        <button className="monogram" onClick={() => setBioOpen(true)} aria-label="About Shady Maged"><span>S</span><span>M</span></button>
         <div className="nav-center"><span>Film</span><i /> <span>Motion</span><i /> <span>Story</span></div>
         <div className="nav-actions">
           <button className="theme-toggle" onClick={() => setTheme(theme === "light" ? "graphite" : "light")} aria-label={`Switch to ${theme === "light" ? "graphite" : "light"} theme`}>
@@ -1566,22 +1567,6 @@ export default function Home() {
           <a href="tel:01275288876">0127 528 8876</a>
         </div>
       </section>
-
-      <div
-        ref={characterRef}
-        className={`scroll-character phase-${companionPhase}`}
-        data-phase={companionPhase}
-      >
-        <button className="character-avatar" onClick={companionAction} aria-label={companionPhase === "edit" ? "Switch the work view" : companionPhase === "think" ? "Open the contact desk" : "Let little Shady guide this section"}>
-          <span className="character-prop" aria-hidden="true" />
-          <span className="character-rig" aria-hidden="true">
-            <img className="rig-base" src="/shady-3d-thinking.png" alt="" />
-            <img className="rig-hands" src="/shady-3d-thinking.png" alt="" />
-            <img className="rig-legs" src="/shady-3d-thinking.png" alt="" />
-          </span>
-        </button>
-        <span className="character-bubble"><b>{companionPhase === "think" ? "Ready to make something?" : companionPhase === "edit" ? (viewMode === "iconic" ? "Return to editorial view" : "See every film at once") : companionPhase === "motion" ? "Follow the craft" : companionPhase === "play" ? "Watch the full rhythm" : "Enter the archive"}</b><small>{companionPhase === "think" ? "Open the contact desk — email, copy or call." : companionPhase === "edit" ? "Try the medium Iconic overview." : companionPhase === "motion" ? "Hover each discipline and watch it react." : companionPhase === "play" ? "The montage shows how story and design connect." : "I’ll take you straight to the selected work."}</small></span>
-      </div>
 
       <footer><span>© {new Date().getFullYear()} Shady Maged</span><span>Film · Motion · Story</span><a href="#top">Back to top ↑</a></footer>
 
