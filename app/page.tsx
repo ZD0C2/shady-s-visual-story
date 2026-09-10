@@ -1084,6 +1084,61 @@ function ThemeIcon() {
   );
 }
 
+const toolBadges = [
+  {
+    name: "ChatGPT",
+    glyph: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          fill="currentColor"
+          d="M12 2.6c.85 0 1.6.52 1.92 1.28a4.1 4.1 0 0 1 4.52 1.98 4.15 4.15 0 0 1 .5 4.9 4.1 4.1 0 0 1-1.16 5.24 4.05 4.05 0 0 1-1.86 4.32A4.1 4.1 0 0 1 12 21.4a4.1 4.1 0 0 1-3.92-1.08 4.05 4.05 0 0 1-1.86-4.32 4.1 4.1 0 0 1-1.16-5.24 4.15 4.15 0 0 1 .5-4.9A4.1 4.1 0 0 1 10.08 3.9 2.08 2.08 0 0 1 12 2.6Z"
+          opacity=".22"
+        />
+        <circle cx="12" cy="12" r="2.55" fill="currentColor" />
+      </svg>
+    ),
+  },
+  {
+    name: "Claude",
+    glyph: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <rect key={i} x="11.15" y="2.6" width="1.7" height="7.4" rx=".85" fill="currentColor" transform={`rotate(${i * 45} 12 12)`} />
+        ))}
+      </svg>
+    ),
+  },
+  {
+    name: "After Effects",
+    glyph: <span className="tool-mark">Ae</span>,
+  },
+  {
+    name: "Premiere Pro",
+    glyph: <span className="tool-mark">Pr</span>,
+  },
+  {
+    name: "Canva",
+    glyph: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="9.4" fill="none" stroke="currentColor" strokeWidth="1.7" />
+        <path fill="currentColor" d="M12.6 7.4a4.9 4.9 0 1 0 2.55 9.08.85.85 0 0 1 .95 1.4A6.6 6.6 0 1 1 12.6 5.7a6.5 6.5 0 0 1 3.55 1.05.85.85 0 0 1-.9 1.44 4.85 4.85 0 0 0-2.65-.79Z" />
+      </svg>
+    ),
+  },
+  {
+    name: "Figma",
+    glyph: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="15.2" cy="7.6" r="3" fill="currentColor" />
+        <circle cx="15.2" cy="16.4" r="3" fill="currentColor" opacity=".55" />
+        <circle cx="9" cy="19.4" r="2.6" fill="currentColor" opacity=".8" />
+        <rect x="6.4" y="4.6" width="5.6" height="6" rx="2.8" fill="currentColor" opacity=".85" />
+        <rect x="6.4" y="10.6" width="5.6" height="6" rx="2.8" fill="currentColor" opacity=".65" />
+      </svg>
+    ),
+  },
+];
+
 function DisciplineReelCard({
   reel,
   index,
@@ -1514,7 +1569,14 @@ export default function Home() {
             />
           </div>
           <div className="head-motion" aria-hidden="true">
-            <i className="orbit-line orbit-a" />
+            <span className="tool-ring-band" />
+            <div className="tool-ring-orbit">
+              {toolBadges.map((tool) => (
+                <span className="tool-badge" key={tool.name}>
+                  <i title={tool.name}>{tool.glyph}</i>
+                </span>
+              ))}
+            </div>
             <i className="orbit-line orbit-b" />
             <i className="orbit-line orbit-c" />
             <span className="motion-chip chip-direct">01 · DIRECT</span>
