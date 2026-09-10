@@ -1075,6 +1075,15 @@ function Arrow({ diagonal = false }: { diagonal?: boolean }) {
   );
 }
 
+function ThemeIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="theme-icon">
+      <circle cx="12" cy="12" r="9.25" fill="none" stroke="currentColor" strokeWidth="1.4" />
+      <path d="M12 2.75a9.25 9.25 0 0 1 0 18.5z" fill="currentColor" />
+    </svg>
+  );
+}
+
 function DisciplineReelCard({
   reel,
   index,
@@ -1145,7 +1154,7 @@ function DisciplineReelCard({
 function ProjectCard({
   project, index, total, variant, onOpen,
 }: {
-  project: (typeof projects)[number]; index: number; total: number; variant: "editorial" | "iconic"; onOpen: () => void;
+  project: (typeof projects)[number]; index: number; total: number; variant: "editorial" | "iconic" | "index"; onOpen: () => void;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const play = () => videoRef.current?.play().catch(() => undefined);
@@ -1177,9 +1186,22 @@ function ProjectCard({
             <span className="project-row-desc">{project.description}</span>
             <span className="project-row-meta"><span>{project.role}</span><span>{project.year}</span></span>
           </span>
-          <span className="project-row-cta"><span>Watch project</span><Arrow diagonal /></span>
+          <span className="project-row-cta liquid-glass"><span>Watch project</span><Arrow diagonal /></span>
         </button>
       </article>
+    );
+  }
+
+  if (variant === "index") {
+    return (
+      <button className="project-line" onClick={onOpen} aria-label={`Watch ${project.title}`}>
+        <span className="project-line-index">{String(index + 1).padStart(2, "0")}</span>
+        <img src={project.image} alt="" loading="lazy" />
+        <span className="project-line-title">{project.title}</span>
+        <span className="project-line-category">{project.category}</span>
+        <span className="project-line-year">{project.year}</span>
+        <Arrow diagonal />
+      </button>
     );
   }
 
@@ -1197,7 +1219,7 @@ function ProjectCard({
         <img src={project.image} alt="" loading="lazy" />
         <video ref={videoRef} src={project.video} poster={project.image} muted loop playsInline preload="none" aria-hidden="true" />
         <span className="project-index">{String(index + 1).padStart(2, "0")}</span>
-        <span className="play-mark"><span>Play</span><Arrow diagonal /></span>
+        <span className="play-mark liquid-glass"><span>Play</span><Arrow diagonal /></span>
         <span className="card-plate"><b>{project.title}</b><i>{project.year}</i></span>
       </button>
       <div className="project-copy">
@@ -1217,7 +1239,7 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuSection, setMenuSection] = useState<"work" | null>(null);
   const [companionPhase, setCompanionPhase] = useState("direct");
-  const [viewMode, setViewMode] = useState<"editorial" | "iconic">("editorial");
+  const [viewMode, setViewMode] = useState<"editorial" | "iconic" | "index">("editorial");
   const [theme, setTheme] = useState<"light" | "graphite">("light");
   const [contactOpen, setContactOpen] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -1231,6 +1253,7 @@ export default function Home() {
   const filteredProjects = projects.filter((project) =>
     activeCategory === "All" ? project.featured : project.category === activeCategory,
   );
+  const displayedProjects = viewMode === "index" ? projects : filteredProjects;
 
   useEffect(() => {
     setActiveClip(null);
@@ -1406,11 +1429,11 @@ export default function Home() {
         <button className="monogram" onClick={() => setBioOpen(true)} aria-label="About Shady Maged"><span>S</span><span>M</span></button>
         <div className="nav-center"><span>Film</span><i /> <span>Motion</span><i /> <span>Story</span></div>
         <div className="nav-actions">
-          <button className="theme-toggle" onClick={() => setTheme(theme === "light" ? "graphite" : "light")} aria-label={`Switch to ${theme === "light" ? "graphite" : "light"} theme`}>
-            <span aria-hidden="true">{theme === "light" ? "◐" : "○"}</span><b>{theme === "light" ? "Graphite" : "Light"}</b>
+          <button className="theme-toggle liquid-glass" onClick={() => setTheme(theme === "light" ? "graphite" : "light")} aria-label={`Switch to ${theme === "light" ? "graphite" : "light"} theme`}>
+            <ThemeIcon />
           </button>
           <button
-            className={`menu-button ${menuOpen ? "open" : ""}`}
+            className={`menu-button liquid-glass ${menuOpen ? "open" : ""}`}
             onClick={() => { setMenuOpen(!menuOpen); setMenuSection(null); }}
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
@@ -1420,39 +1443,20 @@ export default function Home() {
         </div>
       </nav>
       <aside id="mobile-menu" className={`command-menu ${menuOpen ? "open" : ""}`} aria-hidden={!menuOpen}>
+        <button className="command-menu-close liquid-glass" onClick={() => { setMenuOpen(false); setMenuSection(null); }} aria-label="Close menu">
+          Close <span aria-hidden="true">×</span>
+        </button>
         <div className="command-menu-inner">
-          <div className="command-menu-status">
-            <span>Now in frame</span>
-            <b>{companionPhase === "edit" ? "Selected work" : companionPhase === "motion" ? "Approach" : companionPhase === "play" ? "About" : companionPhase === "think" ? "Contact" : "Opening frame"}</b>
+          <div className="command-menu-title">
+            <p className="section-label">Inside Shady&rsquo;s world</p>
+            <h2>Find your<br /><em>next frame.</em></h2>
           </div>
           <nav className="command-menu-links">
-            <div className={`command-menu-item ${menuSection === "work" ? "expanded" : ""}`}>
-              <button
-                className="command-menu-link"
-                aria-expanded={menuSection === "work"}
-                onClick={() => setMenuSection(menuSection === "work" ? null : "work")}
-              >
-                <span>Work</span><Arrow diagonal={menuSection !== "work"} />
-              </button>
-              <div className="command-menu-categories" aria-hidden={menuSection !== "work"}>
-                {categories.map((category) => (
-                  <button
-                    key={category}
-                    className={activeCategory === category ? "active" : ""}
-                    onClick={() => {
-                      setActiveCategory(category);
-                      setMenuOpen(false);
-                      setMenuSection(null);
-                      document.getElementById("work")?.scrollIntoView({ behavior: "smooth" });
-                    }}
-                  >
-                    {category === "All" ? "All work" : category}
-                  </button>
-                ))}
-              </div>
-            </div>
+            <a className="command-menu-link" href="#work" onClick={() => { setMenuOpen(false); setMenuSection(null); }}>
+              <span>The work</span><Arrow diagonal />
+            </a>
             <a className="command-menu-link" href="#approach" onClick={() => { setMenuOpen(false); setMenuSection(null); }}>
-              <span>Practice</span><Arrow diagonal />
+              <span>The practice</span><Arrow diagonal />
             </a>
             <button
               className="command-menu-link"
@@ -1464,11 +1468,27 @@ export default function Home() {
               <span>Contact</span><Arrow diagonal />
             </a>
           </nav>
+          <div className="command-menu-categories">
+            {categories.filter((category) => category !== "All").map((category) => (
+              <button
+                key={category}
+                className={activeCategory === category ? "active" : ""}
+                onClick={() => {
+                  setActiveCategory(category);
+                  setMenuOpen(false);
+                  setMenuSection(null);
+                  document.getElementById("work")?.scrollIntoView({ behavior: "smooth" });
+                }}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
           <div className="command-menu-footer">
-            <button className="theme-toggle" onClick={() => setTheme(theme === "light" ? "graphite" : "light")} aria-label={`Switch to ${theme === "light" ? "graphite" : "light"} theme`}>
-              <span aria-hidden="true">{theme === "light" ? "◐" : "○"}</span><b>{theme === "light" ? "Graphite" : "Light"}</b>
+            <button className="theme-toggle liquid-glass" onClick={() => setTheme(theme === "light" ? "graphite" : "light")} aria-label={`Switch to ${theme === "light" ? "graphite" : "light"} theme`}>
+              <ThemeIcon />
             </button>
-            <button className="menu-contact" onClick={() => { setMenuOpen(false); setMenuSection(null); setContactOpen(true); }}>
+            <button className="menu-contact liquid-glass" onClick={() => { setMenuOpen(false); setMenuSection(null); setContactOpen(true); }}>
               Start a project <Arrow diagonal />
             </button>
           </div>
@@ -1564,8 +1584,8 @@ export default function Home() {
           <p className="section-intro">A focused selection across documentary, branded entertainment, sport and motion-led visual design.</p>
         </header>
         <div className="work-library">
-          <aside className="work-tabs-wrap" aria-label="Project categories">
-            <div className="archive-heading"><p className="category-label">Explore the archive</p><span>{viewMode === "iconic" ? "Overview" : "Editorial"}</span></div>
+          <aside className={`work-tabs-wrap ${viewMode === "index" ? "is-disabled" : ""}`} aria-label="Project categories">
+            <div className="archive-heading"><p className="category-label">Explore the archive</p></div>
             <div className="work-tabs" role="tablist" aria-label="Filter Shady Maged's work">
               {categories.map((category, index) => {
                 const count = category === "All" ? projects.filter((project) => project.featured).length : projects.filter((project) => project.category === category).length;
@@ -1583,23 +1603,29 @@ export default function Home() {
                 );
               })}
             </div>
-            <div className="view-switch" aria-label="Choose project view">
-              <button className={viewMode === "editorial" ? "active" : ""} onClick={() => setViewMode("editorial")} aria-pressed={viewMode === "editorial"}><i />Editorial</button>
-              <button className={viewMode === "iconic" ? "active" : ""} onClick={() => setViewMode("iconic")} aria-pressed={viewMode === "iconic"}><i />Iconic overview</button>
-            </div>
-            <p className="filter-status" aria-live="polite"><b>{filteredProjects.length}</b> projects in view</p>
+            <p className="filter-status" aria-live="polite"><b>{displayedProjects.length}</b> projects in view</p>
           </aside>
-          <div key={`${activeCategory}-${viewMode}`} id="project-grid" className={`projects-grid view-${viewMode}`} role="tabpanel">
-            {filteredProjects.map((project, index) => (
-              <ProjectCard
-                key={project.title}
-                project={project}
-                index={index}
-                total={filteredProjects.length}
-                variant={viewMode}
-                onOpen={() => setActiveProject(project)}
-              />
-            ))}
+          <div className="work-content">
+            <div className="work-toolbar">
+              <span aria-live="polite"><b>{String(displayedProjects.length).padStart(2, "0")}</b> projects</span>
+              <div className="view-switch" aria-label="Choose project view">
+                <button className={viewMode === "editorial" ? "active" : ""} onClick={() => setViewMode("editorial")} aria-pressed={viewMode === "editorial"}>Editorial</button>
+                <button className={viewMode === "iconic" ? "active" : ""} onClick={() => setViewMode("iconic")} aria-pressed={viewMode === "iconic"}>Overview</button>
+                <button className={viewMode === "index" ? "active" : ""} onClick={() => setViewMode("index")} aria-pressed={viewMode === "index"}>Index</button>
+              </div>
+            </div>
+            <div key={`${activeCategory}-${viewMode}`} id="project-grid" className={`projects-grid view-${viewMode}`} role="tabpanel">
+              {displayedProjects.map((project, index) => (
+                <ProjectCard
+                  key={project.title}
+                  project={project}
+                  index={index}
+                  total={displayedProjects.length}
+                  variant={viewMode}
+                  onOpen={() => setActiveProject(project)}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -1631,7 +1657,7 @@ export default function Home() {
             preload="metadata"
           />
           <button
-            className="manifesto-mute"
+            className="manifesto-mute liquid-glass"
             onClick={() => setManifestoMuted((muted) => !muted)}
             aria-label={manifestoMuted ? "Unmute video" : "Mute video"}
           >
@@ -1681,7 +1707,7 @@ export default function Home() {
         <div ref={dialogRef} tabIndex={-1} className="project-modal" role="dialog" aria-modal="true" aria-label={`${activeProject.title} project video`}>
           <div className="screening-top">
             <span>Shady's screening room</span>
-            <button className="modal-close" onClick={() => setActiveProject(null)} aria-label="Close project">Close <span>×</span></button>
+            <button className="modal-close liquid-glass" onClick={() => setActiveProject(null)} aria-label="Close project">Close <span>×</span></button>
           </div>
           <div className="modal-body">
             <div className="modal-heading">
@@ -1723,7 +1749,7 @@ export default function Home() {
 
             {lightboxIndex !== null && (
               <div className="stills-lightbox" role="dialog" aria-modal="true" aria-label="Frame viewer">
-                <button className="stills-lightbox-close" onClick={() => setLightboxIndex(null)} aria-label="Close frame viewer">×</button>
+                <button className="stills-lightbox-close liquid-glass" onClick={() => setLightboxIndex(null)} aria-label="Close frame viewer">×</button>
                 <div className="stills-lightbox-stage">
                   <img src={stills[lightboxIndex]} alt="" />
                 </div>
@@ -1766,7 +1792,7 @@ export default function Home() {
 
       {bioOpen && (
         <div className="bio-veil" role="dialog" aria-modal="true" aria-labelledby="bio-title" onMouseDown={(event) => event.currentTarget === event.target && setBioOpen(false)}>
-          <button className="modal-close" onClick={() => setBioOpen(false)} aria-label="Close about panel">Close <span>×</span></button>
+          <button className="modal-close liquid-glass" onClick={() => setBioOpen(false)} aria-label="Close about panel">Close <span>×</span></button>
           <div className="bio-panel">
             <div className="bio-grain" aria-hidden="true" />
             <header className="bio-head">
@@ -1799,7 +1825,7 @@ export default function Home() {
       {contactOpen && (
         <div ref={dialogRef} tabIndex={-1} className="contact-desk" role="dialog" aria-modal="true" aria-labelledby="contact-desk-title" onMouseDown={(event) => event.currentTarget === event.target && setContactOpen(false)}>
           <section>
-            <button className="desk-close" onClick={() => setContactOpen(false)} aria-label="Close contact desk">Close <span>×</span></button>
+            <button className="desk-close liquid-glass" onClick={() => setContactOpen(false)} aria-label="Close contact desk">Close <span>×</span></button>
             <p>04 · Contact desk</p>
             <h2 id="contact-desk-title">Let’s give the next story <em>movement.</em></h2>
             <div className="desk-actions">
