@@ -1087,12 +1087,14 @@ function ThemeIcon() {
 const toolBadges = [
   {
     name: "ChatGPT",
+    bg: "#0f0f10",
+    color: "#10a37f",
     glyph: (
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path
           fill="currentColor"
           d="M12 2.6c.85 0 1.6.52 1.92 1.28a4.1 4.1 0 0 1 4.52 1.98 4.15 4.15 0 0 1 .5 4.9 4.1 4.1 0 0 1-1.16 5.24 4.05 4.05 0 0 1-1.86 4.32A4.1 4.1 0 0 1 12 21.4a4.1 4.1 0 0 1-3.92-1.08 4.05 4.05 0 0 1-1.86-4.32 4.1 4.1 0 0 1-1.16-5.24 4.15 4.15 0 0 1 .5-4.9A4.1 4.1 0 0 1 10.08 3.9 2.08 2.08 0 0 1 12 2.6Z"
-          opacity=".22"
+          opacity=".3"
         />
         <circle cx="12" cy="12" r="2.55" fill="currentColor" />
       </svg>
@@ -1100,6 +1102,8 @@ const toolBadges = [
   },
   {
     name: "Claude",
+    bg: "#d97757",
+    color: "#fff6ee",
     glyph: (
       <svg viewBox="0 0 24 24" aria-hidden="true">
         {Array.from({ length: 8 }).map((_, i) => (
@@ -1110,14 +1114,20 @@ const toolBadges = [
   },
   {
     name: "After Effects",
+    bg: "linear-gradient(135deg,#9999ff,#4b1fb0)",
+    color: "#ede8ff",
     glyph: <span className="tool-mark">Ae</span>,
   },
   {
     name: "Premiere Pro",
+    bg: "linear-gradient(135deg,#5f7dff,#1a1466)",
+    color: "#e4ecff",
     glyph: <span className="tool-mark">Pr</span>,
   },
   {
     name: "Canva",
+    bg: "linear-gradient(135deg,#00c4cc,#7d2ae8)",
+    color: "#ffffff",
     glyph: (
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <circle cx="12" cy="12" r="9.4" fill="none" stroke="currentColor" strokeWidth="1.7" />
@@ -1127,13 +1137,15 @@ const toolBadges = [
   },
   {
     name: "Figma",
+    bg: "#141414",
+    color: "#fff",
     glyph: (
       <svg viewBox="0 0 24 24" aria-hidden="true">
-        <circle cx="15.2" cy="7.6" r="3" fill="currentColor" />
-        <circle cx="15.2" cy="16.4" r="3" fill="currentColor" opacity=".55" />
-        <circle cx="9" cy="19.4" r="2.6" fill="currentColor" opacity=".8" />
-        <rect x="6.4" y="4.6" width="5.6" height="6" rx="2.8" fill="currentColor" opacity=".85" />
-        <rect x="6.4" y="10.6" width="5.6" height="6" rx="2.8" fill="currentColor" opacity=".65" />
+        <circle cx="15.2" cy="7.6" r="3" fill="#a259ff" />
+        <circle cx="15.2" cy="16.4" r="3" fill="#1abcfe" />
+        <circle cx="9" cy="19.4" r="2.6" fill="#0acf83" />
+        <rect x="6.4" y="4.6" width="5.6" height="6" rx="2.8" fill="#f24e1e" />
+        <rect x="6.4" y="10.6" width="5.6" height="6" rx="2.8" fill="#ff7262" />
       </svg>
     ),
   },
@@ -1562,6 +1574,16 @@ export default function Home() {
         </div>
 
         <div className="portrait-stage">
+          <div className="tool-ring-behind" aria-hidden="true">
+            <span className="tool-ring-band" />
+            <div className="tool-ring-orbit">
+              {toolBadges.map((tool) => (
+                <span className="tool-badge" key={tool.name} style={{ "--badge-bg": tool.bg, "--badge-color": tool.color } as CSSProperties}>
+                  <i title={tool.name}>{tool.glyph}</i>
+                </span>
+              ))}
+            </div>
+          </div>
           <div className="portrait-frame">
             <img
               src="/shady-hero-cutout-v2.png"
@@ -1569,14 +1591,6 @@ export default function Home() {
             />
           </div>
           <div className="head-motion" aria-hidden="true">
-            <span className="tool-ring-band" />
-            <div className="tool-ring-orbit">
-              {toolBadges.map((tool) => (
-                <span className="tool-badge" key={tool.name}>
-                  <i title={tool.name}>{tool.glyph}</i>
-                </span>
-              ))}
-            </div>
             <i className="orbit-line orbit-b" />
             <i className="orbit-line orbit-c" />
             <span className="motion-chip chip-direct">01 · DIRECT</span>
@@ -1584,7 +1598,6 @@ export default function Home() {
             <span className="motion-chip chip-motion">03 · MOTION</span>
             <span className="motion-chip chip-grade">04 · GRADE</span>
             <span className="playhead">▶</span>
-            <span className="timecode">00:09:24:16</span>
             <span className="shiny-dot dot-a" />
             <span className="shiny-dot dot-b" />
             <span className="shiny-dot dot-c" />

@@ -76,6 +76,7 @@ a:hover .arrow.diagonal, button:hover .arrow.diagonal { transform: rotate(-45deg
 .portrait-frame { position: absolute; z-index: 2; inset: 0; overflow: hidden; }
 .portrait-frame img { position: absolute; left: 50%; top: 4%; width: auto; max-width: none; height: 154%; object-fit: contain; transform: translateX(-50%); filter: saturate(.94) contrast(1.02) drop-shadow(0 1.8rem 3rem rgba(13,14,12,.35)); }
 .head-motion { position: absolute; z-index: 4; left: 50%; top: 9%; width: min(31vw,29rem); aspect-ratio: 1; transform: translateX(-50%); pointer-events: none; }
+.tool-ring-behind { position: absolute; z-index: 1; left: 50%; top: 9%; width: min(31vw,29rem); aspect-ratio: 1; transform: translateX(-50%); pointer-events: none; }
 .orbit-line { position: absolute; border-radius: 50%; border: 1px solid rgba(13,14,12,.2); }
 .orbit-b { inset: -8% -17%; border-style: dashed; border-color: rgba(0,183,255,.42); animation: orbit-reverse 20s linear infinite; }
 .orbit-c { inset: 17% -30%; border-color: rgba(255,87,172,.3); transform: rotate(-19deg); animation: orbit-wobble 7s ease-in-out infinite; }
@@ -85,7 +86,7 @@ a:hover .arrow.diagonal, button:hover .arrow.diagonal { transform: rotate(-45deg
 
 /* ---------- Thick "tube" ring with orbiting tool badges ---------- */
 .tool-ring-band { position: absolute; inset: 4%; border-radius: 50%; background: conic-gradient(from 210deg,#fdfcf7,#dbd6c9 22%,#aca595 42%,#e7e2d5 58%,#fdfcf7 78%,#c9c3b3 92%,#fdfcf7); -webkit-mask: radial-gradient(farthest-side,transparent calc(100% - 2.5rem),#000 calc(100% - 2.5rem)); mask: radial-gradient(farthest-side,transparent calc(100% - 2.5rem),#000 calc(100% - 2.5rem)); box-shadow: 0 1.8rem 3.2rem rgba(20,18,14,.28); animation: orbit 50s linear infinite; }
-.tool-ring-orbit { position: absolute; inset: 4%; border-radius: 50%; animation: orbit 24s linear infinite; }
+.tool-ring-orbit { position: absolute; inset: calc(4% + 1.25rem); border-radius: 50%; animation: orbit 24s linear infinite; }
 .tool-badge { position: absolute; width: 2.7rem; height: 2.7rem; margin: -1.35rem; }
 .tool-badge:nth-child(1) { left: 50%; top: 0%; }
 .tool-badge:nth-child(2) { left: 93.3%; top: 25%; }
@@ -93,18 +94,16 @@ a:hover .arrow.diagonal, button:hover .arrow.diagonal { transform: rotate(-45deg
 .tool-badge:nth-child(4) { left: 50%; top: 100%; }
 .tool-badge:nth-child(5) { left: 6.7%; top: 75%; }
 .tool-badge:nth-child(6) { left: 6.7%; top: 25%; }
-.tool-badge i { position: absolute; inset: 0; display: grid; place-items: center; border-radius: 50%; background: #14151c; color: #f4f1e8; box-shadow: 0 .7rem 1.6rem rgba(0,0,0,.4), inset 0 0 0 1px rgba(255,255,255,.08); animation: orbit-reverse 24s linear infinite; font-style: normal; }
+.tool-badge i { position: absolute; inset: 0; display: grid; place-items: center; border-radius: 50%; background: var(--badge-bg,#14151c); color: var(--badge-color,#f4f1e8); box-shadow: 0 .7rem 1.6rem rgba(0,0,0,.4), inset 0 0 0 1px rgba(255,255,255,.14); animation: orbit-reverse 24s linear infinite; font-style: normal; }
 .tool-badge svg { width: 1.3rem; height: 1.3rem; }
-.tool-mark { font: 600 .58rem var(--mono); letter-spacing: .01em; }
+.tool-mark { font: 700 .6rem var(--mono); letter-spacing: .01em; color: var(--badge-color); }
 .theme-graphite .tool-ring-band { background: conic-gradient(from 210deg,#3a3b34,#24251f 22%,#121310 42%,#2c2d26 58%,#3a3b34 78%,#1a1b16 92%,#3a3b34); box-shadow: 0 1.8rem 3.2rem rgba(0,0,0,.5); }
-.theme-graphite .tool-badge i { background: #eeeade; color: #14151c; }
 .motion-chip { position: absolute; padding: .55rem .72rem; border: 1px solid rgba(13,14,12,.2); background: rgba(246,245,240,.82); box-shadow: 0 .5rem 1.5rem rgba(13,14,12,.08); backdrop-filter: blur(9px); font: 500 .5rem var(--mono); letter-spacing: .12em; }
 .chip-direct { left: -5%; top: 18%; color: #5a35bf; }
 .chip-edit { right: -15%; top: 37%; color: #00698f; }
 .chip-motion { right: -7%; bottom: 15%; color: #b11673; }
 .chip-grade { left: -14%; bottom: 27%; color: #795500; }
 .playhead { position: absolute; left: 7%; top: 51%; color: #ff47ad; font-size: 1rem; animation: playhead-run 4s ease-in-out infinite; filter: drop-shadow(0 0 .5rem rgba(255,71,173,.65)); }
-.timecode { position: absolute; right: 14%; top: 7%; padding: .35rem .45rem; background: var(--ink); color: white; font: .47rem var(--mono); letter-spacing: .08em; }
 .shiny-dot { position: absolute; width: .72rem; height: .72rem; border-radius: 50%; box-shadow: 0 0 1.2rem currentColor,0 0 2.2rem currentColor; animation: glint 2.8s ease-in-out infinite; }
 .dot-a { left: 18%; top: 8%; color: #9d63ff; background: currentColor; }
 .dot-b { right: 3%; top: 52%; color: #16d8ff; background: currentColor; animation-delay: -.8s; }
@@ -405,6 +404,7 @@ footer { padding: 1.4rem 3.1vw; display: flex; justify-content: space-between; b
   .portrait-frame { inset: 0; }
   .portrait-frame img { top: 8%; height: 142%; }
   .head-motion { top: 12%; width: 43vw; }
+  .tool-ring-behind { top: 12%; width: 43vw; }
   .tool-badge { width: 2.1rem; height: 2.1rem; margin: -1.05rem; }
   .tool-badge svg { width: 1rem; height: 1rem; }
   .hero-bottom { left: 1.2rem; right: 1.2rem; bottom: 1.5rem; }
@@ -435,6 +435,7 @@ footer { padding: 1.4rem 3.1vw; display: flex; justify-content: space-between; b
   .portrait-stage { left: 58%; top: 13%; width: 104vw; height: 79%; }
   .portrait-frame img { top: 9%; height: 134%; }
   .head-motion { top: 13%; width: 72vw; }
+  .tool-ring-behind { top: 13%; width: 72vw; }
   .motion-chip { padding: .4rem .5rem; font-size: .4rem; }
   .chip-direct { left: 0; }
   .chip-edit { right: -5%; }
