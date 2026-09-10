@@ -1104,13 +1104,14 @@ function DisciplineReelCard({
   const offset = index - center;
   const isHovered = hovered === index;
   const restAngle = offset * 7;
+  const restTilt = offset * -5;
   const restDrop = Math.pow(offset, 2) * 4;
   const pushAway = hovered !== null && !isHovered ? Math.sign(index - hovered) * (16 / (1 + Math.abs(index - hovered))) : 0;
 
   const style: CSSProperties = isHovered
-    ? { transform: "rotate(0deg) translateY(-1rem) scale(1.12)", zIndex: 5 }
+    ? { transform: "perspective(1400px) rotateY(0deg) rotate(0deg) translateY(-1rem) translateZ(60px) scale(1.12)", zIndex: 5 }
     : {
-        transform: `rotate(${restAngle}deg) translateY(${restDrop}px) translateX(${pushAway}px)`,
+        transform: `perspective(1400px) rotateY(${restTilt}deg) rotate(${restAngle}deg) translateY(${restDrop}px) translateX(${pushAway}px)`,
         zIndex: 1,
         marginLeft: index === 0 ? 0 : "clamp(-2.2rem,-3vw,-1.4rem)",
       };
@@ -1119,7 +1120,11 @@ function DisciplineReelCard({
     <button
       className={"discipline-reel-card fan-card" + (isHovered ? " is-hovered" : "")}
       style={style}
-      onClick={onSelect}
+      onClick={(event) => {
+        event.currentTarget.blur();
+        onLeave();
+        onSelect();
+      }}
       onMouseEnter={() => { onHover(); play(); }}
       onMouseLeave={() => { onLeave(); pause(); }}
       onFocus={() => { onHover(); play(); }}
@@ -1128,6 +1133,7 @@ function DisciplineReelCard({
     >
       <img src={reel.poster} alt="" loading="lazy" />
       <video ref={videoRef} src={reel.video} poster={reel.poster} muted loop playsInline preload="none" aria-hidden="true" />
+      <span className="discipline-reel-sheen" aria-hidden="true" />
       <span className="discipline-reel-label"><span>{reel.category}</span><Arrow diagonal /></span>
     </button>
   );
@@ -1454,7 +1460,7 @@ export default function Home() {
               total={categoryReels.length}
               hovered={hoveredDiscipline}
               onHover={() => setHoveredDiscipline(index)}
-              onLeave={() => {}}
+              onLeave={() => setHoveredDiscipline((current) => (current === index ? null : current))}
               onSelect={() => {
                 setActiveCategory(reel.category);
                 document.getElementById("work")?.scrollIntoView({ behavior: "smooth" });
