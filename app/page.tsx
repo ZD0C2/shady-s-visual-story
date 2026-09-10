@@ -1135,6 +1135,7 @@ function DisciplineReelCard({
       <video ref={videoRef} src={reel.video} poster={reel.poster} muted loop playsInline preload="none" aria-hidden="true" />
       <span className="discipline-reel-sheen" aria-hidden="true" />
       <span className="discipline-reel-label"><span>{reel.category}</span><Arrow diagonal /></span>
+      <span className="discipline-reel-home-bar" aria-hidden="true" />
     </button>
   );
 }
