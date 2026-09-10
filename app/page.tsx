@@ -1167,20 +1167,17 @@ function ProjectCard({
           onBlur={pause}
           aria-label={`Watch ${project.title}`}
         >
-          <span className="project-row-thumb">
-            <img src={project.image} alt="" loading="lazy" />
-            <video ref={videoRef} src={project.video} poster={project.image} muted loop playsInline preload="none" aria-hidden="true" />
-          </span>
-          <span className="project-row-info">
+          <img src={project.image} alt="" loading="lazy" />
+          <video ref={videoRef} src={project.video} poster={project.image} muted loop playsInline preload="none" aria-hidden="true" />
+          <span className="project-row-veil" aria-hidden="true" />
+          <span className="project-row-index">{String(index + 1).padStart(2, "0")}<i>/</i>{String(total).padStart(2, "0")}</span>
+          <span className="project-row-body">
             <span className="project-row-kicker">{project.category}</span>
             <span className="project-row-title">{project.title}</span>
             <span className="project-row-desc">{project.description}</span>
             <span className="project-row-meta"><span>{project.role}</span><span>{project.year}</span></span>
           </span>
-          <span className="project-row-side">
-            <span className="project-row-cta"><span>Watch project</span><Arrow diagonal /></span>
-            <span className="project-row-index">{String(index + 1).padStart(2, "0")}<i>/</i>{String(total).padStart(2, "0")}</span>
-          </span>
+          <span className="project-row-cta"><span>Watch project</span><Arrow diagonal /></span>
         </button>
       </article>
     );
