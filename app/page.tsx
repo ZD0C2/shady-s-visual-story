@@ -1103,9 +1103,11 @@ function DisciplineReelCard({
   const center = (total - 1) / 2;
   const offset = index - center;
   const isHovered = hovered === index;
-  const restAngle = offset * 7;
-  const restTilt = offset * -5;
-  const restDrop = Math.pow(offset, 2) * 4;
+  const arcRadius = 620;
+  const angleStep = 13;
+  const restAngle = offset * angleStep;
+  const restTilt = offset * -4;
+  const restDrop = arcRadius * (1 - Math.cos((restAngle * Math.PI) / 180));
   const pushAway = hovered !== null && !isHovered ? Math.sign(index - hovered) * (16 / (1 + Math.abs(index - hovered))) : 0;
 
   const style: CSSProperties = isHovered
@@ -1113,7 +1115,7 @@ function DisciplineReelCard({
     : {
         transform: `perspective(1400px) rotateY(${restTilt}deg) rotate(${restAngle}deg) translateY(${restDrop}px) translateX(${pushAway}px)`,
         zIndex: 1,
-        marginLeft: index === 0 ? 0 : "clamp(-2.2rem,-3vw,-1.4rem)",
+        marginLeft: index === 0 ? 0 : "clamp(-2.6rem,-3.4vw,-1.6rem)",
       };
 
   return (
