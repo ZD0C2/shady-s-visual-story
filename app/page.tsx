@@ -1387,7 +1387,27 @@ export default function Home() {
 
         <div className="hero-type" aria-label="Shady Maged — director, editor and motion designer">
           <span className="hero-line line-one">Shady</span>
-          <span className="hero-line line-two">M<span className="ace-a">A</span>GED</span>
+          <span className="hero-line line-two">
+            M<span className="ace-a">A
+              <span className="ace-card" aria-hidden="true">
+                <svg className="ace-heart" viewBox="0 0 32 28" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="aceHeartFill" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#f7dfa0" />
+                      <stop offset="55%" stopColor="#d9a94e" />
+                      <stop offset="100%" stopColor="#a9761f" />
+                    </linearGradient>
+                  </defs>
+                  <path
+                    d="M16 25.5S2.6 17.8 2.6 9.9C2.6 5.4 6 2.4 9.9 2.4c2.9 0 5 1.7 6.1 3.8 1.1-2.1 3.2-3.8 6.1-3.8 3.9 0 7.3 3 7.3 7.5 0 7.9-13.4 15.6-13.4 15.6z"
+                    fill="url(#aceHeartFill)"
+                    stroke="#b3262c"
+                    strokeWidth="1.4"
+                  />
+                </svg>
+              </span>
+            </span>GED
+          </span>
           <span className="hero-line line-three">Direct · Edit · Design</span>
         </div>
 
@@ -1516,7 +1536,7 @@ export default function Home() {
 
       <section id="about" className="manifesto-section">
         <div className="manifesto-media">
-          <video src={`${mediaBase}/previews/hero-montage.mp4`} poster={`${mediaBase}/thumbnails/hero-montage.jpg`} autoPlay muted loop playsInline preload="metadata" />
+          <video src="/curiosity-media.mp4" poster="/curiosity-media-poster.jpg" autoPlay muted loop playsInline preload="metadata" />
           <span>00:16 — Selected motion</span>
         </div>
         <div className="manifesto-copy">
