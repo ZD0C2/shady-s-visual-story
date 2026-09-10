@@ -1142,7 +1142,11 @@ function DisciplineReelCard({
   );
 }
 
-function ProjectCard({ project, index, onOpen }: { project: (typeof projects)[number]; index: number; onOpen: () => void }) {
+function ProjectCard({
+  project, index, total, variant, onOpen,
+}: {
+  project: (typeof projects)[number]; index: number; total: number; variant: "editorial" | "iconic"; onOpen: () => void;
+}) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const play = () => videoRef.current?.play().catch(() => undefined);
   const pause = () => {
@@ -1150,6 +1154,37 @@ function ProjectCard({ project, index, onOpen }: { project: (typeof projects)[nu
     videoRef.current.pause();
     videoRef.current.currentTime = 0;
   };
+
+  if (variant === "editorial") {
+    return (
+      <article className={`project-row tone-${project.tone}`}>
+        <button
+          className="project-row-media"
+          onClick={onOpen}
+          onMouseEnter={play}
+          onMouseLeave={pause}
+          onFocus={play}
+          onBlur={pause}
+          aria-label={`Watch ${project.title}`}
+        >
+          <span className="project-row-thumb">
+            <img src={project.image} alt="" loading="lazy" />
+            <video ref={videoRef} src={project.video} poster={project.image} muted loop playsInline preload="none" aria-hidden="true" />
+          </span>
+          <span className="project-row-info">
+            <span className="project-row-kicker">{project.category}</span>
+            <span className="project-row-title">{project.title}</span>
+            <span className="project-row-desc">{project.description}</span>
+            <span className="project-row-meta"><span>{project.role}</span><span>{project.year}</span></span>
+          </span>
+          <span className="project-row-side">
+            <span className="project-row-cta"><span>Watch project</span><Arrow diagonal /></span>
+            <span className="project-row-index">{String(index + 1).padStart(2, "0")}<i>/</i>{String(total).padStart(2, "0")}</span>
+          </span>
+        </button>
+      </article>
+    );
+  }
 
   return (
     <article className={`project-card tone-${project.tone}`}>
@@ -1183,8 +1218,9 @@ export default function Home() {
   const [bioOpen, setBioOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState<(typeof categories)[number]>("All");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [menuSection, setMenuSection] = useState<"work" | null>(null);
   const [companionPhase, setCompanionPhase] = useState("direct");
-  const [viewMode, setViewMode] = useState<"editorial" | "iconic">("iconic");
+  const [viewMode, setViewMode] = useState<"editorial" | "iconic">("editorial");
   const [theme, setTheme] = useState<"light" | "graphite">("light");
   const [contactOpen, setContactOpen] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -1227,6 +1263,7 @@ export default function Home() {
       setActiveProject(null);
       setContactOpen(false);
       setMenuOpen(false);
+      setMenuSection(null);
       setBioOpen(false);
     };
     if (activeProject || contactOpen || bioOpen) document.body.classList.add("modal-open");
@@ -1375,20 +1412,70 @@ export default function Home() {
           <button className="theme-toggle" onClick={() => setTheme(theme === "light" ? "graphite" : "light")} aria-label={`Switch to ${theme === "light" ? "graphite" : "light"} theme`}>
             <span aria-hidden="true">{theme === "light" ? "◐" : "○"}</span><b>{theme === "light" ? "Graphite" : "Light"}</b>
           </button>
-          <button className={`menu-button ${menuOpen ? "open" : ""}`} onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-controls="mobile-menu">
+          <button
+            className={`menu-button ${menuOpen ? "open" : ""}`}
+            onClick={() => { setMenuOpen(!menuOpen); setMenuSection(null); }}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+          >
             <span>{menuOpen ? "Close" : "Menu"}</span><b /><b />
           </button>
         </div>
       </nav>
-      <aside id="mobile-menu" className={`mobile-menu ${menuOpen ? "open" : ""}`} aria-hidden={!menuOpen}>
-        <div className="menu-status"><span>Now in frame</span><b>{companionPhase === "edit" ? "Selected work" : companionPhase === "motion" ? "Approach" : companionPhase === "play" ? "About" : companionPhase === "think" ? "Contact" : "Opening frame"}</b></div>
-        <div className="menu-links">
-          <a href="#work" onClick={() => setMenuOpen(false)}>Selected work</a>
-          <a href="#approach" onClick={() => setMenuOpen(false)}>Approach</a>
-          <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
-          <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
+      <aside id="mobile-menu" className={`command-menu ${menuOpen ? "open" : ""}`} aria-hidden={!menuOpen}>
+        <div className="command-menu-inner">
+          <div className="command-menu-status">
+            <span>Now in frame</span>
+            <b>{companionPhase === "edit" ? "Selected work" : companionPhase === "motion" ? "Approach" : companionPhase === "play" ? "About" : companionPhase === "think" ? "Contact" : "Opening frame"}</b>
+          </div>
+          <nav className="command-menu-links">
+            <div className={`command-menu-item ${menuSection === "work" ? "expanded" : ""}`}>
+              <button
+                className="command-menu-link"
+                aria-expanded={menuSection === "work"}
+                onClick={() => setMenuSection(menuSection === "work" ? null : "work")}
+              >
+                <span>Work</span><Arrow diagonal={menuSection !== "work"} />
+              </button>
+              <div className="command-menu-categories" aria-hidden={menuSection !== "work"}>
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    className={activeCategory === category ? "active" : ""}
+                    onClick={() => {
+                      setActiveCategory(category);
+                      setMenuOpen(false);
+                      setMenuSection(null);
+                      document.getElementById("work")?.scrollIntoView({ behavior: "smooth" });
+                    }}
+                  >
+                    {category === "All" ? "All work" : category}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <a className="command-menu-link" href="#approach" onClick={() => { setMenuOpen(false); setMenuSection(null); }}>
+              <span>Practice</span><Arrow diagonal />
+            </a>
+            <button
+              className="command-menu-link"
+              onClick={() => { setMenuOpen(false); setMenuSection(null); setBioOpen(true); }}
+            >
+              <span>About Shady</span><Arrow diagonal />
+            </button>
+            <a className="command-menu-link" href="#contact" onClick={() => { setMenuOpen(false); setMenuSection(null); }}>
+              <span>Contact</span><Arrow diagonal />
+            </a>
+          </nav>
+          <div className="command-menu-footer">
+            <button className="theme-toggle" onClick={() => setTheme(theme === "light" ? "graphite" : "light")} aria-label={`Switch to ${theme === "light" ? "graphite" : "light"} theme`}>
+              <span aria-hidden="true">{theme === "light" ? "◐" : "○"}</span><b>{theme === "light" ? "Graphite" : "Light"}</b>
+            </button>
+            <button className="menu-contact" onClick={() => { setMenuOpen(false); setMenuSection(null); setContactOpen(true); }}>
+              Start a project <Arrow diagonal />
+            </button>
+          </div>
         </div>
-        <button className="menu-contact" onClick={() => { setMenuOpen(false); setContactOpen(true); }}>Start a project <Arrow diagonal /></button>
       </aside>
 
       <section id="top" ref={heroRef} className="hero" onPointerMove={trackPointer}>
@@ -1506,7 +1593,16 @@ export default function Home() {
             <p className="filter-status" aria-live="polite"><b>{filteredProjects.length}</b> projects in view</p>
           </aside>
           <div key={`${activeCategory}-${viewMode}`} id="project-grid" className={`projects-grid view-${viewMode}`} role="tabpanel">
-            {filteredProjects.map((project, index) => <ProjectCard key={project.title} project={project} index={index} onOpen={() => setActiveProject(project)} />)}
+            {filteredProjects.map((project, index) => (
+              <ProjectCard
+                key={project.title}
+                project={project}
+                index={index}
+                total={filteredProjects.length}
+                variant={viewMode}
+                onOpen={() => setActiveProject(project)}
+              />
+            ))}
           </div>
         </div>
       </section>
