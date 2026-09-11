@@ -589,6 +589,8 @@ footer { padding: 1.4rem 3.1vw; display: flex; justify-content: space-between; b
 .theme-graphite .hero-kicker,.theme-graphite .hero-bottom { color: #eeeade; }
 .theme-graphite .site-nav { color: #eeeade; }
 .theme-graphite .theme-toggle,.theme-graphite .menu-button { background: rgba(22,23,20,.78); color: #eeeade; border-color: rgba(255,255,255,.2); }
+.theme-graphite .round-link { background: rgba(22,23,20,.78); color: #eeeade; border-color: rgba(255,255,255,.28); }
+.theme-graphite .round-link:hover { background: #eeeade; color: #171815; }
 .theme-graphite .kinetic-strip { background: #272823; }
 .theme-graphite .discipline-reels-section { background: #171815; }
 .theme-graphite .stills-rail { background: #171815; -webkit-mask-image: linear-gradient(to right,transparent,#171815 7%,#171815 93%,transparent); mask-image: linear-gradient(to right,transparent,#171815 7%,#171815 93%,transparent); }
