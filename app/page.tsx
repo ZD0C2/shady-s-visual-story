@@ -1627,7 +1627,7 @@ export default function Home() {
           </div>
           <div className="portrait-frame">
             <img
-              src="/shady-hero-cutout-v3.png"
+              src="/shady-hero-cutout-v2.png"
               alt="Portrait of Shady Maged"
             />
           </div>
