@@ -5,6 +5,176 @@ import { caseStudies } from "./data/case-studies";
 
 const mediaBase = "https://pub-f8b978c7d5d048dc89b05ff4b470b067.r2.dev";
 
+/**
+ * Intensity of the ambient studio-footage layer. This is the single switch that
+ * separates the three review builds — everything else about them is identical.
+ */
+type AmbientLevel = "subtle" | "bold" | "max";
+const AMBIENT_LEVEL: AmbientLevel = "subtle";
+
+const AMBIENT_CLIPS = ["studio-01", "studio-02", "studio-03", "studio-04", "studio-05"] as const;
+
+const AMBIENT_PRESETS: Record<AmbientLevel, {
+  opacity: number;
+  drift: number;
+  sections: string[];
+  panels: { clip: string; kicker: string; line: string; at: string }[];
+  montage: boolean;
+}> = {
+  subtle: {
+    opacity: 0.18,
+    drift: 1.06,
+    sections: ["approach", "contact"],
+    panels: [],
+    montage: false,
+  },
+  bold: {
+    opacity: 0.26,
+    drift: 1.12,
+    sections: ["approach", "contact"],
+    panels: [{ clip: "studio-01", kicker: "Behind the frame", line: "The work behind the work.", at: "work-approach" }],
+    montage: true,
+  },
+  max: {
+    opacity: 0.34,
+    drift: 1.2,
+    sections: ["approach", "contact", "discipline", "work"],
+    panels: [
+      { clip: "studio-01", kicker: "Behind the frame", line: "The work behind the work.", at: "work-approach" },
+      { clip: "studio-03", kicker: "Every frame considered", line: "Nothing here is an accident.", at: "pre-contact" },
+    ],
+    montage: true,
+  },
+};
+
+const AMBIENT = AMBIENT_PRESETS[AMBIENT_LEVEL];
+
+function prefersReducedMotion() {
+  return typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+/** Plays a muted studio clip behind a section, only while that section is on screen. */
+function AmbientLayer({ clip }: { clip: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el || prefersReducedMotion()) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) el.play().catch(() => undefined);
+        else el.pause();
+      },
+      { rootMargin: "300px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <div className="ambient-layer" style={{ "--ambient-opacity": AMBIENT.opacity, "--ambient-drift": AMBIENT.drift } as CSSProperties} aria-hidden="true">
+      <video ref={videoRef} src={`/ambient/${clip}.mp4`} poster={`/ambient/${clip}.webp`} muted loop playsInline preload="none" />
+      <span className="ambient-grain" />
+    </div>
+  );
+}
+
+/** Full-bleed cinematic break: footage fills the viewport, headline scrubs with scroll. */
+function CinematicPanel({ clip, kicker, line }: { clip: string; kicker: string; line: string }) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    const video = videoRef.current;
+    if (!section || !video) return;
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !prefersReducedMotion()) video.play().catch(() => undefined);
+        else video.pause();
+      },
+      { rootMargin: "300px" },
+    );
+    io.observe(section);
+
+    if (prefersReducedMotion()) return () => io.disconnect();
+
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const rect = section.getBoundingClientRect();
+      const progress = 1 - (rect.top + rect.height) / (window.innerHeight + rect.height);
+      section.style.setProperty("--panel-progress", String(Math.min(1, Math.max(0, progress))));
+    };
+    const onScroll = () => { if (!frame) frame = requestAnimationFrame(update); };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      io.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  return (
+    <section className="cinematic-panel" ref={sectionRef} aria-label={line}>
+      <video ref={videoRef} src={`/ambient/${clip}.mp4`} poster={`/ambient/${clip}.webp`} muted loop playsInline preload="none" aria-hidden="true" />
+      <div className="cinematic-panel-copy">
+        <p>{kicker}</p>
+        <h2>{line}</h2>
+      </div>
+    </section>
+  );
+}
+
+/** Cross-dissolves studio clips over the manifesto video so its audio bed keeps running underneath. */
+function ManifestoMontage() {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (prefersReducedMotion()) return;
+    const id = setInterval(() => setIndex((i) => (i + 1) % AMBIENT_CLIPS.length), 7000);
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <div className="manifesto-montage" aria-hidden="true">
+      {AMBIENT_CLIPS.map((clip, i) => (
+        <MontageClip key={clip} clip={clip} active={i === index} />
+      ))}
+    </div>
+  );
+}
+
+function MontageClip({ clip, active }: { clip: string; active: boolean }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+    if (active && !prefersReducedMotion()) {
+      el.currentTime = 0;
+      el.play().catch(() => undefined);
+    } else {
+      el.pause();
+    }
+  }, [active]);
+
+  return (
+    <video
+      ref={videoRef}
+      className={active ? "is-active" : ""}
+      src={`/ambient/${clip}.mp4`}
+      poster={`/ambient/${clip}.webp`}
+      muted
+      loop
+      playsInline
+      preload="none"
+    />
+  );
+}
+
 /** Basename (no extension) of a media path — used to key case-study copy and derive still-frame URLs. */
 function slugFromVideo(video: string) {
   const file = video.split("/").pop() ?? video;
@@ -1681,6 +1851,7 @@ export default function Home() {
       </section>
 
       <section className="discipline-reels-section" aria-label="Explore by discipline">
+        {AMBIENT.sections.includes("discipline") && <AmbientLayer clip="studio-05" />}
         <div className="discipline-showcase">
           <figure className="discipline-portrait">
             <img src="/shady-portrait-poster.jpg" alt="Shady Maged — portrait poster" loading="lazy" />
@@ -1774,6 +1945,7 @@ export default function Home() {
       </section>
 
       <section id="work" className="work-section">
+        {AMBIENT.sections.includes("work") && <AmbientLayer clip="studio-03" />}
         <header className="section-heading reveal-block">
           <p><span>01</span> Selected work</p>
           <h2>Images with a <em>pulse.</em><br />Stories with a point of view.</h2>
@@ -1826,7 +1998,12 @@ export default function Home() {
         </div>
       </section>
 
+      {AMBIENT.panels.filter((p) => p.at === "work-approach").map((p) => (
+        <CinematicPanel key={p.at} clip={p.clip} kicker={p.kicker} line={p.line} />
+      ))}
+
       <section id="approach" className="approach-section">
+        {AMBIENT.sections.includes("approach") && <AmbientLayer clip="studio-02" />}
         <div className="approach-title">
           <p><span>02</span> One connected craft</p>
           <h2>From the first idea<br />to the <em>final frame.</em></h2>
@@ -1866,6 +2043,7 @@ export default function Home() {
             playsInline
             preload="metadata"
           />
+          {AMBIENT.montage && <ManifestoMontage />}
           <button
             className="manifesto-mute liquid-glass"
             onClick={() => setManifestoMuted((muted) => !muted)}
@@ -1890,7 +2068,12 @@ export default function Home() {
         </div>
       </section>
 
+      {AMBIENT.panels.filter((p) => p.at === "pre-contact").map((p) => (
+        <CinematicPanel key={p.at} clip={p.clip} kicker={p.kicker} line={p.line} />
+      ))}
+
       <section id="contact" className="contact-section">
+        {AMBIENT.sections.includes("contact") && <AmbientLayer clip="studio-04" />}
         <div className="contact-orbit" aria-hidden="true"><span>LET’S MAKE THE FRAME MATTER · </span></div>
         <p><span>04</span> Start with a story</p>
         <h2>The next frame<br /><em>starts here.</em></h2>

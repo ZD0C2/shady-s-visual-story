@@ -130,7 +130,7 @@ a:hover .arrow.diagonal, button:hover .arrow.diagonal { transform: rotate(-45deg
 .kinetic-strip i { font-style: normal; font-size: .65em; }
 @keyframes marquee { to { transform: translateX(-50%); } }
 
-.discipline-reels-section { padding: clamp(5rem,8vw,7rem) max(3.1vw, calc((100vw - 92rem) / 2)) clamp(6rem,9vw,9rem); background: var(--paper); }
+.discipline-reels-section { position: relative; isolation: isolate; padding: clamp(5rem,8vw,7rem) max(3.1vw, calc((100vw - 92rem) / 2)) clamp(6rem,9vw,9rem); background: var(--paper); }
 .discipline-showcase { display: grid; grid-template-columns: minmax(0,6fr) minmax(0,6fr); gap: clamp(1rem,2.5vw,2.5rem); align-items: stretch; }
 .discipline-portrait { display: flex; justify-content: center; align-items: stretch; margin: 0; align-self: stretch; }
 .discipline-portrait img {
@@ -197,7 +197,57 @@ a:hover .arrow.diagonal, button:hover .arrow.diagonal { transform: rotate(-45deg
 .control-dial-value { position: absolute; z-index: 2; left: 50%; top: .7rem; transform: translateX(-50%); font: 500 .62rem var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--acid); white-space: nowrap; pointer-events: none; }
 .control-dial-hint { margin: .85rem 0 0; font: 400 .58rem var(--mono); letter-spacing: .14em; text-transform: uppercase; opacity: .45; }
 
-.work-section { padding: clamp(7rem,10vw,10rem) max(3.1vw, calc((100vw - 92rem) / 2)) 8rem; background: var(--paper); }
+/* Ambient studio footage sitting behind a section's content. */
+/* z-index:-1 inside the section's own stacking context paints the layer above the
+   section background but beneath every content element, so no content rule is
+   needed — and sticky/absolute children keep their own positioning. */
+.ambient-layer { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.ambient-layer video {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  opacity: var(--ambient-opacity,.18);
+  filter: grayscale(.35) contrast(1.05) brightness(.9);
+  transform: scale(var(--ambient-drift,1.06));
+  animation: ambient-drift 32s ease-in-out infinite alternate;
+}
+.ambient-layer .ambient-grain {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 45%, transparent 35%, rgba(0,0,0,.55) 100%);
+}
+@keyframes ambient-drift {
+  from { transform: scale(var(--ambient-drift,1.06)) translate3d(-1.2%,0.8%,0); }
+  to   { transform: scale(calc(var(--ambient-drift,1.06) + .06)) translate3d(1.2%,-0.8%,0); }
+}
+/* Full-bleed cinematic break between sections. */
+.cinematic-panel { position: relative; height: 100vh; overflow: hidden; background: #0d0e0c; display: grid; place-items: center; }
+.cinematic-panel video {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  opacity: .55; filter: grayscale(.3) contrast(1.08);
+  transform: scale(calc(1.04 + var(--panel-progress,0) * .12));
+}
+.cinematic-panel::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(13,14,12,.85) 0%, rgba(13,14,12,.35) 45%, rgba(13,14,12,.9) 100%);
+}
+.cinematic-panel-copy { position: relative; z-index: 2; text-align: center; color: var(--paper); padding: 0 3.1vw; transform: translateY(calc((.5 - var(--panel-progress,.5)) * 5rem)); }
+.cinematic-panel-copy p { margin: 0 0 1.4rem; font: 400 .65rem var(--mono); letter-spacing: .22em; text-transform: uppercase; color: var(--acid); }
+.cinematic-panel-copy h2 { margin: 0; font: 700 clamp(2.6rem,7vw,6.4rem)/1.02 var(--display); letter-spacing: -.04em; }
+
+/* Studio clips cross-dissolving over the manifesto video. */
+.manifesto-montage { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.manifesto-montage video {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  opacity: 0; transition: opacity 1.6s ease;
+  filter: grayscale(.8) contrast(1.1);
+}
+.manifesto-montage video.is-active { opacity: .85; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-layer video { animation: none; }
+  .cinematic-panel video, .cinematic-panel-copy { transform: none; }
+  .manifesto-montage video { transition: none; }
+}
+
+.work-section { position: relative; isolation: isolate; padding: clamp(7rem,10vw,10rem) max(3.1vw, calc((100vw - 92rem) / 2)) 8rem; background: var(--paper); }
 .section-heading { position: relative; margin-bottom: clamp(2.8rem,4.5vw,4.5rem); }
 .section-heading > p:first-child, .approach-title > p, .manifesto-copy > p, .contact-section > p { margin: 0 0 3rem; font: 400 .65rem var(--mono); letter-spacing: .14em; text-transform: uppercase; }
 .section-heading > p span, .approach-title > p span, .manifesto-copy > p span, .contact-section > p span { display: inline-flex; align-items: center; gap: .55rem; margin-right: .75rem; color: #766e5e; }
@@ -282,7 +332,7 @@ a:hover .arrow.diagonal, button:hover .arrow.diagonal { transform: rotate(-45deg
 .project-row-media:hover .project-row-title, .project-row-media:focus-visible .project-row-title { color: var(--acid); }
 .project-row-media:focus-visible { outline: 3px solid var(--acid); outline-offset: 4px; }
 
-.approach-section { display: grid; grid-template-columns: 5fr 7fr; gap: 5vw; padding: clamp(7rem,11vw,12rem) 3.1vw; background: #171815; color: var(--paper); }
+.approach-section { position: relative; isolation: isolate; overflow: hidden; display: grid; grid-template-columns: 5fr 7fr; gap: 5vw; padding: clamp(7rem,11vw,12rem) 3.1vw; background: #171815; color: var(--paper); }
 .approach-title { position: sticky; top: 6rem; align-self: start; }
 .approach-title > p { color: #aaa594; }
 .approach-title h2 { font-size: clamp(3.5rem,6.5vw,7rem); }
@@ -315,7 +365,7 @@ article.is-open .discipline-toggle { transform: rotate(135deg); border-color: va
 .stats b { font: 600 clamp(1.5rem,2.8vw,3rem) var(--display); letter-spacing: -.06em; }
 .stats span { font: .52rem var(--mono); letter-spacing: .07em; text-transform: uppercase; }
 
-.contact-section { min-height: 92vh; position: relative; display: flex; flex-direction: column; justify-content: center; overflow: hidden; padding: 7rem 3.1vw 3rem; background: var(--ink); color: var(--paper); }
+.contact-section { min-height: 92vh; position: relative; isolation: isolate; display: flex; flex-direction: column; justify-content: center; overflow: hidden; padding: 7rem 3.1vw 3rem; background: var(--ink); color: var(--paper); }
 .contact-section h2 { position: relative; z-index: 2; font-size: clamp(4.1rem,10.8vw,12rem); }
 .contact-section h2 em { color: var(--champagne); -webkit-text-stroke: 0; }
 .contact-subtext { position: relative; z-index: 2; max-width: 26rem; margin: 1.6rem 0 0; font: 400 1rem/1.6 var(--sans); color: rgba(238,234,222,.72); }
