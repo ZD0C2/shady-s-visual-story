@@ -53,7 +53,7 @@ const projects: Project[] = [
     role: "Director, cinematographer & editor",
     description:
       "A three-part feature documentary shaped through first-hand testimony, bespoke interview lighting and patient editorial rhythm.",
-    image: `${mediaBase}/thumbnails/documentary-ahly-epic.jpg`,
+    image: "/thumbnails/documentary-ahly-epic.webp",
     video: `${mediaBase}/previews/documentary-ahly-epic.mp4`,
     tone: "warm",
     featured: true,
@@ -65,13 +65,13 @@ const projects: Project[] = [
     role: "Editor & visual storyteller",
     description:
       "Archive, atmosphere and graphic structure woven into a textured football portrait with a distinctly cinematic memory.",
-    image: `${mediaBase}/thumbnails/documentary-el-gohary.jpg`,
+    image: "/thumbnails/documentary-el-gohary.webp",
     video: `${mediaBase}/previews/documentary-el-gohary.mp4`,
     tone: "dark",
     featured: true,
     extraClips: [
-      { title: "Archive animation", video: `${mediaBase}/previews/documentary-el-gohary-archive.mp4`, poster: `${mediaBase}/thumbnails/documentary-el-gohary-archive.jpg`, duration: "0:09", role: "Companion film" },
-      { title: "Full film", video: `${mediaBase}/previews/documentary-el-gohary-epic.mp4`, poster: `${mediaBase}/thumbnails/documentary-el-gohary-epic.jpg`, duration: "4:06", role: "Extended cut" },
+      { title: "Archive animation", video: `${mediaBase}/previews/documentary-el-gohary-archive.mp4`, poster: "/thumbnails/documentary-el-gohary-archive.webp", duration: "0:09", role: "Companion film" },
+      { title: "Full film", video: `${mediaBase}/previews/documentary-el-gohary-epic.mp4`, poster: "/thumbnails/documentary-el-gohary-epic.webp", duration: "4:06", role: "Extended cut" },
     ],
   },
   {
@@ -80,12 +80,12 @@ const projects: Project[] = [
     year: "2025",
     role: "Archive editor & motion designer",
     description: "A companion archive study built from historic footage, typographic interruption and a weathered visual language.",
-    image: `${mediaBase}/thumbnails/documentary-el-gohary-archive.jpg`,
+    image: "/thumbnails/documentary-el-gohary-archive.webp",
     video: `${mediaBase}/previews/documentary-el-gohary-archive.mp4`,
     tone: "warm",
     featured: false,
     extraClips: [
-      { title: "Full film", video: `${mediaBase}/previews/documentary-el-gohary-epic.mp4`, poster: `${mediaBase}/thumbnails/documentary-el-gohary-epic.jpg`, duration: "4:06", role: "Extended cut" },
+      { title: "Full film", video: `${mediaBase}/previews/documentary-el-gohary-epic.mp4`, poster: "/thumbnails/documentary-el-gohary-epic.webp", duration: "4:06", role: "Extended cut" },
     ],
   },
   {
@@ -94,7 +94,7 @@ const projects: Project[] = [
     year: "2024",
     role: "Writer, editor & motion designer",
     description: "Football history reshaped as a compact motion essay with archive, pacing and a clear editorial argument.",
-    image: `${mediaBase}/thumbnails/documentary-juve-duping.jpg`,
+    image: "/thumbnails/documentary-juve-duping.webp",
     video: `${mediaBase}/previews/documentary-juve-duping.mp4`,
     tone: "silver",
     featured: false,
@@ -105,7 +105,7 @@ const projects: Project[] = [
     year: "2024",
     role: "Editor & visual storyteller",
     description: "A character-led football portrait balancing archive energy with reflective pauses and graphic restraint.",
-    image: `${mediaBase}/thumbnails/documentary-maradona.jpg`,
+    image: "/thumbnails/documentary-maradona.webp",
     video: `${mediaBase}/previews/documentary-maradona.mp4`,
     tone: "blue",
     featured: false,
@@ -116,7 +116,7 @@ const projects: Project[] = [
     year: "2024",
     role: "Editor & director",
     description: "A documentary story assembled through atmosphere, lived detail and close observational editing.",
-    image: `${mediaBase}/thumbnails/documentary-vesba-story.jpg`,
+    image: "/thumbnails/documentary-vesba-story.webp",
     video: `${mediaBase}/previews/documentary-vesba-story.mp4`,
     tone: "dark",
     featured: false,
@@ -128,7 +128,7 @@ const projects: Project[] = [
     role: "Video editor",
     description:
       "A multi-camera branded format with fast reactions, repeatable episode architecture and a bold motion identity.",
-    image: `${mediaBase}/thumbnails/commercial-vodafone-starsclash.jpg`,
+    image: "/thumbnails/commercial-vodafone-starsclash.webp",
     video: `${mediaBase}/previews/commercial-vodafone-starsclash.mp4`,
     tone: "red",
     featured: true,
@@ -139,7 +139,7 @@ const projects: Project[] = [
     year: "2022",
     role: "Creative director & editor",
     description: "Appetite-led food cinematography meets a 3D architectural reveal of the venue and illuminated brand signage.",
-    image: `${mediaBase}/thumbnails/commercial-leeloo.jpg`,
+    image: "/thumbnails/commercial-leeloo.webp",
     video: `${mediaBase}/previews/commercial-leeloo.mp4`,
     tone: "warm",
     featured: true,
@@ -150,7 +150,7 @@ const projects: Project[] = [
     year: "2022",
     role: "Editor",
     description: "A vertical-first hospitality promo built around presenter energy, graphic stickers and rapid social pacing.",
-    image: `${mediaBase}/thumbnails/commercial-minglings.jpg`,
+    image: "/thumbnails/commercial-minglings.webp",
     video: `${mediaBase}/previews/commercial-minglings.mp4`,
     tone: "warm",
     featured: false,
@@ -161,7 +161,7 @@ const projects: Project[] = [
     year: "2021",
     role: "Editor & colourist",
     description: "A cultural campaign film anchored by desert light, heritage imagery and a memorable sand-pour hero shot.",
-    image: `${mediaBase}/thumbnails/commercial-saudi-national-day.jpg`,
+    image: "/thumbnails/commercial-saudi-national-day.webp",
     video: `${mediaBase}/previews/commercial-saudi-national-day.mp4`,
     tone: "warm",
     featured: false,
@@ -172,7 +172,7 @@ const projects: Project[] = [
     year: "2021",
     role: "Editor & motion designer",
     description: "A bilingual product story that reveals platform benefits through clean sequencing and controlled UI motion.",
-    image: `${mediaBase}/thumbnails/commercial-drjob-pro.jpg`,
+    image: "/thumbnails/commercial-drjob-pro.webp",
     video: `${mediaBase}/previews/commercial-drjob-pro.mp4`,
     tone: "blue",
     featured: false,
@@ -184,7 +184,7 @@ const projects: Project[] = [
     role: "Motion designer & editor",
     description:
       "A title-led football sequence built from dimensional typography, compositing and deliberate sound-to-frame timing.",
-    image: `${mediaBase}/thumbnails/motion-the-transfer.jpg`,
+    image: "/thumbnails/motion-the-transfer.webp",
     video: `${mediaBase}/previews/motion-the-transfer.mp4`,
     tone: "silver",
     featured: true,
@@ -195,7 +195,7 @@ const projects: Project[] = [
     year: "2019",
     role: "Editor & motion designer",
     description: "A polished application identity sequence with metallic type, measured reveals and premium finishing.",
-    image: `${mediaBase}/thumbnails/logo-gold-era.jpg`,
+    image: "/thumbnails/logo-gold-era.webp",
     video: `${mediaBase}/previews/logo-gold-era.mp4`,
     tone: "warm",
     featured: false,
@@ -207,7 +207,7 @@ const projects: Project[] = [
     role: "Editor & visual designer",
     description:
       "A career tribute cut as memory: match energy, emotional pauses and graphic frames brought into one continuous arc.",
-    image: `${mediaBase}/thumbnails/sports-maaloul-tribute.jpg`,
+    image: "/thumbnails/sports-maaloul-tribute.webp",
     video: `${mediaBase}/previews/sports-maaloul-tribute.mp4`,
     tone: "red",
     featured: true,
@@ -218,7 +218,7 @@ const projects: Project[] = [
     year: "2024",
     role: "Editor",
     description: "A fast comparative sports story driven by performance beats, confident pacing and visual contrast.",
-    image: `${mediaBase}/thumbnails/sports-marmoush-vs-mo.jpg`,
+    image: "/thumbnails/sports-marmoush-vs-mo.webp",
     video: `${mediaBase}/previews/sports-marmoush-vs-mo.mp4`,
     tone: "red",
     featured: false,
@@ -230,7 +230,7 @@ const projects: Project[] = [
     role: "Visual designer",
     description:
       "Editorial image-making that turns raw sports photography into controlled, dramatic campaign-ready frames.",
-    image: `${mediaBase}/thumbnails/visual-photo-retouch.jpg`,
+    image: "/thumbnails/visual-photo-retouch.webp",
     video: `${mediaBase}/previews/visual-photo-retouch.mp4`,
     tone: "blue",
     featured: true,
@@ -241,7 +241,7 @@ const projects: Project[] = [
     year: "2024",
     role: "Social editor",
     description: "A vertical conversation cut shaped for immediate clarity, personality and social-first retention.",
-    image: `${mediaBase}/thumbnails/social-sef-akon.jpg`,
+    image: "/thumbnails/social-sef-akon.webp",
     video: `${mediaBase}/previews/social-sef-akon.mp4`,
     tone: "blue",
     featured: false,
@@ -252,7 +252,7 @@ const projects: Project[] = [
     year: "2024",
     role: "Social editor",
     description: "A concise thought-leadership reel using intelligent pacing, clean emphasis and precise caption rhythm.",
-    image: `${mediaBase}/thumbnails/social-sef-mo-gawdat.jpg`,
+    image: "/thumbnails/social-sef-mo-gawdat.webp",
     video: `${mediaBase}/previews/social-sef-mo-gawdat.mp4`,
     tone: "dark",
     featured: true,
@@ -263,7 +263,7 @@ const projects: Project[] = [
     year: "2024",
     role: "Social editor",
     description: "A premium vertical edit designed to make a strong spoken idea land quickly without visual clutter.",
-    image: `${mediaBase}/thumbnails/social-sef-steven-bartlett.jpg`,
+    image: "/thumbnails/social-sef-steven-bartlett.webp",
     video: `${mediaBase}/previews/social-sef-steven-bartlett.mp4`,
     tone: "dark",
     featured: false,
@@ -274,7 +274,7 @@ const projects: Project[] = [
     year: "2024",
     role: "Event editor",
     description: "A vertical event recap translating a busy live environment into a clear, energetic story arc.",
-    image: `${mediaBase}/thumbnails/social-sharjah-hackathon.jpg`,
+    image: "/thumbnails/social-sharjah-hackathon.webp",
     video: `${mediaBase}/previews/social-sharjah-hackathon.mp4`,
     tone: "blue",
     featured: false,
@@ -285,7 +285,7 @@ const projects: Project[] = [
     year: "2024",
     role: "Writer, editor & motion designer",
     description: "A written football article translated into a motion essay with archive, typography and authored pacing.",
-    image: `${mediaBase}/thumbnails/articles-pavel-nedved.jpg`,
+    image: "/thumbnails/articles-pavel-nedved.webp",
     video: `${mediaBase}/previews/articles-pavel-nedved.mp4`,
     tone: "warm",
     featured: false,
@@ -296,7 +296,7 @@ const projects: Project[] = [
     year: "2024",
     role: "Writer, editor & motion designer",
     description: "An original football comparison developed from written argument into a punchy visual narrative.",
-    image: `${mediaBase}/thumbnails/articles-wessam-zlatan.jpg`,
+    image: "/thumbnails/articles-wessam-zlatan.webp",
     video: `${mediaBase}/previews/articles-wessam-zlatan.mp4`,
     tone: "red",
     featured: false,
@@ -307,7 +307,7 @@ const projects: Project[] = [
     year: "2023",
     role: "Editor & motion designer",
     description: "A tournament promo cut around a prize-reveal payoff, pairing celebratory fireworks footage with bold bilingual type and a build-to-the-number rhythm.",
-    image: `${mediaBase}/thumbnails/commercial-hareef-gaming.jpg`,
+    image: "/thumbnails/commercial-hareef-gaming.webp",
     video: `${mediaBase}/previews/commercial-hareef-gaming.mp4`,
     tone: "red",
     featured: false,
@@ -319,7 +319,7 @@ const projects: Project[] = [
     role: "Director & Editor",
     description:
       "The complete cut of a noir-toned narrative documentary, built on multi-camera interview lighting and graded contrast.",
-    image: `${mediaBase}/thumbnails/documentary-juve-duping-full-cut.jpg`,
+    image: "/thumbnails/documentary-juve-duping-full-cut.webp",
     video: `${mediaBase}/previews/documentary-juve-duping-full-cut.mp4`,
     tone: "warm",
     featured: false,
@@ -331,7 +331,7 @@ const projects: Project[] = [
     role: "Editor",
     description:
       "A quieter observational cutdown built from documentary B-roll and candid interview moments.",
-    image: `${mediaBase}/thumbnails/documentary-moments.jpg`,
+    image: "/thumbnails/documentary-moments.webp",
     video: `${mediaBase}/previews/documentary-moments.mp4`,
     tone: "dark",
     featured: false,
@@ -343,7 +343,7 @@ const projects: Project[] = [
     role: "Editor",
     description:
       "A single emotional beat pulled from long-form documentary footage, cut for pacing and impact.",
-    image: `${mediaBase}/thumbnails/documentary-touching-scene.jpg`,
+    image: "/thumbnails/documentary-touching-scene.webp",
     video: `${mediaBase}/previews/documentary-touching-scene.mp4`,
     tone: "red",
     featured: false,
@@ -355,7 +355,7 @@ const projects: Project[] = [
     role: "Director & Editor",
     description:
       "A longer-form teaser cut drawing on documentary and directing footage, built for festival/showreel submission.",
-    image: `${mediaBase}/thumbnails/documentary-showreel-teaser.jpg`,
+    image: "/thumbnails/documentary-showreel-teaser.webp",
     video: `${mediaBase}/previews/documentary-showreel-teaser.mp4`,
     tone: "silver",
     featured: false,
@@ -367,7 +367,7 @@ const projects: Project[] = [
     role: "Motion Designer & Editor",
     description:
       "A longer 3D motion tribute piece built around footballer Ali Maaloul, combining live footage with 3D typography and effects.",
-    image: `${mediaBase}/thumbnails/motion-maaloul-3d-feature.jpg`,
+    image: "/thumbnails/motion-maaloul-3d-feature.webp",
     video: `${mediaBase}/previews/motion-maaloul-3d-feature.mp4`,
     tone: "blue",
     featured: false,
@@ -379,7 +379,7 @@ const projects: Project[] = [
     role: "Motion Designer & Editor",
     description:
       "A short-form cutdown of the Ali Maaloul 3D tribute, trimmed for social and homepage use.",
-    image: `${mediaBase}/thumbnails/motion-maaloul-3d-cutdown.jpg`,
+    image: "/thumbnails/motion-maaloul-3d-cutdown.webp",
     video: `${mediaBase}/previews/motion-maaloul-3d-cutdown.mp4`,
     tone: "warm",
     featured: false,
@@ -391,7 +391,7 @@ const projects: Project[] = [
     role: "Motion Designer",
     description:
       "A compiled reel of 3D render and motion graphics work, showcasing type and object animation.",
-    image: `${mediaBase}/thumbnails/motion-3d-reel-2.jpg`,
+    image: "/thumbnails/motion-3d-reel-2.webp",
     video: `${mediaBase}/previews/motion-3d-reel-2.mp4`,
     tone: "dark",
     featured: false,
@@ -403,7 +403,7 @@ const projects: Project[] = [
     role: "Motion Designer",
     description:
       "A further compiled reel of 3D and After Effects motion work.",
-    image: `${mediaBase}/thumbnails/motion-3d-reel-3.jpg`,
+    image: "/thumbnails/motion-3d-reel-3.webp",
     video: `${mediaBase}/previews/motion-3d-reel-3.mp4`,
     tone: "red",
     featured: false,
@@ -415,7 +415,7 @@ const projects: Project[] = [
     role: "Writer, Motion Designer & Editor",
     description:
       "Part of the 'Articles' motion-essay series — original football writing turned into narrated, animated pieces.",
-    image: `${mediaBase}/thumbnails/motion-articles-reel-1.jpg`,
+    image: "/thumbnails/motion-articles-reel-1.webp",
     video: `${mediaBase}/previews/motion-articles-reel-1.mp4`,
     tone: "silver",
     featured: false,
@@ -427,7 +427,7 @@ const projects: Project[] = [
     role: "Writer, Motion Designer & Editor",
     description:
       "Another instalment in the Articles motion-essay series.",
-    image: `${mediaBase}/thumbnails/motion-articles-reel-2.jpg`,
+    image: "/thumbnails/motion-articles-reel-2.webp",
     video: `${mediaBase}/previews/motion-articles-reel-2.mp4`,
     tone: "blue",
     featured: false,
@@ -439,7 +439,7 @@ const projects: Project[] = [
     role: "Writer, Motion Designer & Editor",
     description:
       "A further instalment in the Articles motion-essay series.",
-    image: `${mediaBase}/thumbnails/motion-articles-reel-3.jpg`,
+    image: "/thumbnails/motion-articles-reel-3.webp",
     video: `${mediaBase}/previews/motion-articles-reel-3.mp4`,
     tone: "warm",
     featured: false,
@@ -451,7 +451,7 @@ const projects: Project[] = [
     role: "Writer, Motion Designer & Editor",
     description:
       "A short instalment in the Articles motion-essay series.",
-    image: `${mediaBase}/thumbnails/motion-articles-reel-4.jpg`,
+    image: "/thumbnails/motion-articles-reel-4.webp",
     video: `${mediaBase}/previews/motion-articles-reel-4.mp4`,
     tone: "dark",
     featured: false,
@@ -463,7 +463,7 @@ const projects: Project[] = [
     role: "Creative Director & Editor",
     description:
       "Creative direction and editing for YouTuber Shady Habashy's history/folklore series 'Tarikh w Korafia'.",
-    image: `${mediaBase}/thumbnails/commercial-football-history-tales.jpg`,
+    image: "/thumbnails/commercial-football-history-tales.webp",
     video: `${mediaBase}/previews/commercial-football-history-tales.mp4`,
     tone: "red",
     featured: false,
@@ -475,7 +475,7 @@ const projects: Project[] = [
     role: "Editor",
     description:
       "The full-length version of the Minglings promotional film, ahead of its social cutdowns.",
-    image: `${mediaBase}/thumbnails/commercial-minglings-promo.jpg`,
+    image: "/thumbnails/commercial-minglings-promo.webp",
     video: `${mediaBase}/previews/commercial-minglings-promo.mp4`,
     tone: "silver",
     featured: false,
@@ -487,7 +487,7 @@ const projects: Project[] = [
     role: "Creative Director & Editor",
     description:
       "A longer brand film for LeeLoo, pairing food cinematography with the venue's atmosphere.",
-    image: `${mediaBase}/thumbnails/commercial-leeloo-brand-film.jpg`,
+    image: "/thumbnails/commercial-leeloo-brand-film.webp",
     video: `${mediaBase}/previews/commercial-leeloo-brand-film.mp4`,
     tone: "blue",
     featured: false,
@@ -499,7 +499,7 @@ const projects: Project[] = [
     role: "Editor",
     description:
       "A promotional edit for the Gold Era application.",
-    image: `${mediaBase}/thumbnails/commercial-gold-era-1.jpg`,
+    image: "/thumbnails/commercial-gold-era-1.webp",
     video: `${mediaBase}/previews/commercial-gold-era-1.mp4`,
     tone: "warm",
     featured: false,
@@ -511,7 +511,7 @@ const projects: Project[] = [
     role: "Editor",
     description:
       "An alternate promotional cut for the Gold Era application.",
-    image: `${mediaBase}/thumbnails/commercial-gold-era-2.jpg`,
+    image: "/thumbnails/commercial-gold-era-2.webp",
     video: `${mediaBase}/previews/commercial-gold-era-2.mp4`,
     tone: "dark",
     featured: false,
@@ -523,7 +523,7 @@ const projects: Project[] = [
     role: "Editor",
     description:
       "One of a series of promotional edits for the Dr.Job Pro recruitment platform.",
-    image: `${mediaBase}/thumbnails/commercial-drjob-pro-1.jpg`,
+    image: "/thumbnails/commercial-drjob-pro-1.webp",
     video: `${mediaBase}/previews/commercial-drjob-pro-1.mp4`,
     tone: "red",
     featured: false,
@@ -535,7 +535,7 @@ const projects: Project[] = [
     role: "Editor",
     description:
       "A second promotional edit for the Dr.Job Pro platform.",
-    image: `${mediaBase}/thumbnails/commercial-drjob-pro-2.jpg`,
+    image: "/thumbnails/commercial-drjob-pro-2.webp",
     video: `${mediaBase}/previews/commercial-drjob-pro-2.mp4`,
     tone: "silver",
     featured: false,
@@ -547,7 +547,7 @@ const projects: Project[] = [
     role: "Editor",
     description:
       "A third promotional edit for the Dr.Job Pro platform.",
-    image: `${mediaBase}/thumbnails/commercial-drjob-pro-3.jpg`,
+    image: "/thumbnails/commercial-drjob-pro-3.webp",
     video: `${mediaBase}/previews/commercial-drjob-pro-3.mp4`,
     tone: "blue",
     featured: false,
@@ -559,7 +559,7 @@ const projects: Project[] = [
     role: "Video Editor",
     description:
       "A studio-challenge episode from the Vodafone StarsClash format, pitting two contestants head-to-head.",
-    image: `${mediaBase}/thumbnails/commercial-starsclash-tayam-vs-amar.jpg`,
+    image: "/thumbnails/commercial-starsclash-tayam-vs-amar.webp",
     video: `${mediaBase}/previews/commercial-starsclash-tayam-vs-amar.mp4`,
     tone: "warm",
     featured: false,
@@ -571,7 +571,7 @@ const projects: Project[] = [
     role: "Video Editor",
     description:
       "An alternate teaser cut for the Vodafone StarsClash format.",
-    image: `${mediaBase}/thumbnails/commercial-starsclash-teaser-2.jpg`,
+    image: "/thumbnails/commercial-starsclash-teaser-2.webp",
     video: `${mediaBase}/previews/commercial-starsclash-teaser-2.mp4`,
     tone: "dark",
     featured: false,
@@ -583,7 +583,7 @@ const projects: Project[] = [
     role: "Editor & Template Designer",
     description:
       "Part of the Zed Talents bilingual sports template system, applied to a new batch of drill films.",
-    image: `${mediaBase}/thumbnails/commercial-zed-talents-2.jpg`,
+    image: "/thumbnails/commercial-zed-talents-2.webp",
     video: `${mediaBase}/previews/commercial-zed-talents-2.mp4`,
     tone: "red",
     featured: false,
@@ -595,7 +595,7 @@ const projects: Project[] = [
     role: "Editor & Template Designer",
     description:
       "A further batch of Zed Talents drill films using the bilingual template system.",
-    image: `${mediaBase}/thumbnails/commercial-zed-talents-3.jpg`,
+    image: "/thumbnails/commercial-zed-talents-3.webp",
     video: `${mediaBase}/previews/commercial-zed-talents-3.mp4`,
     tone: "silver",
     featured: false,
@@ -607,7 +607,7 @@ const projects: Project[] = [
     role: "Editor",
     description:
       "A launch/mainsell film introducing the Zed Talents programme.",
-    image: `${mediaBase}/thumbnails/commercial-zed-talents-launch.jpg`,
+    image: "/thumbnails/commercial-zed-talents-launch.webp",
     video: `${mediaBase}/previews/commercial-zed-talents-launch.mp4`,
     tone: "blue",
     featured: false,
@@ -619,7 +619,7 @@ const projects: Project[] = [
     role: "Editor",
     description:
       "A sample/reference cut from the Zed Talents drill-film library.",
-    image: `${mediaBase}/thumbnails/commercial-zed-talents-sample-2.jpg`,
+    image: "/thumbnails/commercial-zed-talents-sample-2.webp",
     video: `${mediaBase}/previews/commercial-zed-talents-sample-2.mp4`,
     tone: "warm",
     featured: false,
@@ -631,7 +631,7 @@ const projects: Project[] = [
     role: "Motion Designer",
     description:
       "An animated app-UI walkthrough explaining how to register for the Zed Talents programme.",
-    image: `${mediaBase}/thumbnails/commercial-zed-talents-registration.jpg`,
+    image: "/thumbnails/commercial-zed-talents-registration.webp",
     video: `${mediaBase}/previews/commercial-zed-talents-registration.mp4`,
     tone: "dark",
     featured: false,
@@ -643,7 +643,7 @@ const projects: Project[] = [
     role: "Motion Designer",
     description:
       "A short branded preloader animation for the Ora identity system.",
-    image: `${mediaBase}/thumbnails/commercial-ora-preloader.jpg`,
+    image: "/thumbnails/commercial-ora-preloader.webp",
     video: `${mediaBase}/previews/commercial-ora-preloader.mp4`,
     tone: "red",
     featured: false,
@@ -655,7 +655,7 @@ const projects: Project[] = [
     role: "Motion Designer",
     description:
       "An alternate colourway of the Ora preloader animation.",
-    image: `${mediaBase}/thumbnails/commercial-ora-preloader-off.jpg`,
+    image: "/thumbnails/commercial-ora-preloader-off.webp",
     video: `${mediaBase}/previews/commercial-ora-preloader-off.mp4`,
     tone: "silver",
     featured: false,
@@ -667,7 +667,7 @@ const projects: Project[] = [
     role: "Motion Designer",
     description:
       "One of four shape-animation logo builds developed for the Ora identity system.",
-    image: `${mediaBase}/thumbnails/commercial-ora-shape-logo-3.jpg`,
+    image: "/thumbnails/commercial-ora-shape-logo-3.webp",
     video: `${mediaBase}/previews/commercial-ora-shape-logo-3.mp4`,
     tone: "blue",
     featured: false,
@@ -679,7 +679,7 @@ const projects: Project[] = [
     role: "Editor",
     description:
       "A compiled reel of sports visual snippets and cutaways.",
-    image: `${mediaBase}/thumbnails/sports-visual-snippets-1.jpg`,
+    image: "/thumbnails/sports-visual-snippets-1.webp",
     video: `${mediaBase}/previews/sports-visual-snippets-1.mp4`,
     tone: "warm",
     featured: false,
@@ -691,7 +691,7 @@ const projects: Project[] = [
     role: "Editor",
     description:
       "A second compiled reel of sports visual snippets.",
-    image: `${mediaBase}/thumbnails/sports-visual-snippets-2.jpg`,
+    image: "/thumbnails/sports-visual-snippets-2.webp",
     video: `${mediaBase}/previews/sports-visual-snippets-2.mp4`,
     tone: "dark",
     featured: false,
@@ -703,7 +703,7 @@ const projects: Project[] = [
     role: "Editor",
     description:
       "A squad-announcement/roster-style sports edit.",
-    image: `${mediaBase}/thumbnails/sports-squads.jpg`,
+    image: "/thumbnails/sports-squads.webp",
     video: `${mediaBase}/previews/sports-squads.mp4`,
     tone: "red",
     featured: false,
@@ -715,7 +715,7 @@ const projects: Project[] = [
     role: "Editor",
     description:
       "A football fan/commentary-style sports edit built around Gary Neville.",
-    image: `${mediaBase}/thumbnails/sports-gary-neville-is-red.jpg`,
+    image: "/thumbnails/sports-gary-neville-is-red.webp",
     video: `${mediaBase}/previews/sports-gary-neville-is-red.mp4`,
     tone: "silver",
     featured: false,
@@ -727,7 +727,7 @@ const projects: Project[] = [
     role: "Editor",
     description:
       "An alternate cut of the Gary Neville Is Red piece.",
-    image: `${mediaBase}/thumbnails/sports-gary-neville-is-red-2.jpg`,
+    image: "/thumbnails/sports-gary-neville-is-red-2.webp",
     video: `${mediaBase}/previews/sports-gary-neville-is-red-2.mp4`,
     tone: "blue",
     featured: false,
@@ -739,7 +739,7 @@ const projects: Project[] = [
     role: "Editor",
     description:
       "The closing/outro section of a football storytelling piece comparing two players.",
-    image: `${mediaBase}/thumbnails/sports-amoory-like-fares-outro.jpg`,
+    image: "/thumbnails/sports-amoory-like-fares-outro.webp",
     video: `${mediaBase}/previews/sports-amoory-like-fares-outro.mp4`,
     tone: "warm",
     featured: false,
@@ -751,7 +751,7 @@ const projects: Project[] = [
     role: "Editor",
     description:
       "An extended full-HD cut of the Vesba Story piece.",
-    image: `${mediaBase}/thumbnails/sports-vesba-story-fhd.jpg`,
+    image: "/thumbnails/sports-vesba-story-fhd.webp",
     video: `${mediaBase}/previews/sports-vesba-story-fhd.mp4`,
     tone: "dark",
     featured: false,
@@ -763,7 +763,7 @@ const projects: Project[] = [
     role: "Editor",
     description:
       "A football storytelling piece centred on player Abou Ali.",
-    image: `${mediaBase}/thumbnails/sports-abou-ali.jpg`,
+    image: "/thumbnails/sports-abou-ali.webp",
     video: `${mediaBase}/previews/sports-abou-ali.mp4`,
     tone: "red",
     featured: false,
@@ -775,7 +775,7 @@ const projects: Project[] = [
     role: "Editor",
     description:
       "A squad-focused sports edit centred on the Brazilian national team.",
-    image: `${mediaBase}/thumbnails/sports-brazil-squad.jpg`,
+    image: "/thumbnails/sports-brazil-squad.webp",
     video: `${mediaBase}/previews/sports-brazil-squad.mp4`,
     tone: "silver",
     featured: false,
@@ -787,7 +787,7 @@ const projects: Project[] = [
     role: "Editor & Motion Designer",
     description:
       "A fitness-focused edit featuring a distinctive neon 'FITNESS' title card treatment.",
-    image: `${mediaBase}/thumbnails/sports-squat-fitness.jpg`,
+    image: "/thumbnails/sports-squat-fitness.webp",
     video: `${mediaBase}/previews/sports-squat-fitness.mp4`,
     tone: "blue",
     featured: false,
@@ -799,7 +799,7 @@ const projects: Project[] = [
     role: "Editor",
     description:
       "A sample promotional edit produced for the Nsoo7y YouTube channel's football-talk format.",
-    image: `${mediaBase}/thumbnails/sports-sabaho-korah.jpg`,
+    image: "/thumbnails/sports-sabaho-korah.webp",
     video: `${mediaBase}/previews/sports-sabaho-korah.mp4`,
     tone: "warm",
     featured: false,
@@ -811,7 +811,7 @@ const projects: Project[] = [
     role: "Editor & Motion Designer",
     description:
       "A visual-design-led piece built around the Shady Habashy channel's storytelling format.",
-    image: `${mediaBase}/thumbnails/visual-shady-habashy-story.jpg`,
+    image: "/thumbnails/visual-shady-habashy-story.webp",
     video: `${mediaBase}/previews/visual-shady-habashy-story.mp4`,
     tone: "dark",
     featured: false,
@@ -823,7 +823,7 @@ const projects: Project[] = [
     role: "Editor & Motion Designer",
     description:
       "An alternate visual-design cut of a piece centred on Wessam Abou Ali.",
-    image: `${mediaBase}/thumbnails/visual-wessam-abou-ali-2.jpg`,
+    image: "/thumbnails/visual-wessam-abou-ali-2.webp",
     video: `${mediaBase}/previews/visual-wessam-abou-ali-2.mp4`,
     tone: "red",
     featured: false,
@@ -835,7 +835,7 @@ const projects: Project[] = [
     role: "Editor & Colourist",
     description:
       "A short showcase reel of standalone graded frames and visual-design stills in motion.",
-    image: `${mediaBase}/thumbnails/visual-frames-showcase.jpg`,
+    image: "/thumbnails/visual-frames-showcase.webp",
     video: `${mediaBase}/previews/visual-frames-showcase.mp4`,
     tone: "silver",
     featured: false,
@@ -847,7 +847,7 @@ const projects: Project[] = [
     role: "Editor & Motion Designer",
     description:
       "A visual-design-focused edit built around footballer Ali Maaloul, distinct from the 3D tribute pieces.",
-    image: `${mediaBase}/thumbnails/visual-ali-maaloul-2.jpg`,
+    image: "/thumbnails/visual-ali-maaloul-2.webp",
     video: `${mediaBase}/previews/visual-ali-maaloul-2.mp4`,
     tone: "blue",
     featured: false,
@@ -859,7 +859,7 @@ const projects: Project[] = [
     role: "Colourist & Retoucher",
     description:
       "A colour-grading and retouch before/after showcase piece.",
-    image: `${mediaBase}/thumbnails/visual-before-and-after.jpg`,
+    image: "/thumbnails/visual-before-and-after.webp",
     video: `${mediaBase}/previews/visual-before-and-after.mp4`,
     tone: "warm",
     featured: false,
@@ -871,7 +871,7 @@ const projects: Project[] = [
     role: "Editor",
     description:
       "A vertical social reels compilation mixing several short-form pieces.",
-    image: `${mediaBase}/thumbnails/social-reels-mix-1.jpg`,
+    image: "/thumbnails/social-reels-mix-1.webp",
     video: `${mediaBase}/previews/social-reels-mix-1.mp4`,
     tone: "dark",
     featured: false,
@@ -883,7 +883,7 @@ const projects: Project[] = [
     role: "Editor",
     description:
       "A second vertical social reels compilation.",
-    image: `${mediaBase}/thumbnails/social-reels-mix-2.jpg`,
+    image: "/thumbnails/social-reels-mix-2.webp",
     video: `${mediaBase}/previews/social-reels-mix-2.mp4`,
     tone: "red",
     featured: false,
@@ -895,7 +895,7 @@ const projects: Project[] = [
     role: "Editor",
     description:
       "A vertical social piece built around speaker/creator Karim Hanafy.",
-    image: `${mediaBase}/thumbnails/social-karim-hanafy.jpg`,
+    image: "/thumbnails/social-karim-hanafy.webp",
     video: `${mediaBase}/previews/social-karim-hanafy.mp4`,
     tone: "silver",
     featured: false,
@@ -907,7 +907,7 @@ const projects: Project[] = [
     role: "Editor",
     description:
       "A recap edit of the Sharjah Entrepreneurship Festival (SEF) 2023.",
-    image: `${mediaBase}/thumbnails/social-sef-2023-recap.jpg`,
+    image: "/thumbnails/social-sef-2023-recap.webp",
     video: `${mediaBase}/previews/social-sef-2023-recap.mp4`,
     tone: "blue",
     featured: false,
@@ -919,7 +919,7 @@ const projects: Project[] = [
     role: "Editor",
     description:
       "An updated recap edit covering ChatGPT-related event content.",
-    image: `${mediaBase}/thumbnails/social-chatgpt-recap-update-2.jpg`,
+    image: "/thumbnails/social-chatgpt-recap-update-2.webp",
     video: `${mediaBase}/previews/social-chatgpt-recap-update-2.mp4`,
     tone: "warm",
     featured: false,
@@ -931,7 +931,7 @@ const projects: Project[] = [
     role: "Editor",
     description:
       "One of several finished cuts of the ChatGPT Hackathon recap, from a series of iterated versions.",
-    image: `${mediaBase}/thumbnails/social-chatgpt-hackathon-3.jpg`,
+    image: "/thumbnails/social-chatgpt-hackathon-3.webp",
     video: `${mediaBase}/previews/social-chatgpt-hackathon-3.mp4`,
     tone: "dark",
     featured: false,
@@ -943,7 +943,7 @@ const projects: Project[] = [
     role: "Editor",
     description:
       "A vertical interview-format piece built around ChatGPT/AI event conversations.",
-    image: `${mediaBase}/thumbnails/social-chatgpt-interviews.jpg`,
+    image: "/thumbnails/social-chatgpt-interviews.webp",
     video: `${mediaBase}/previews/social-chatgpt-interviews.mp4`,
     tone: "red",
     featured: false,
@@ -955,7 +955,7 @@ const projects: Project[] = [
     role: "Editor",
     description:
       "A promotional/call-for-speakers piece for SEF 2023.",
-    image: `${mediaBase}/thumbnails/social-suggest-a-speaker-sef23.jpg`,
+    image: "/thumbnails/social-suggest-a-speaker-sef23.webp",
     video: `${mediaBase}/previews/social-suggest-a-speaker-sef23.mp4`,
     tone: "silver",
     featured: false,
@@ -967,7 +967,7 @@ const projects: Project[] = [
     role: "Editor",
     description:
       "A vertical teaser cut for the 'Sons of Yusuf' project.",
-    image: `${mediaBase}/thumbnails/social-sons-of-yusuf-teaser.jpg`,
+    image: "/thumbnails/social-sons-of-yusuf-teaser.webp",
     video: `${mediaBase}/previews/social-sons-of-yusuf-teaser.mp4`,
     tone: "blue",
     featured: false,
@@ -979,7 +979,7 @@ const projects: Project[] = [
     role: "Editor & Motion Designer",
     description:
       "A glitch/collage-style editorial motion piece for the EMMA reels format.",
-    image: `${mediaBase}/thumbnails/social-emma-reels-1.jpg`,
+    image: "/thumbnails/social-emma-reels-1.webp",
     video: `${mediaBase}/previews/social-emma-reels-1.mp4`,
     tone: "warm",
     featured: false,
@@ -991,7 +991,7 @@ const projects: Project[] = [
     role: "Editor",
     description:
       "A YouTube/digital piece documenting work inside an art studio.",
-    image: `${mediaBase}/thumbnails/digital-art-studio.jpg`,
+    image: "/thumbnails/digital-art-studio.webp",
     video: `${mediaBase}/previews/digital-art-studio.mp4`,
     tone: "dark",
     featured: false,
@@ -1003,7 +1003,7 @@ const projects: Project[] = [
     role: "Editor",
     description:
       "An alternate intro cut for the 'Sons of Yusuf' digital/YouTube project.",
-    image: `${mediaBase}/thumbnails/digital-sons-of-yusuf-intro-2.jpg`,
+    image: "/thumbnails/digital-sons-of-yusuf-intro-2.webp",
     video: `${mediaBase}/previews/digital-sons-of-yusuf-intro-2.mp4`,
     tone: "red",
     featured: false,
@@ -1015,7 +1015,7 @@ const projects: Project[] = [
     role: "Editor & Motion Designer",
     description:
       "A kinetic-typography retrospective built from an archival interview transcript and restored match photography, paired with torn-paper quote reveals.",
-    image: `${mediaBase}/thumbnails/motion-ebbe-sand.jpg`,
+    image: "/thumbnails/motion-ebbe-sand.webp",
     video: `${mediaBase}/previews/motion-ebbe-sand.mp4`,
     tone: "silver",
     featured: false,
@@ -1027,7 +1027,7 @@ const projects: Project[] = [
     role: "Motion Designer",
     description:
       "A punchy extruded-3D title package for a legal-explainer short, built around a night-time traffic-stop dramatization.",
-    image: `${mediaBase}/thumbnails/motion-know-your-rights.jpg`,
+    image: "/thumbnails/motion-know-your-rights.webp",
     video: `${mediaBase}/previews/motion-know-your-rights.mp4`,
     tone: "blue",
     featured: false,
@@ -1039,7 +1039,7 @@ const projects: Project[] = [
     role: "Motion Designer & 3D Artist",
     description:
       "A 3D coverflow transition system built to move between archival football photography and newspaper print without a hard cut.",
-    image: `${mediaBase}/thumbnails/motion-scene-transitions.jpg`,
+    image: "/thumbnails/motion-scene-transitions.webp",
     video: `${mediaBase}/previews/motion-scene-transitions.mp4`,
     tone: "warm",
     featured: false,
@@ -1048,17 +1048,22 @@ const projects: Project[] = [
 
 /** One muted highlight reel per work category, previewed on hover in the "Explore by Discipline" section. */
 const categoryReels: { category: (typeof categories)[number]; video: string; poster: string }[] = [
-  { category: "Documentary & Directing", video: `${mediaBase}/previews/documentary-directing-promo.mp4`, poster: `${mediaBase}/thumbnails/documentary-directing-promo.jpg` },
-  { category: "Motion & 3D", video: `${mediaBase}/previews/motion-3d-promo.mp4`, poster: `${mediaBase}/thumbnails/motion-3d-promo.jpg` },
-  { category: "Brand & Commercial", video: `${mediaBase}/previews/brand-commercial-promo.mp4`, poster: `${mediaBase}/thumbnails/brand-commercial-promo.jpg` },
-  { category: "Sports", video: `${mediaBase}/previews/sports-promo.mp4`, poster: `${mediaBase}/thumbnails/sports-promo.jpg` },
-  { category: "Visual Design", video: `${mediaBase}/previews/visual-design-promo.mp4`, poster: `${mediaBase}/thumbnails/visual-design-promo.jpg` },
-  { category: "Social Reels", video: `${mediaBase}/previews/social-reels-promo.mp4`, poster: `${mediaBase}/thumbnails/social-reels-promo.jpg` },
-  { category: "Digital & YouTube Content", video: `${mediaBase}/previews/digital-youtube-content-promo.mp4`, poster: `${mediaBase}/thumbnails/digital-youtube-content-promo.jpg` },
+  { category: "Documentary & Directing", video: `${mediaBase}/previews/documentary-directing-promo.mp4`, poster: "/thumbnails/documentary-directing-promo.webp" },
+  { category: "Motion & 3D", video: `${mediaBase}/previews/motion-3d-promo.mp4`, poster: "/thumbnails/motion-3d-promo.webp" },
+  { category: "Brand & Commercial", video: `${mediaBase}/previews/brand-commercial-promo.mp4`, poster: "/thumbnails/brand-commercial-promo.webp" },
+  { category: "Sports", video: `${mediaBase}/previews/sports-promo.mp4`, poster: "/thumbnails/sports-promo.webp" },
+  { category: "Visual Design", video: `${mediaBase}/previews/visual-design-promo.mp4`, poster: "/thumbnails/visual-design-promo.webp" },
+  { category: "Social Reels", video: `${mediaBase}/previews/social-reels-promo.mp4`, poster: "/thumbnails/social-reels-promo.webp" },
+  { category: "Digital & YouTube Content", video: `${mediaBase}/previews/digital-youtube-content-promo.mp4`, poster: "/thumbnails/digital-youtube-content-promo.webp" },
 ];
 
 /** Thumbnails used in the drifting frame rail between the hero and the discipline grid. */
 const railFrames = projects.filter((p) => p.featured).slice(0, 10).map((p) => p.image);
+
+/** Pixels between two category ticks on the camera-control dial. */
+const DIAL_SPACING = 78;
+/** Minor tick divisions rendered between each category tick. */
+const DIAL_SUBDIVISIONS = 5;
 
 const disciplines = [
   ["01", "Direct", "Treatment, interview direction, lighting and on-set visual decisions."],
@@ -1153,17 +1158,17 @@ const toolBadges = [
 
 function DisciplineReelCard({
   reel,
-  index,
-  total,
+  angle,
+  active,
   hovered,
   onHover,
   onLeave,
   onSelect,
 }: {
   reel: (typeof categoryReels)[number];
-  index: number;
-  total: number;
-  hovered: number | null;
+  angle: number;
+  active: boolean;
+  hovered: boolean;
   onHover: () => void;
   onLeave: () => void;
   onSelect: () => void;
@@ -1176,28 +1181,16 @@ function DisciplineReelCard({
     videoRef.current.currentTime = 0;
   };
 
-  const center = (total - 1) / 2;
-  const offset = index - center;
-  const isHovered = hovered === index;
-  const arcRadius = 620;
-  const angleStep = 13;
-  const restAngle = offset * angleStep;
-  const restTilt = offset * -4;
-  const restDrop = arcRadius * (1 - Math.cos((restAngle * Math.PI) / 180));
-  const pushAway = hovered !== null && !isHovered ? Math.sign(index - hovered) * (16 / (1 + Math.abs(index - hovered))) : 0;
-
-  const style: CSSProperties = isHovered
-    ? { transform: "perspective(1400px) rotateY(0deg) rotate(0deg) translateY(-1rem) translateZ(60px) scale(1.12)", zIndex: 5 }
-    : {
-        transform: `perspective(1400px) rotateY(${restTilt}deg) rotate(${restAngle}deg) translateY(${restDrop}px) translateX(${pushAway}px)`,
-        zIndex: 1,
-        marginLeft: index === 0 ? 0 : "clamp(-2.6rem,-3.4vw,-1.6rem)",
-      };
+  // The card facing the viewer previews itself; the rest stay parked on their poster frame.
+  useEffect(() => {
+    if (active) play();
+    else pause();
+  }, [active]);
 
   return (
     <button
-      className={"discipline-reel-card fan-card" + (isHovered ? " is-hovered" : "")}
-      style={style}
+      className={"discipline-reel-card" + (active ? " is-active" : "") + (hovered ? " is-hovered" : "")}
+      style={{ "--card-angle": `${angle}deg` } as CSSProperties}
       onClick={(event) => {
         event.currentTarget.blur();
         onLeave();
@@ -1313,6 +1306,54 @@ export default function Home() {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [hoveredDiscipline, setHoveredDiscipline] = useState<number | null>(null);
   const [manifestoMuted, setManifestoMuted] = useState(true);
+  const [heroNoteOpen, setHeroNoteOpen] = useState(false);
+  const [openDisciplines, setOpenDisciplines] = useState<Record<string, boolean>>({});
+  const [activeReel, setActiveReel] = useState(0);
+
+  const reelCount = categoryReels.length;
+  const reelStep = 360 / reelCount;
+  const wheelRef = useRef<HTMLDivElement>(null);
+  const dialTrackRef = useRef<HTMLDivElement>(null);
+  const angleRef = useRef(0);
+  const dragRef = useRef<{ pointerX: number; angle: number } | null>(null);
+  const snapRaf = useRef(0);
+
+  const renderWheel = (angle: number) => {
+    if (wheelRef.current) wheelRef.current.style.transform = `rotateY(${-angle}deg)`;
+    if (dialTrackRef.current) {
+      const progress = angle / reelStep;
+      const wrapped = ((progress % reelCount) + reelCount) % reelCount;
+      dialTrackRef.current.style.transform = `translateX(${-(wrapped + reelCount) * DIAL_SPACING}px)`;
+    }
+    const index = ((Math.round(angle / reelStep) % reelCount) + reelCount) % reelCount;
+    setActiveReel((current) => (current === index ? current : index));
+  };
+
+  const spinTo = (angle: number) => {
+    angleRef.current = angle;
+    renderWheel(angle);
+  };
+
+  const snapToNearest = () => {
+    cancelAnimationFrame(snapRaf.current);
+    const target = Math.round(angleRef.current / reelStep) * reelStep;
+    const settle = () => {
+      const distance = target - angleRef.current;
+      if (Math.abs(distance) < 0.05) {
+        spinTo(target);
+        return;
+      }
+      spinTo(angleRef.current + distance * 0.18);
+      snapRaf.current = requestAnimationFrame(settle);
+    };
+    snapRaf.current = requestAnimationFrame(settle);
+  };
+
+  useEffect(() => {
+    renderWheel(angleRef.current);
+    return () => cancelAnimationFrame(snapRaf.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const heroRef = useRef<HTMLElement>(null);
   const characterRef = useRef<HTMLDivElement>(null);
   const manifestoVideoRef = useRef<HTMLVideoElement>(null);
@@ -1586,7 +1627,7 @@ export default function Home() {
           </div>
           <div className="portrait-frame">
             <img
-              src="/shady-hero-cutout-v2.png"
+              src="/shady-hero-cutout-v3.png"
               alt="Portrait of Shady Maged"
             />
           </div>
@@ -1605,7 +1646,18 @@ export default function Home() {
         </div>
 
         <div className="hero-bottom">
-          <p>Independent vision. Every frame considered.</p>
+          <div className={`hero-note${heroNoteOpen ? " is-open" : ""}`}>
+            <button
+              type="button"
+              className="hero-note-toggle"
+              onClick={() => setHeroNoteOpen((open) => !open)}
+              aria-expanded={heroNoteOpen}
+              aria-label={heroNoteOpen ? "Hide note" : "Show note"}
+            >
+              {heroNoteOpen ? "–" : "+"}
+            </button>
+            <p>Independent vision. Every frame considered.</p>
+          </div>
           <a href="#work" className="round-link"><span>View work</span><Arrow /></a>
         </div>
         <div className="scroll-cue" aria-hidden="true"><span>Scroll to enter</span><i /></div>
@@ -1629,26 +1681,95 @@ export default function Home() {
       </section>
 
       <section className="discipline-reels-section" aria-label="Explore by discipline">
-        <header className="section-heading reveal-block">
-          <p><span>00</span> Explore by discipline</p>
-          <h2>Seven ways into <em>the work.</em></h2>
-        </header>
-        <div className="discipline-reels-grid" onMouseLeave={() => setHoveredDiscipline(null)}>
-          {categoryReels.map((reel, index) => (
-            <DisciplineReelCard
-              key={reel.category}
-              reel={reel}
-              index={index}
-              total={categoryReels.length}
-              hovered={hoveredDiscipline}
-              onHover={() => setHoveredDiscipline(index)}
-              onLeave={() => setHoveredDiscipline((current) => (current === index ? null : current))}
-              onSelect={() => {
-                setActiveCategory(reel.category);
-                document.getElementById("work")?.scrollIntoView({ behavior: "smooth" });
+        <div className="discipline-showcase">
+          <figure className="discipline-portrait">
+            <img src="/shady-portrait-poster.jpg" alt="Shady Maged — portrait poster" loading="lazy" />
+          </figure>
+
+          <div className="discipline-stage">
+            <header className="section-heading reveal-block">
+              <p><span>00</span> Explore by discipline</p>
+              <h2>Seven ways into <em>the work.</em></h2>
+            </header>
+
+            <div className="discipline-wheel-viewport" onMouseLeave={() => setHoveredDiscipline(null)}>
+              <div className="discipline-wheel" ref={wheelRef}>
+                {categoryReels.map((reel, index) => (
+                  <DisciplineReelCard
+                    key={reel.category}
+                    reel={reel}
+                    angle={index * reelStep}
+                    active={index === activeReel}
+                    hovered={hoveredDiscipline === index}
+                    onHover={() => setHoveredDiscipline(index)}
+                    onLeave={() => setHoveredDiscipline((current) => (current === index ? null : current))}
+                    onSelect={() => {
+                      setActiveCategory(reel.category);
+                      document.getElementById("work")?.scrollIntoView({ behavior: "smooth" });
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div
+              className="control-dial"
+              role="slider"
+              tabIndex={0}
+              aria-label="Rotate the discipline wheel"
+              aria-valuemin={1}
+              aria-valuemax={reelCount}
+              aria-valuenow={activeReel + 1}
+              aria-valuetext={categoryReels[activeReel].category}
+              onPointerDown={(event) => {
+                event.currentTarget.setPointerCapture(event.pointerId);
+                cancelAnimationFrame(snapRaf.current);
+                dragRef.current = { pointerX: event.clientX, angle: angleRef.current };
               }}
-            />
-          ))}
+              onPointerMove={(event) => {
+                const drag = dragRef.current;
+                if (!drag) return;
+                spinTo(drag.angle - (event.clientX - drag.pointerX) * (reelStep / DIAL_SPACING));
+              }}
+              onPointerUp={() => {
+                if (!dragRef.current) return;
+                dragRef.current = null;
+                snapToNearest();
+              }}
+              onPointerCancel={() => { dragRef.current = null; snapToNearest(); }}
+              onKeyDown={(event) => {
+                if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+                event.preventDefault();
+                cancelAnimationFrame(snapRaf.current);
+                angleRef.current += event.key === "ArrowRight" ? reelStep : -reelStep;
+                snapToNearest();
+              }}
+            >
+              <div className="control-dial-track" ref={dialTrackRef}>
+                {Array.from({ length: reelCount * 3 * DIAL_SUBDIVISIONS }, (_, tick) => {
+                  const isMajor = tick % DIAL_SUBDIVISIONS === 0;
+                  const stop = tick / DIAL_SUBDIVISIONS;
+                  return (
+                    <span key={tick}>
+                      <i
+                        className={`control-dial-tick ${isMajor ? "major" : "minor"}`}
+                        style={{ left: stop * DIAL_SPACING }}
+                        aria-hidden="true"
+                      />
+                      {isMajor && (
+                        <i className="control-dial-tick-label" style={{ left: stop * DIAL_SPACING }} aria-hidden="true">
+                          {String((stop % reelCount) + 1).padStart(2, "0")}
+                        </i>
+                      )}
+                    </span>
+                  );
+                })}
+              </div>
+              <span className="control-dial-value">{categoryReels[activeReel].category}</span>
+              <span className="control-dial-marker" aria-hidden="true" />
+            </div>
+            <p className="control-dial-hint">Drag the dial to spin the wheel</p>
+          </div>
         </div>
       </section>
 
@@ -1711,11 +1832,25 @@ export default function Home() {
           <h2>From the first idea<br />to the <em>final frame.</em></h2>
         </div>
         <div className="discipline-list">
-          {disciplines.map(([number, title, description]) => (
-            <article key={number}>
-              <span>{number}</span><h3>{title}</h3><p>{description}</p><Arrow diagonal />
-            </article>
-          ))}
+          {disciplines.map(([number, title, description]) => {
+            const isOpen = !!openDisciplines[number];
+            return (
+              <article key={number} className={isOpen ? "is-open" : ""}>
+                <button
+                  type="button"
+                  className="discipline-row"
+                  onClick={() => setOpenDisciplines((prev) => ({ ...prev, [number]: !prev[number] }))}
+                  aria-expanded={isOpen}
+                >
+                  <span>{number}</span><h3>{title}</h3>
+                  <span className="discipline-toggle" aria-hidden="true">{isOpen ? "–" : "+"}</span>
+                </button>
+                <div className="discipline-panel" style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}>
+                  <div className="discipline-panel-inner"><p>{description}</p></div>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </section>
 
