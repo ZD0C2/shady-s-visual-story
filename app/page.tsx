@@ -10,7 +10,7 @@ const mediaBase = "https://pub-f8b978c7d5d048dc89b05ff4b470b067.r2.dev";
  * separates the three review builds — everything else about them is identical.
  */
 type AmbientLevel = "subtle" | "bold" | "max";
-const AMBIENT_LEVEL: AmbientLevel = "bold";
+const AMBIENT_LEVEL: AmbientLevel = "max";
 
 const AMBIENT_CLIPS = ["studio-01", "studio-02", "studio-03", "studio-04", "studio-05"] as const;
 
