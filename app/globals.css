@@ -155,20 +155,42 @@ a:hover .arrow.diagonal, button:hover .arrow.diagonal { transform: rotate(-45deg
 .kinetic-strip i { font-style: normal; font-size: .65em; }
 @keyframes marquee { to { transform: translateX(-50%); } }
 
-.discipline-reels-section { position: relative; isolation: isolate; padding: clamp(5rem,8vw,7rem) max(3.1vw, calc((100vw - 92rem) / 2)) clamp(6rem,9vw,9rem); background: var(--paper); }
+/* This artwork is a moody, near-black composite (its own baked-in dark
+   background, not a transparent cutout) — it can never sit convincingly on
+   the paper-light section the site's toggle would otherwise give it. Pinned
+   dark regardless of theme, like the poster-panel/cinematic-panel breaks it
+   sits beside, so the poster's own background can actually match the
+   section's. (The wheel and dial were already styled in light-on-dark —
+   cream ticks, white toggle borders — so this also fixes their contrast in
+   light theme rather than only serving the photo.) */
+.discipline-reels-section { position: relative; isolation: isolate; overflow: hidden; padding: clamp(5rem,8vw,7rem) max(3.1vw, calc((100vw - 92rem) / 2)) clamp(6rem,9vw,9rem); background: #0d0e0c; color: var(--paper); }
+.discipline-reels-section::before {
+  content: ""; position: absolute; z-index: -1; inset: 0; pointer-events: none;
+  /* Only the top needs a seam fade: the section below (poster-panel) is
+     already this exact same dark, so that edge already matches. */
+  background: linear-gradient(180deg, var(--surface) 0%, rgba(13,14,12,0) 16%);
+}
 .discipline-showcase { display: grid; grid-template-columns: minmax(0,6fr) minmax(0,6fr); gap: clamp(1rem,2.5vw,2.5rem); align-items: stretch; }
 .discipline-portrait { display: flex; justify-content: center; align-items: stretch; margin: 0; align-self: stretch; }
 .discipline-portrait img {
   /* `contain` + no horizontal mask: this artwork carries its own baked-in
      headline and paragraph, so cropping or fading the sides clipped the first
      letter of every line. Only the top/bottom edges fade into the page. */
-  display: block; width: 100%; height: auto; max-width: 100%; max-height: min(52rem,88vh);
+  display: block; width: 100%; height: auto; max-width: 100%; max-height: min(60rem,92vh);
   /* Matches the artwork's own 1024x1536 so the box has height before the lazy
      load fires — without it the img collapses to 0 and never enters view. */
   aspect-ratio: 1024 / 1536;
   object-fit: contain; border-radius: 0; box-shadow: none;
   -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
   mask-image: linear-gradient(180deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+  /* The artwork's own background is a near-black that only approximately
+     matches the section's — close, but not identical, which is exactly the
+     hairline seam the flat side edges (no mask there) were still showing.
+     `screen` makes black, screened against anything, become that thing
+     exactly — so the two darks fuse precisely — while barely touching the
+     portrait's own lit pixels, since screen only brightens toward the
+     (here, near-black) backdrop. */
+  mix-blend-mode: screen;
 }
 .discipline-stage { display: flex; flex-direction: column; justify-content: center; }
 /* The shared section-heading scale is tuned for full-bleed sections; in this
@@ -776,7 +798,6 @@ footer { padding: 1.4rem 3.1vw; display: flex; justify-content: space-between; b
 /* The acid tape reads as the signature of the whole site — keeping it green
    in the dark theme is the point, so only its edge treatment changes. */
 .theme-graphite .kinetic-strip { background: var(--acid); color: var(--ink); border-block-color: rgba(13,14,12,.55); box-shadow: 0 0 3.5rem rgba(217,242,106,.22); }
-.theme-graphite .discipline-reels-section { background: #171815; }
 .theme-graphite .stills-rail { background: #171815; -webkit-mask-image: linear-gradient(to right,transparent,#171815 7%,#171815 93%,transparent); mask-image: linear-gradient(to right,transparent,#171815 7%,#171815 93%,transparent); }
 .theme-graphite .manifesto-section { background: #171815; color: #eeeade; }
 .theme-graphite .manifesto-media span { color: #a8a69c; }
