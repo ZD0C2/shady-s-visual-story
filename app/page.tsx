@@ -83,7 +83,7 @@ function AmbientLayer({ clip }: { clip: string }) {
 }
 
 /** Full-bleed cinematic break: footage fills the viewport, headline scrubs with scroll. */
-function CinematicPanel({ clip, kicker, line }: { clip: string; kicker: string; line: string }) {
+function CinematicPanel({ clip, kicker, line, at }: { clip: string; kicker: string; line: string; at: string }) {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -121,7 +121,7 @@ function CinematicPanel({ clip, kicker, line }: { clip: string; kicker: string; 
   }, []);
 
   return (
-    <section className="cinematic-panel" ref={sectionRef} aria-label={line}>
+    <section className="cinematic-panel" data-at={at} ref={sectionRef} aria-label={line}>
       <video ref={videoRef} src={`/ambient/${clip}.mp4`} poster={`/ambient/${clip}.webp`} muted loop playsInline preload="none" aria-hidden="true" />
       <div className="cinematic-panel-copy">
         <p>{kicker}</p>
@@ -2039,7 +2039,7 @@ export default function Home() {
       </section>
 
       {AMBIENT.panels.filter((p) => p.at === "work-approach").map((p) => (
-        <CinematicPanel key={p.at} clip={p.clip} kicker={p.kicker} line={p.line} />
+        <CinematicPanel key={p.at} at={p.at} clip={p.clip} kicker={p.kicker} line={p.line} />
       ))}
 
       <section id="approach" className="approach-section">
@@ -2109,20 +2109,31 @@ export default function Home() {
       </section>
 
       {AMBIENT.panels.filter((p) => p.at === "pre-contact").map((p) => (
-        <CinematicPanel key={p.at} clip={p.clip} kicker={p.kicker} line={p.line} />
+        <CinematicPanel key={p.at} at={p.at} clip={p.clip} kicker={p.kicker} line={p.line} />
       ))}
 
       <section id="contact" className="contact-section">
         {AMBIENT.sections.includes("contact") && <AmbientLayer clip="studio-04" />}
-        <div className="contact-orbit" aria-hidden="true"><span>LET’S MAKE THE FRAME MATTER · </span></div>
+        <div className="contact-orbit" aria-hidden="true" />
         <p><span>04</span> Start with a story</p>
         <h2>The next frame<br /><em>starts here.</em></h2>
         <p className="contact-subtext">A film to shape. A world to build. An idea that won&rsquo;t leave you alone.</p>
-        <figure className="contact-portrait">
-          <img src="/shady-social-frame.webp" alt="Shady Maged holding a social-post frame" loading="lazy" width={900} height={900} />
-        </figure>
-        <button className="contact-link" onClick={() => setContactOpen(true)}>
-          <span>Let’s talk about it</span><Arrow diagonal />
+        <a className="contact-social" href="https://www.facebook.com/shady.maged.9256" target="_blank" rel="noreferrer">
+          <img src="/shady-social-frame.webp" alt="Shady Maged holding a social-post frame" loading="lazy" />
+          <span>Follow on Facebook</span>
+        </a>
+        <button className="contact-seal" onClick={() => setContactOpen(true)} aria-label="Let’s create something worth remembering">
+          <svg className="contact-seal-type" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+            <defs>
+              <path id="contact-seal-path" fill="none" d="M100 28a72 72 0 1 1 0 144 72 72 0 1 1 0-144" />
+            </defs>
+            <text>
+              <textPath href="#contact-seal-path" startOffset="0" textLength="452" lengthAdjust="spacing">
+                {"Let’s create something worth remembering ✦ Let’s create something worth remembering ✦"}
+              </textPath>
+            </text>
+          </svg>
+          <span className="contact-seal-core"><Arrow diagonal /></span>
         </button>
         <div className="contact-meta">
           <span>Cairo · Available worldwide</span>
