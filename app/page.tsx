@@ -131,6 +131,41 @@ function CinematicPanel({ clip, kicker, line }: { clip: string; kicker: string; 
   );
 }
 
+/** Full-bleed portrait intermission; the plate tilts a little toward the cursor. */
+function PosterPanel() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const tilt = (event: React.PointerEvent<HTMLElement>) => {
+    const section = sectionRef.current;
+    if (!section || prefersReducedMotion()) return;
+    const rect = section.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width - 0.5;
+    const y = (event.clientY - rect.top) / rect.height - 0.5;
+    section.style.setProperty("--tilt-x", `${(-y * 7).toFixed(2)}deg`);
+    section.style.setProperty("--tilt-y", `${(x * 9).toFixed(2)}deg`);
+  };
+
+  const reset = () => {
+    const section = sectionRef.current;
+    if (!section) return;
+    section.style.setProperty("--tilt-x", "0deg");
+    section.style.setProperty("--tilt-y", "0deg");
+  };
+
+  return (
+    <section className="poster-panel" ref={sectionRef} onPointerMove={tilt} onPointerLeave={reset} aria-label="Shady Maged — creative director and editor">
+      <div className="poster-panel-copy">
+        <p>The director&rsquo;s chair</p>
+        <h2>Direction is <em>a point of view.</em></h2>
+        <span>Creative Director and Editor · Cairo</span>
+      </div>
+      <figure className="poster-panel-plate">
+        <img src="/shady-director-chair.webp" alt="Shady Maged seated in a director&rsquo;s chair under a single spotlight" loading="lazy" width={1024} height={1536} />
+      </figure>
+    </section>
+  );
+}
+
 /** Cross-dissolves studio clips over the manifesto video so its audio bed keeps running underneath. */
 function ManifestoMontage() {
   const [index, setIndex] = useState(0);
@@ -1947,6 +1982,8 @@ export default function Home() {
         </div>
       </section>
 
+      <PosterPanel />
+
       <section id="work" className="work-section">
         {AMBIENT.sections.includes("work") && <AmbientLayer clip="studio-03" />}
         <header className="section-heading reveal-block">
@@ -2081,6 +2118,9 @@ export default function Home() {
         <p><span>04</span> Start with a story</p>
         <h2>The next frame<br /><em>starts here.</em></h2>
         <p className="contact-subtext">A film to shape. A world to build. An idea that won&rsquo;t leave you alone.</p>
+        <figure className="contact-portrait">
+          <img src="/shady-social-frame.webp" alt="Shady Maged holding a social-post frame" loading="lazy" width={900} height={900} />
+        </figure>
         <button className="contact-link" onClick={() => setContactOpen(true)}>
           <span>Let’s talk about it</span><Arrow diagonal />
         </button>
