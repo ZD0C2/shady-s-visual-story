@@ -32,7 +32,10 @@ const AMBIENT_PRESETS: Record<AmbientLevel, {
     opacity: 0.26,
     drift: 1.12,
     sections: ["approach", "contact"],
-    panels: [{ clip: "studio-01", kicker: "Behind the frame", line: "The work behind the work.", at: "work-approach" }],
+    panels: [
+      { clip: "studio-01", kicker: "Behind the frame", line: "The work behind the work.", at: "work-approach" },
+      { clip: "studio-03", kicker: "Every frame considered", line: "Nothing here is an accident.", at: "pre-contact" },
+    ],
     montage: true,
   },
   max: {
@@ -1776,9 +1779,9 @@ export default function Home() {
       <section id="top" ref={heroRef} className="hero" onPointerMove={trackPointer}>
         <div className="hero-grid" aria-hidden="true" />
         <div className="hero-glow" aria-hidden="true" />
-        <div className="hero-kicker"><span>Independent creative</span><span>Cairo · Worldwide</span></div>
+        <div className="hero-kicker"><span>Creative Director and Editor</span><span>Cairo · Worldwide</span></div>
 
-        <div className="hero-type" aria-label="Shady Maged — director, editor and motion designer">
+        <div className="hero-type" aria-label="Shady Maged — creative director and editor">
           <span className="hero-line line-one">Shady</span>
           <span className="hero-line line-two">Maged</span>
           <span className="hero-line line-three">Direct · Edit · Design</span>
@@ -1860,7 +1863,7 @@ export default function Home() {
           <div className="discipline-stage">
             <header className="section-heading reveal-block">
               <p><span>00</span> Explore by discipline</p>
-              <h2>Seven ways into <em>the work.</em></h2>
+              <h2>Beyond the <em>final frame.</em></h2>
             </header>
 
             <div className="discipline-wheel-viewport" onMouseLeave={() => setHoveredDiscipline(null)}>
@@ -2003,7 +2006,7 @@ export default function Home() {
       ))}
 
       <section id="approach" className="approach-section">
-        {AMBIENT.sections.includes("approach") && <AmbientLayer clip="studio-02" />}
+        {AMBIENT.sections.includes("approach") && <AmbientLayer clip="studio-06" />}
         <div className="approach-title">
           <p><span>02</span> One connected craft</p>
           <h2>From the first idea<br />to the <em>final frame.</em></h2>
@@ -2057,8 +2060,8 @@ export default function Home() {
           <p><span>03</span> The Eye Behind the Frame</p>
           <h2>Curiosity first. <em>Camera second.</em></h2>
           <div className="manifesto-body">
-            <p>I&rsquo;m Shady, a director, editor and motion designer. I find stories in testimony, in archive, in the split second between two frames.</p>
-            <p>My work moves between documentary, branded film, sports and constructed worlds. I light, write, design and cut—so the idea can stay intact all the way through.</p>
+            <p>I&rsquo;m Shady, a creative director and editor with a passion for visual storytelling. I really enjoy turning ideas into stories, and creating content that keeps people engaged. I don&rsquo;t just see footage or a timeline — I see the story behind it. And I always try to create visuals that speak louder than words.</p>
+            <p>My work moves across documentary, branded film, sports and digital storytelling — combining direction, editing and visual design to give every story its own language.</p>
           </div>
           <div className="stats">
             <div><b>9+</b><span>Years in post-production</span></div>
@@ -2197,8 +2200,8 @@ export default function Home() {
             </header>
 
             <div className="bio-body">
-              <p>I&rsquo;m Shady, a director, editor and motion designer. I find stories in testimony, in archive, in the split second between two frames.</p>
-              <p>My work moves between documentary, branded film, sports and constructed worlds. I light, write, design and cut—so the idea can stay intact all the way through.</p>
+              <p>I&rsquo;m Shady, a creative director and editor with a passion for visual storytelling. I really enjoy turning ideas into stories, and creating content that keeps people engaged. I don&rsquo;t just see footage or a timeline — I see the story behind it. And I always try to create visuals that speak louder than words.</p>
+              <p>My work moves across documentary, branded film, sports and digital storytelling — combining direction, editing and visual design to give every story its own language.</p>
             </div>
 
             <div className="bio-facts">
