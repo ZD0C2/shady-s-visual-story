@@ -1892,7 +1892,7 @@ export default function Home() {
         {AMBIENT.sections.includes("discipline") && <AmbientLayer clip="studio-05" />}
         <div className="discipline-showcase">
           <figure className="discipline-portrait">
-            <img src="/shady-portrait-poster.jpg" alt="Shady Maged — portrait poster" loading="lazy" />
+            <img src="/shady-portrait-poster-clean.webp" alt="Shady Maged — portrait poster" loading="lazy" />
           </figure>
 
           <div className="discipline-stage">
