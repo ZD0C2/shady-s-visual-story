@@ -180,16 +180,22 @@ a:hover .arrow.diagonal, button:hover .arrow.diagonal { transform: rotate(-45deg
      photo. The new photo has no text to protect, so it can fill the frame. */
   display: block; width: 100%; height: 100%; object-fit: cover; object-position: 62% 18%;
   border-radius: 0; box-shadow: none;
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 4%, #000 96%, transparent 100%);
-  mask-image: linear-gradient(180deg, transparent 0%, #000 4%, #000 96%, transparent 100%);
-  /* The artwork's own background is a near-black that only approximately
-     matches the section's — close, but not identical, which is exactly the
-     hairline seam the flat side edges (no mask there) were still showing.
-     `screen` makes black, screened against anything, become that thing
-     exactly — so the two darks fuse precisely — while barely touching the
-     portrait's own lit pixels, since screen only brightens toward the
-     (here, near-black) backdrop. */
-  mix-blend-mode: screen;
+  /* `screen` was the wrong tool here: this backdrop is a dark charcoal
+     GRADIENT (roughly rgb(10,10,10) to rgb(30,30,30)), not pure black, and
+     screening a non-black colour against a dark backdrop brightens it
+     further — it was making the rectangle MORE visible, not less. Dropped
+     the blend and, since he has real headroom on the top and left (his cap
+     and the red rim-light reach the right and bottom edges with no margin,
+     so only those two get to fade), feathered just those two edges into the
+     section's own colour instead. */
+  -webkit-mask-image:
+    linear-gradient(180deg, transparent 0%, #000 5%, #000 100%),
+    linear-gradient(90deg, transparent 0%, #000 16%, #000 100%);
+  mask-image:
+    linear-gradient(180deg, transparent 0%, #000 5%, #000 100%),
+    linear-gradient(90deg, transparent 0%, #000 16%, #000 100%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
 }
 .discipline-stage { display: flex; flex-direction: column; justify-content: center; }
 /* The shared section-heading scale is tuned for full-bleed sections; in this
@@ -312,6 +318,22 @@ a:hover .arrow.diagonal, button:hover .arrow.diagonal { transform: rotate(-45deg
   background: linear-gradient(180deg, rgba(176,203,236,.22), rgba(176,203,236,.03) 70%, transparent);
   filter: blur(20px);
 }
+/* A second, warmer glow answering his amber jacket — the cool spotlight cone
+   alone left him lit but colour-flat against it; this gives the frame the
+   same warm/cool push-pull the rest of the site's photography has. */
+.poster-panel-glow {
+  position: absolute; z-index: -1; left: 50%; top: 58%; width: 46rem; height: 46rem;
+  transform: translate(-50%,-50%); pointer-events: none;
+  background: radial-gradient(circle, rgba(214,148,74,.24), rgba(214,148,74,.06) 46%, transparent 72%);
+  filter: blur(6px);
+}
+/* The floor he's sitting on otherwise just stops — a soft pool grounds the
+   chair legs instead of leaving them planted on bare colour. */
+.poster-panel-ground {
+  position: absolute; z-index: -1; left: 50%; bottom: 6%; width: 32rem; height: 5rem;
+  transform: translate(-50%,0); pointer-events: none;
+  background: radial-gradient(ellipse, rgba(0,0,0,.55), transparent 72%);
+}
 .poster-panel::before {
   content: ""; position: absolute; z-index: -1; inset: 0;
   background:
@@ -328,7 +350,12 @@ a:hover .arrow.diagonal, button:hover .arrow.diagonal { transform: rotate(-45deg
    resolvable width for the image's `width:100%` to reference and collapsed to
    0, and driving it from a definite height also keeps the standing figure
    filling the panel without ever outgrowing the viewport. */
-.poster-panel-plate { --plate-ratio: 737 / 1037; margin: 0; justify-self: center; width: auto; height: min(52rem, 84vh); aspect-ratio: var(--plate-ratio); transform-style: preserve-3d; }
+/* Enlarged, and given a very slow idle drift — the discipline and social
+   photos are static cutouts too, but this one already had cursor-tilt, so a
+   touch of its own ambient motion (rather than none) is consistent, not
+   distracting. */
+.poster-panel-plate { --plate-ratio: 737 / 1037; margin: 0; justify-self: center; width: auto; height: min(60rem, 90vh); aspect-ratio: var(--plate-ratio); transform-style: preserve-3d; animation: plate-drift 7s ease-in-out infinite; }
+@keyframes plate-drift { 0%,100% { margin-top: 0; } 50% { margin-top: -.6rem; } }
 .poster-panel-plate img {
   display: block; width: 100%; height: 100%; object-fit: contain;
   border-radius: 0; box-shadow: none;
@@ -365,7 +392,8 @@ a:hover .arrow.diagonal, button:hover .arrow.diagonal { transform: rotate(-45deg
 @media (max-width: 900px) {
   .poster-panel { grid-template-columns: 1fr; gap: 2.4rem; min-height: 0; }
   .poster-panel::after { display: none; }
-  .poster-panel-plate { width: min(100%, 24rem); height: auto; justify-self: center; }
+  .poster-panel-plate { width: min(100%, 24rem); height: auto; justify-self: center; animation: none; }
+  .poster-panel-glow { width: 30rem; height: 30rem; }
 }
 
 /* Studio clips cross-dissolving over the manifesto video. */
@@ -382,6 +410,7 @@ a:hover .arrow.diagonal, button:hover .arrow.diagonal { transform: rotate(-45deg
   .cinematic-panel video, .cinematic-panel-copy { transform: none; }
   .contact-seal-type { animation: none; }
   .poster-panel-plate img { transform: none; }
+  .poster-panel-plate { animation: none; }
   .manifesto-montage video { transition: none; }
 }
 

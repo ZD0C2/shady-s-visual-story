@@ -154,13 +154,15 @@ function PosterPanel() {
 
   return (
     <section className="poster-panel" ref={sectionRef} onPointerMove={tilt} onPointerLeave={reset} aria-label="Shady Maged — creative director and editor">
+      <div className="poster-panel-glow" aria-hidden="true" />
+      <div className="poster-panel-ground" aria-hidden="true" />
       <div className="poster-panel-copy">
         <p>The director&rsquo;s chair</p>
         <h2>Direction is <em>a point of view.</em></h2>
         <span>Creative Director and Editor · Cairo</span>
       </div>
       <figure className="poster-panel-plate">
-        <img src="/shady-director-chair.webp" alt="Shady Maged seated in a director&rsquo;s chair under a single spotlight" loading="lazy" width={1024} height={1536} />
+        <img src="/shady-director-chair.webp" alt="Shady Maged seated in a director&rsquo;s chair under a single spotlight" loading="lazy" width={737} height={1037} />
       </figure>
     </section>
   );
