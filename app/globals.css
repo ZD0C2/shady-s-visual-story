@@ -171,18 +171,17 @@ a:hover .arrow.diagonal, button:hover .arrow.diagonal { transform: rotate(-45deg
   background: linear-gradient(180deg, var(--surface) 0%, rgba(13,14,12,0) 16%);
 }
 .discipline-showcase { display: grid; grid-template-columns: minmax(0,6fr) minmax(0,6fr); gap: clamp(1rem,2.5vw,2.5rem); align-items: stretch; }
-.discipline-portrait { display: flex; justify-content: center; align-items: stretch; margin: 0; align-self: stretch; }
+.discipline-portrait { display: flex; margin: 0; align-self: stretch; overflow: hidden; }
 .discipline-portrait img {
-  /* `contain` + no horizontal mask: this artwork carries its own baked-in
-     headline and paragraph, so cropping or fading the sides clipped the first
-     letter of every line. Only the top/bottom edges fade into the page. */
-  display: block; width: 100%; height: auto; max-width: 100%; max-height: min(60rem,92vh);
-  /* Matches the artwork's own 1024x1536 so the box has height before the lazy
-     load fires — without it the img collapses to 0 and never enters view. */
-  aspect-ratio: 1024 / 1536;
-  object-fit: contain; border-radius: 0; box-shadow: none;
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
-  mask-image: linear-gradient(180deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+  /* `cover`, filling the column exactly: the old artwork carried baked-in
+     text that cropping would have clipped, so it was kept letterboxed inside
+     `contain` instead — leaving the flat margins either side that, even
+     colour-matched, still read as unused space rather than an enlarged
+     photo. The new photo has no text to protect, so it can fill the frame. */
+  display: block; width: 100%; height: 100%; object-fit: cover; object-position: 62% 18%;
+  border-radius: 0; box-shadow: none;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 4%, #000 96%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 4%, #000 96%, transparent 100%);
   /* The artwork's own background is a near-black that only approximately
      matches the section's — close, but not identical, which is exactly the
      hairline seam the flat side edges (no mask there) were still showing.
