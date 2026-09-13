@@ -78,10 +78,28 @@ a:hover .arrow.diagonal, button:hover .arrow.diagonal { transform: rotate(-45deg
 .line-three { width: max-content; margin-top: 2rem; padding: .8rem 1rem; border: 1px solid rgba(13,14,12,.25); background: rgba(246,245,240,.74); backdrop-filter: blur(10px); font: 500 clamp(.58rem,.72vw,.72rem)/1 var(--mono); letter-spacing: .16em; animation-delay: .3s; }
 @keyframes line-enter { from { opacity: 0; transform: translateY(90%) skewY(7deg); } to { opacity: 1; transform: none; } }
 
-.portrait-stage { position: absolute; z-index: 3; width: min(59vw,58rem); height: 100%; left: 59%; top: 0; overflow: hidden; transform: translateX(calc(-50% + var(--px))) translateY(var(--py)); transition: transform .2s ease-out; animation: portrait-in 1.25s .05s cubic-bezier(.16,1,.3,1) both; }
+/* Enlarged and pulled left so the figure sits partly behind the wordmark
+   rather than as a separate column beside it. */
+.portrait-stage { position: absolute; z-index: 3; width: min(68vw,66rem); height: 100%; left: 54%; top: 0; overflow: hidden; transform: translateX(calc(-50% + var(--px))) translateY(var(--py)); transition: transform .2s ease-out; animation: portrait-in 1.25s .05s cubic-bezier(.16,1,.3,1) both; }
 @keyframes portrait-in { from { clip-path: inset(100% 0 0 0); transform: translateX(-50%) translateY(3%) scale(.97); } to { clip-path: inset(0 0 0 0); } }
 .portrait-frame { position: absolute; z-index: 2; inset: 0; overflow: hidden; }
-.portrait-frame img { position: absolute; left: 50%; top: 4%; width: auto; max-width: none; height: 154%; object-fit: contain; transform: translateX(-50%); filter: saturate(.94) contrast(1.02) drop-shadow(0 1.8rem 3rem rgba(13,14,12,.35)); }
+/* The source photo is a plain white studio backdrop, not a transparent
+   cutout — `drop-shadow` was tracing that white RECTANGLE, which is exactly
+   what made it read as a pasted photo card instead of part of the scene.
+   `multiply` against the paper-coloured hero lets the white backdrop vanish
+   into it (white × anything = that thing) while the ambient glow behind
+   tints the portrait, so it reads as lit by the same light as the page. */
+.portrait-frame img { position: absolute; left: 50%; top: 2%; width: auto; max-width: none; height: 162%; object-fit: contain; transform: translateX(-50%); filter: saturate(1.05) contrast(1.04); mix-blend-mode: multiply; }
+/* Multiply darkens toward whatever sits beneath it, and the dark-theme hero
+   is near-black — so there the photo keeps its own normal backdrop instead,
+   softened by a blurred halo the same colour as the backdrop standing in
+   for the vanished drop-shadow. */
+.theme-graphite .portrait-frame img { mix-blend-mode: normal; filter: saturate(.94) contrast(1.02); }
+.theme-graphite .portrait-frame::before {
+  content: ""; position: absolute; z-index: -1; left: 18%; right: 4%; top: 0; bottom: 0;
+  background: radial-gradient(ellipse 60% 74% at 55% 46%, rgba(26,27,24,.9), transparent 72%);
+  filter: blur(2.6rem);
+}
 .head-motion { position: absolute; z-index: 4; left: 50%; top: 9%; width: min(31vw,29rem); aspect-ratio: 1; transform: translateX(-50%); pointer-events: none; }
 .tool-ring-behind { position: absolute; z-index: 1; left: 50%; top: 9%; width: min(31vw,29rem); aspect-ratio: 1; transform: translateX(-50%); pointer-events: none; }
 .orbit-line { position: absolute; border-radius: 50%; border: 1px solid rgba(13,14,12,.2); }
