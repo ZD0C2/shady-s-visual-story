@@ -1,12 +1,14 @@
-/* `display=block` rather than `swap`: this page leans on display fonts
-   (Syne, Cormorant Garamond) whose letterforms are much wider/narrower than
-   any system fallback, so `swap`'s fallback-then-refit was exactly the
-   visible "dancing" text on load -- captions and headlines briefly rendering
-   in a fallback font, then jumping as the real one swapped in and every line
-   reflowed. `block` holds text invisible for a beat instead of ever showing
-   it in the wrong metrics -- on the cached/CDN-fast case this is normal
-   here, that gap is imperceptible. */
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=DM+Mono:wght@300;400;500&family=Manrope:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=block");
+/* NOTE: this @import is stripped by the build and has never taken effect.
+   Tailwind v4 injects its own rules ahead of it, which puts the @import
+   after other rules -- illegal per the CSS spec -- so Lightning CSS drops
+   it. Verified: the deployed stylesheet contains no fonts.googleapis.com
+   reference at all, so the site renders in the fallbacks below (Arial Black
+   / Arial / Courier / Georgia), not in Syne / Manrope / DM Mono /
+   Cormorant. Loading the real faces needs a <link> in app/layout.tsx
+   instead; that is a deliberate design decision, not a silent fix, because
+   it changes the typography of every page. */
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=DM+Mono:wght@300;400;500&family=Manrope:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap");
+
 @import "tailwindcss";
 
 :root {
@@ -320,89 +322,92 @@ a:hover .arrow.diagonal, button:hover .arrow.diagonal { transform: rotate(-45deg
    photograph is a cutout, so the panel has to supply the light it lost: a
    spotlight cone from above and a pool of it on the floor. */
 .poster-panel {
+  --plate-ratio: 737 / 1037;
   position: relative; isolation: isolate; overflow: hidden;
   display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: clamp(1rem,3vw,3rem);
   padding: clamp(4rem,7vw,7rem) max(3.1vw, calc((100vw - 92rem) / 2));
   background: #0d0e0c; color: var(--paper);
   perspective: 1400px;
 }
-.poster-panel::after {
-  content: ""; position: absolute; z-index: -1; inset: 0; pointer-events: none;
-  clip-path: polygon(63% 0, 75% 0, 95% 100%, 43% 100%);
-  background: linear-gradient(180deg, rgba(176,203,236,.22), rgba(176,203,236,.03) 70%, transparent);
-  filter: blur(20px);
+/* The light and haze are sized to the PLATE, not the section, so they sit
+   over him instead of washing across the whole panel (and the copy). This
+   layer is an exact stand-in for the plate's box, which lets everything
+   inside be positioned in his own coordinates. */
+.poster-panel-air {
+  grid-column: 2; grid-row: 1; justify-self: center; align-self: center;
+  position: relative; width: auto; height: min(60rem, 90vh);
+  aspect-ratio: var(--plate-ratio); pointer-events: none;
 }
-/* A proper volumetric beam falling from above him, like the reference photo
-   -- narrow at the top, widening as it falls, with a bright hazy core. */
+/* Volumetric beam falling onto his head -- narrow at the top, widening as
+   it falls, per the reference photo. */
 .poster-panel-beam {
-  position: absolute; z-index: -1; left: 50%; top: -4%; width: 2rem; height: 108%;
-  transform-origin: top center; transform: translateX(-50%) perspective(60rem) rotateX(4deg) scaleX(1);
+  position: absolute; z-index: -1; left: 49%; top: -14%; width: 78%; height: 70%;
+  transform: translateX(-50%);
   clip-path: polygon(46% 0, 54% 0, 100% 100%, 0 100%);
-  background: linear-gradient(180deg, rgba(214,224,240,.9), rgba(190,206,230,.5) 30%, rgba(180,198,224,.16) 68%, transparent 96%);
-  filter: blur(14px);
-  animation: beam-breathe 6s ease-in-out infinite;
+  background: linear-gradient(180deg, rgba(216,227,244,.72), rgba(190,206,230,.3) 44%, rgba(180,198,224,.08) 76%, transparent 96%);
+  filter: blur(16px);
+  animation: beam-breathe 7s ease-in-out infinite;
 }
-@keyframes beam-breathe { 0%,100% { opacity: .85; } 50% { opacity: 1; } }
-/* Turbulence-generated haze drifting slowly through the beam -- `screen`
-   so it only ever adds light, never darkens the plate behind it. */
+@keyframes beam-breathe { 0%,100% { opacity: .8; } 50% { opacity: 1; } }
+/* Haze confined to the cone above his head. The drift is a transform on an
+   oversized inner layer rather than an animated background-position, so it
+   runs on the compositor and never repaints the text beside it. */
 .poster-panel-smoke {
-  position: absolute; z-index: -1; left: 18%; right: 18%; top: 0; height: 78%;
-  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIj4KPGZpbHRlciBpZD0ibiI+CiAgPGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuMDEyIDAuMDE4IiBudW1PY3RhdmVzPSI0IiBzZWVkPSI3IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIiByZXN1bHQ9InQiLz4KICA8ZmVDb2xvck1hdHJpeCBpbj0idCIgdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAgMCAwIDAgMSAgMCAwIDAgMCAxICAwIDAgMCAwIDEgIDAgMCAwIDEuMSAwIi8+CjwvZmlsdGVyPgo8cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgZmlsdGVyPSJ1cmwoI24pIi8+Cjwvc3ZnPg==");
-  background-size: 55% 55%; mix-blend-mode: screen; opacity: .22;
-  -webkit-mask-image: linear-gradient(180deg, transparent, #000 14%, #000 78%, transparent);
-  mask-image: linear-gradient(180deg, transparent, #000 14%, #000 78%, transparent);
-  animation: smoke-drift 22s linear infinite;
+  position: absolute; z-index: -1; left: 49%; top: -6%; width: 86%; height: 36%;
+  transform: translateX(-50%); overflow: hidden;
+  mix-blend-mode: screen; opacity: .55;
+  -webkit-mask-image: radial-gradient(ellipse 54% 56% at 50% 52%, #000 6%, rgba(0,0,0,.5) 48%, transparent 78%);
+  mask-image: radial-gradient(ellipse 54% 56% at 50% 52%, #000 6%, rgba(0,0,0,.5) 48%, transparent 78%);
+}
+.poster-panel-smoke i {
+  position: absolute; inset: -45%; background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIj4KPGZpbHRlciBpZD0ibiI+CiAgPGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuMDEyIDAuMDE4IiBudW1PY3RhdmVzPSI0IiBzZWVkPSI3IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIiByZXN1bHQ9InQiLz4KICA8ZmVDb2xvck1hdHJpeCBpbj0idCIgdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAgMCAwIDAgMSAgMCAwIDAgMCAxICAwIDAgMCAwIDEgIDAgMCAwIDEuMSAwIi8+CjwvZmlsdGVyPgo8cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgZmlsdGVyPSJ1cmwoI24pIi8+Cjwvc3ZnPg=="); background-size: 44% 44%;
+  animation: smoke-drift 24s ease-in-out infinite alternate;
 }
 @keyframes smoke-drift {
-  0% { background-position: 0% 0%; }
-  50% { background-position: 30% 18%; }
-  100% { background-position: 0% 0%; }
+  from { transform: translate3d(-4%, 2%, 0) scale(1.04); }
+  to   { transform: translate3d(4%, -3%, 0) scale(1.14); }
 }
-/* A second, warmer glow answering his amber jacket — the cool spotlight cone
-   alone left him lit but colour-flat against it; this gives the frame the
-   same warm/cool push-pull the rest of the site's photography has. */
+/* A warmer glow answering his amber jacket, so the cool beam has something
+   to push against rather than lighting him colour-flat. */
 .poster-panel-glow {
-  position: absolute; z-index: -1; left: 50%; top: 58%; width: 46rem; height: 46rem;
-  transform: translate(-50%,-50%); pointer-events: none;
-  background: radial-gradient(circle, rgba(214,148,74,.24), rgba(214,148,74,.06) 46%, transparent 72%);
-  filter: blur(6px);
+  position: absolute; z-index: -1; left: 50%; top: 50%; width: 150%; aspect-ratio: 1;
+  transform: translate(-50%,-50%);
+  background: radial-gradient(circle, rgba(214,148,74,.18), rgba(214,148,74,.05) 44%, transparent 70%);
 }
-/* The floor he's sitting on otherwise just stops — a soft pool grounds the
-   chair legs instead of leaving them planted on bare colour. */
+/* The floor otherwise just stops -- this pools shadow under the chair legs. */
 .poster-panel-ground {
-  position: absolute; z-index: -1; left: 50%; bottom: 6%; width: 32rem; height: 5rem;
-  transform: translate(-50%,0); pointer-events: none;
-  background: radial-gradient(ellipse, rgba(0,0,0,.55), transparent 72%);
+  position: absolute; z-index: -1; left: 50%; bottom: 1%; width: 92%; height: 9%;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse, rgba(0,0,0,.6), transparent 70%);
 }
 .poster-panel::before {
   content: ""; position: absolute; z-index: -1; inset: 0;
-  background:
-    linear-gradient(180deg, var(--surface) 0%, rgba(13,14,12,0) 18%),
-    linear-gradient(0deg, var(--surface) 0%, rgba(13,14,12,0) 18%),
-    radial-gradient(ellipse 34% 9% at 69% 86%, rgba(150,180,220,.24), transparent 72%),
-    radial-gradient(ellipse at 68% 38%, rgba(126,158,200,.22), transparent 64%);
+  /* Bottom only. The section above this one (the discipline reels) is now
+     pinned to this same dark regardless of theme, so a top seam fading to
+     the page colour just painted a bright band between two dark sections. */
+  background: linear-gradient(0deg, var(--surface) 0%, rgba(13,14,12,0) 18%);
 }
-.poster-panel-copy p { margin: 0 0 1.2rem; font: 500 italic clamp(.85rem,1.1vw,1rem) var(--sans); letter-spacing: 0; text-transform: none; color: var(--acid); opacity: .9; }
+.poster-panel-copy { grid-column: 1; grid-row: 1; position: relative; z-index: 2; }
+.poster-panel-copy p { margin: 0 0 1.6rem; font: 400 .65rem var(--mono); letter-spacing: .22em; text-transform: uppercase; color: var(--acid); }
 .poster-panel-copy h2 { margin: 0; font: 600 clamp(2.4rem,5.4vw,4.8rem)/.95 var(--display); letter-spacing: -.05em; text-transform: uppercase; }
 .poster-panel-copy h2 em { font-weight: 400; font-style: italic; text-transform: lowercase; color: var(--champagne); }
-/* Two full sentences, so this one reads as a quote rather than a punchy
-   title -- sentence case, a calmer size, the display font kept for texture
-   but not shouting the way the single-line version could afford to. */
-.poster-panel-copy h2.poster-panel-quote { text-transform: none; font: 500 clamp(1.35rem,2.5vw,2.15rem)/1.4 var(--display); letter-spacing: -.01em; }
+/* Two lines instead of one, so only the scale changes -- the case, the
+   display face and the champagne italic tail are the site's standard
+   heading voice, the same as "Beyond the final frame." and "The next frame
+   starts here." */
+.poster-panel-copy h2.poster-panel-quote { font-size: clamp(1.05rem,1.8vw,1.7rem); line-height: 1.12; letter-spacing: -.035em; }
 .poster-panel-quote span { display: block; }
-.poster-panel-quote span + span { margin-top: .3em; }
-.poster-panel-copy h2.poster-panel-quote em { font-weight: 700; font-style: normal; text-transform: none; color: var(--champagne); }
+.poster-panel-quote span + span { margin-top: .34em; }
 .poster-panel-copy > span { display: block; margin-top: 1.8rem; font: .62rem var(--mono); letter-spacing: .14em; text-transform: uppercase; opacity: .6; }
 /* Sized by height, not width: as a shrink-to-fit grid item the figure had no
    resolvable width for the image's `width:100%` to reference and collapsed to
    0, and driving it from a definite height also keeps the standing figure
    filling the panel without ever outgrowing the viewport. */
-/* Enlarged, and given a very slow idle drift — the discipline and social
-   photos are static cutouts too, but this one already had cursor-tilt, so a
-   touch of its own ambient motion (rather than none) is consistent, not
-   distracting. */
-.poster-panel-plate { --plate-ratio: 737 / 1037; margin: 0; justify-self: center; width: auto; height: min(60rem, 90vh); aspect-ratio: var(--plate-ratio); transform-style: preserve-3d; animation: plate-drift 7s ease-in-out infinite; }
-@keyframes plate-drift { 0%,100% { margin-top: 0; } 50% { margin-top: -.6rem; } }
+/* No idle drift here: it animated `margin-top`, which is a layout property
+   -- every frame re-laid out the grid row and nudged the copy beside it,
+   which was a second source of the "dancing" text. The cursor tilt below is
+   transform-only and costs nothing. */
+.poster-panel-plate { grid-column: 2; grid-row: 1; margin: 0; justify-self: center; position: relative; z-index: 1; width: auto; height: min(60rem, 90vh); aspect-ratio: var(--plate-ratio); transform-style: preserve-3d; }
 .poster-panel-plate img {
   display: block; width: 100%; height: 100%; object-fit: contain;
   border-radius: 0; box-shadow: none;
@@ -438,9 +443,9 @@ a:hover .arrow.diagonal, button:hover .arrow.diagonal { transform: rotate(-45deg
 
 @media (max-width: 900px) {
   .poster-panel { grid-template-columns: 1fr; gap: 2.4rem; min-height: 0; }
-  .poster-panel::after { display: none; }
-  .poster-panel-plate { width: min(100%, 24rem); height: auto; justify-self: center; animation: none; }
-  .poster-panel-glow { width: 30rem; height: 30rem; }
+  .poster-panel-air { display: none; }
+  .poster-panel-copy, .poster-panel-plate { grid-column: 1; grid-row: auto; }
+  .poster-panel-plate { width: min(100%, 24rem); height: auto; justify-self: center; }
 }
 
 /* Studio clips cross-dissolving over the manifesto video. */
@@ -457,7 +462,7 @@ a:hover .arrow.diagonal, button:hover .arrow.diagonal { transform: rotate(-45deg
   .cinematic-panel video, .cinematic-panel-copy { transform: none; }
   .contact-seal-type { animation: none; }
   .poster-panel-plate img { transform: none; }
-  .poster-panel-plate { animation: none; }
+  .poster-panel-beam, .poster-panel-smoke i { animation: none; }
   .manifesto-montage video { transition: none; }
 }
 
@@ -750,7 +755,9 @@ footer { padding: 1.4rem 3.1vw; display: flex; justify-content: space-between; b
 @media (max-width: 620px) {
   .hero { min-height: 820px; }
   .hero-kicker span:last-child { display: none; }
-  .hero-type { left: 1rem; top: 15%; width: 67vw; }
+  /* 15% put the headline's cap-line 3px above the kicker's baseline on a
+     375px phone, so "Creative Director and Editor" collided with SHADY. */
+  .hero-type { left: 1rem; top: 17.5%; width: 67vw; }
   .line-one { font-size: clamp(4rem,19vw,6rem); }
   .line-two { font-size: clamp(3.4rem,16.8vw,5.4rem); }
   .line-three { margin-top: 1rem; padding: .6rem .7rem; font-size: .48rem; }

@@ -154,10 +154,12 @@ function PosterPanel() {
 
   return (
     <section className="poster-panel" ref={sectionRef} onPointerMove={tilt} onPointerLeave={reset} aria-label="Shady Maged — creative director and editor">
-      <div className="poster-panel-beam" aria-hidden="true" />
-      <div className="poster-panel-smoke" aria-hidden="true" />
-      <div className="poster-panel-glow" aria-hidden="true" />
-      <div className="poster-panel-ground" aria-hidden="true" />
+      <div className="poster-panel-air" aria-hidden="true">
+        <span className="poster-panel-beam" />
+        <span className="poster-panel-smoke"><i /></span>
+        <span className="poster-panel-glow" />
+        <span className="poster-panel-ground" />
+      </div>
       <div className="poster-panel-copy">
         <p>&ldquo;Artist obsessed with Details&rdquo;</p>
         <h2 className="poster-panel-quote">
