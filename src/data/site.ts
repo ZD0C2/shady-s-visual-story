@@ -2216,7 +2216,7 @@ export const services = [
     icon: "Languages",
     title: "Bilingual Delivery",
     description:
-      "English and Arabic typography and layout, delivered natively rather than retrofitted.",
+      "English and Arabic typography and layouts designed for each language from the outset.",
   },
 ];
 
