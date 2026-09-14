@@ -1936,7 +1936,7 @@ export const projects: Project[] = [
     year: "2023",
     client: "Sharjah Entrepreneurship Festival",
     summary:
-      "A promotional/call-for-speakers piece for SEF 2023.",
+      "A concise promotional call for speaker suggestions for SEF 2023.",
     role: "Editor",
     tools: ["Premiere Pro", "After Effects"],
     previewVideo: `${P}/social-suggest-a-speaker-sef23.mp4`,
