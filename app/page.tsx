@@ -154,11 +154,16 @@ function PosterPanel() {
 
   return (
     <section className="poster-panel" ref={sectionRef} onPointerMove={tilt} onPointerLeave={reset} aria-label="Shady Maged — creative director and editor">
+      <div className="poster-panel-beam" aria-hidden="true" />
+      <div className="poster-panel-smoke" aria-hidden="true" />
       <div className="poster-panel-glow" aria-hidden="true" />
       <div className="poster-panel-ground" aria-hidden="true" />
       <div className="poster-panel-copy">
-        <p>The director&rsquo;s chair</p>
-        <h2>Direction is <em>a point of view.</em></h2>
+        <p>&ldquo;Artist obsessed with Details&rdquo;</p>
+        <h2 className="poster-panel-quote">
+          <span>Editing is <em>where the story ends.</em></span>
+          <span>Creative Direction is <em>where it begins.</em></span>
+        </h2>
         <span>Creative Director and Editor · Cairo</span>
       </div>
       <figure className="poster-panel-plate">
