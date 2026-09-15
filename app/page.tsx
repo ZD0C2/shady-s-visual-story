@@ -1844,8 +1844,11 @@ export default function Home() {
           </div>
           <div className="portrait-frame">
             <img
-              src="/shady-hero-cutout-v2.png"
+              src="/shady-hero-cutout-v2.webp"
               alt="Portrait of Shady Maged"
+              width={944}
+              height={1666}
+              fetchPriority="high"
             />
           </div>
           <div className="head-motion" aria-hidden="true">
@@ -1901,7 +1904,7 @@ export default function Home() {
         {AMBIENT.sections.includes("discipline") && <AmbientLayer clip="studio-05" />}
         <div className="discipline-showcase">
           <figure className="discipline-portrait">
-            <img src="/shady-portrait-poster-clean.webp" alt="Shady Maged — portrait poster" loading="lazy" />
+            <img src="/shady-portrait-poster-v2.webp" alt="Shady Maged — portrait poster" loading="lazy" width={1024} height={1536} />
           </figure>
 
           <div className="discipline-stage">

@@ -180,36 +180,23 @@ a:hover .arrow.diagonal, button:hover .arrow.diagonal { transform: rotate(-45deg
      already this exact same dark, so that edge already matches. */
   background: linear-gradient(180deg, var(--surface) 0%, rgba(13,14,12,0) 16%);
 }
-.discipline-showcase { display: grid; grid-template-columns: minmax(0,6fr) minmax(0,6fr); gap: clamp(1rem,2.5vw,2.5rem); align-items: stretch; }
-.discipline-portrait { display: flex; margin: 0; align-self: stretch; overflow: hidden; }
+.discipline-showcase { display: grid; grid-template-columns: minmax(0,6fr) minmax(0,6fr); gap: clamp(1rem,2.5vw,2.5rem); align-items: center; }
+.discipline-portrait { display: flex; justify-content: center; margin: 0; align-self: center; }
 .discipline-portrait img {
-  /* `cover`, filling the column exactly: the old artwork carried baked-in
-     text that cropping would have clipped, so it was kept letterboxed inside
-     `contain` instead — leaving the flat margins either side that, even
-     colour-matched, still read as unused space rather than an enlarged
-     photo. The new photo has no text to protect, so it can fill the frame. */
-  /* A floor under the stretched height: without it, the row's height (and so
-     this crop) was entirely at the mercy of the wheel column's own content —
-     on a viewport where that column ran short, the photo got cropped in
-     tight around just his face instead of showing the fuller, calmer frame
-     that reads as him. */
-  display: block; width: 100%; height: 100%; min-height: clamp(32rem,46vw,56rem);
-  object-fit: cover; object-position: 62% 15%;
-  border-radius: 0; box-shadow: none;
-  /* `screen` was the wrong tool here: this backdrop is a dark charcoal
-     GRADIENT (roughly rgb(10,10,10) to rgb(30,30,30)), not pure black, and
-     screening a non-black colour against a dark backdrop brightens it
-     further — it was making the rectangle MORE visible, not less. Dropped
-     the blend and, since he has real headroom on the top and left (his cap
-     and the red rim-light reach the right and bottom edges with no margin,
-     so only those two get to fade), feathered just those two edges into the
-     section's own colour instead. */
+  /* The artwork is a finished poster, so it is shown whole at the column's full
+     width rather than cropped to the wheel column's height — cropping a designed
+     plate cost either the type or his hands depending on the viewport. */
+  display: block; width: 100%; height: auto; border-radius: 0; box-shadow: none;
+  /* The fade has to stop short of the artwork's own content: the headline starts
+     5.4% in from the left, and the previous 10% fade was dissolving "SHADY"
+     itself. The plate's own edges sit within a few levels of this section's
+     #0d0e0c, so a narrow fade is all it takes to lose the rectangle. */
   -webkit-mask-image:
-    linear-gradient(180deg, transparent 0%, #000 5%, #000 100%),
-    linear-gradient(90deg, transparent 0%, #000 16%, #000 100%);
+    linear-gradient(180deg, transparent 0%, #000 5%, #000 95%, transparent 100%),
+    linear-gradient(90deg, transparent 0%, #000 3.5%, #000 96.5%, transparent 100%);
   mask-image:
-    linear-gradient(180deg, transparent 0%, #000 5%, #000 100%),
-    linear-gradient(90deg, transparent 0%, #000 16%, #000 100%);
+    linear-gradient(180deg, transparent 0%, #000 5%, #000 95%, transparent 100%),
+    linear-gradient(90deg, transparent 0%, #000 3.5%, #000 96.5%, transparent 100%);
   -webkit-mask-composite: source-in;
   mask-composite: intersect;
 }
@@ -713,7 +700,9 @@ footer { padding: 1.4rem 3.1vw; display: flex; justify-content: space-between; b
 
 @media (max-width: 900px) {
   .discipline-showcase { grid-template-columns: 1fr; gap: 2.4rem; }
-  .discipline-portrait img { max-height: 30rem; }
+  /* No height clamp here: with the plate sized by width, clamping the height
+     squashes it instead of cropping. Stacked single-column it is already small. */
+  .discipline-portrait img { max-height: none; }
   .discipline-wheel-viewport { height: auto; margin-top: 1.8rem; perspective: none; }
   .discipline-wheel { display: grid; grid-template-columns: repeat(2,1fr); gap: .9rem; height: auto; transform: none !important; transform-style: flat; }
   .discipline-reel-card { position: static; width: auto !important; aspect-ratio: 9 / 15 !important; transform: none !important; }
