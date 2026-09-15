@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Keep worktree builds scoped to this project, even with ancestor lockfiles.
+  turbopack: { root: process.cwd() },
 };
 
 export default nextConfig;

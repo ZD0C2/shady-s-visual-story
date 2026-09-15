@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useSectionMotion } from "./use-section-motion";
 import { caseStudies } from "./data/case-studies";
 
 const mediaBase = "https://pub-f8b978c7d5d048dc89b05ff4b470b067.r2.dev";
@@ -1509,6 +1510,7 @@ function ProjectCard({
 }
 
 export default function Home() {
+  useSectionMotion();
   const [activeProject, setActiveProject] = useState<(typeof projects)[number] | null>(null);
   const [activeClip, setActiveClip] = useState<ProjectClip | null>(null);
   const [bioOpen, setBioOpen] = useState(false);
