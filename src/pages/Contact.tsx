@@ -1,17 +1,15 @@
 import { useState } from "react";
 import { Mail, Phone, ExternalLink, Send } from "lucide-react";
-import { motion } from "framer-motion";
 import { siteData } from "@/data/site";
 import SectionHeader from "@/components/SectionHeader";
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [sent, setSent] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Placeholder — integrate with backend
-    setSent(true);
+    const body = `Name: ${form.name}\r\nEmail: ${form.email}\r\n\r\n${form.message}`;
+    window.location.href = `mailto:${siteData.contact.email}?subject=${encodeURIComponent("Project enquiry")}&body=${encodeURIComponent(body)}`;
   };
 
   return (
@@ -50,13 +48,11 @@ export default function Contact() {
           </a>
         </div>
 
-        {sent ? (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="glass-card p-8 text-center">
-            <p className="font-heading text-xl font-semibold gradient-text">Message Sent!</p>
-            <p className="text-sm text-muted-foreground mt-2">I'll get back to you soon.</p>
-          </motion.div>
-        ) : (
           <form onSubmit={handleSubmit} className="glass-card p-6 space-y-5">
+            <p className="text-sm text-muted-foreground">
+              This opens your email app with your details. Send the email there to contact me.
+              If it doesn't open, copy your message and use the email link above. Your entries stay here.
+            </p>
             <div>
               <label className="text-sm font-medium mb-1.5 block">Name</label>
               <input
@@ -93,10 +89,9 @@ export default function Contact() {
               type="submit"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-heading font-semibold text-sm hover:opacity-90 transition-opacity w-full justify-center"
             >
-              <Send className="w-4 h-4" /> Send Message
+              <Send className="w-4 h-4" /> Open Email App
             </button>
           </form>
-        )}
       </div>
     </main>
   );
