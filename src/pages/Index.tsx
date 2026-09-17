@@ -778,9 +778,15 @@ export default function Index() {
               className="space-y-8"
               onSubmit={(e) => {
                 e.preventDefault();
-                window.location.href = `mailto:${siteData.contact.email}`;
+                const form = new FormData(e.currentTarget);
+                const body = `Name: ${form.get("name")}\r\nEmail: ${form.get("email")}\r\n\r\n${form.get("message")}`;
+                window.location.href = `mailto:${siteData.contact.email}?subject=${encodeURIComponent("Project enquiry")}&body=${encodeURIComponent(body)}`;
               }}
             >
+              <p className="text-sm text-muted-foreground">
+                This opens your email app with your details. Send the email there to contact me.
+                If it doesn't open, copy your message and use the email link alongside this form. Your entries stay here.
+              </p>
               {[
                 { name: "name", label: "Name", type: "text" },
                 { name: "email", label: "Email", type: "email" },
@@ -810,7 +816,7 @@ export default function Index() {
                 type="submit"
                 className="inline-flex items-center gap-2 px-8 py-3 rounded-xl bg-primary text-primary-foreground font-heading font-semibold text-sm hover:opacity-90 transition-opacity"
               >
-                <Mail className="w-4 h-4" /> Send Message
+                <Mail className="w-4 h-4" /> Open Email App
               </button>
             </motion.form>
           </div>
