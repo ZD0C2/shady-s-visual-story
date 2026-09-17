@@ -6,6 +6,12 @@ import { caseStudies } from "./data/case-studies";
 
 const mediaBase = "https://pub-f8b978c7d5d048dc89b05ff4b470b067.r2.dev";
 
+/** Music bed for the About montage. The clip itself is always muted -- its
+ *  production sound is not what we want under that section -- so the speaker
+ *  toggle plays this score instead. If the file is absent the toggle simply
+ *  falls back to silence. */
+const MANIFESTO_SCORE = "/curiosity-score.mp3";
+
 /**
  * Intensity of the ambient studio-footage layer. This is the single switch that
  * separates the three review builds — everything else about them is identical.
@@ -699,7 +705,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "LeeLoo — Brand Film",
+    title: "LeeLoo — Brand Film (Full Cut)",
     category: "Brand & Commercial",
     year: "2019",
     role: "Creative Director & Editor",
@@ -1576,6 +1582,20 @@ export default function Home() {
   const heroRef = useRef<HTMLElement>(null);
   const characterRef = useRef<HTMLDivElement>(null);
   const manifestoVideoRef = useRef<HTMLVideoElement>(null);
+  const manifestoScoreRef = useRef<HTMLAudioElement>(null);
+
+  // Browsers block unmuted autoplay, so the score only ever starts from the
+  // guest's own click on the speaker button.
+  useEffect(() => {
+    const score = manifestoScoreRef.current;
+    if (!score) return;
+    if (manifestoMuted) {
+      score.pause();
+      return;
+    }
+    score.volume = 0.55;
+    score.play().catch(() => setManifestoMuted(true));
+  }, [manifestoMuted]);
 
   const filteredProjects = projects.filter((project) =>
     activeCategory === "All" ? project.featured : project.category === activeCategory,
@@ -2092,16 +2112,17 @@ export default function Home() {
             src="/curiosity-media.mp4"
             poster="/curiosity-media-poster.jpg"
             autoPlay
-            muted={manifestoMuted}
+            muted
             loop
             playsInline
             preload="metadata"
           />
           {AMBIENT.montage && <ManifestoMontage />}
+          <audio ref={manifestoScoreRef} src={MANIFESTO_SCORE} loop preload="none" />
           <button
             className="manifesto-mute liquid-glass"
             onClick={() => setManifestoMuted((muted) => !muted)}
-            aria-label={manifestoMuted ? "Unmute video" : "Mute video"}
+            aria-label={manifestoMuted ? "Play music" : "Mute music"}
           >
             {manifestoMuted ? "🔇" : "🔊"}
           </button>
@@ -2264,16 +2285,39 @@ export default function Home() {
               </div>
             </header>
 
+            <p className="bio-roles">Creative Director <i>·</i> Senior Video Editor <i>·</i> Documentary Storyteller</p>
+            <p className="bio-lede">Turning vision into cinematic reality.</p>
+
             <div className="bio-body">
-              <p>I&rsquo;m Shady, a creative director and editor with a passion for visual storytelling. I really enjoy turning ideas into stories, and creating content that keeps people engaged. I don&rsquo;t just see footage or a timeline — I see the story behind it. And I always try to create visuals that speak louder than words.</p>
-              <p>My work moves across documentary, branded film, sports and digital storytelling — combining direction, editing and visual design to give every story its own language.</p>
+              <p>Hi, I&rsquo;m Shady Maged. I&rsquo;m a video editor and creative director with around 8 years of experience.</p>
+              <p>I&rsquo;ve worked with different types of clients — content creators, YouTubers, and companies — across fields like education, sports, and art. I think people enjoy working with me because I keep things simple and clear, and I always try to deliver more than expected.</p>
+              <p>I really enjoy turning ideas into stories, and creating content that keeps people engaged. I don&rsquo;t just see footage or a timeline — I see the story behind it. And I always try to create visuals that speak louder than words.</p>
+              <p>Over the years, my work has been praised for its attention to detail, cinematic style, and emotional impact. I bring each project to life with a unique eye and a dedication to quality — whether it&rsquo;s commercial, narrative, or artistic content.</p>
+              <p>I&rsquo;d love to bring this approach to your team. Thanks for your time.</p>
             </div>
 
             <div className="bio-facts">
               <span>Based in Cairo</span>
               <span>English &amp; Arabic</span>
-              <span>9+ years in post</span>
+              <span>Creative direction, end to end</span>
             </div>
+
+            <div className="bio-manifesto">
+              <b>Different Eyes</b>
+              <p>They see footage… I see potential.<br />They see effects… I see emotion.</p>
+              <p><b>Emotion comes before effects.</b></p>
+              <p>Every frame has a purpose.<br />Every detail has a voice.</p>
+              <p>This is not work. This is vision.</p>
+              <p>I don&rsquo;t edit videos. I build emotions.<br />I direct attention. I craft stories people remember.</p>
+              <p><b>Editing is where the story ends.<br />Creative Direction is where it begins.</b></p>
+            </div>
+
+            <div className="bio-pull">
+              <blockquote>Artist obsessed with details.</blockquote>
+              <blockquote>Creative Director who edits.</blockquote>
+            </div>
+
+            <p className="bio-sign">Let&rsquo;s create something worth remembering.</p>
 
             <div className="bio-actions">
               <button onClick={() => { setBioOpen(false); document.getElementById("work")?.scrollIntoView({ behavior: "smooth" }); }}>The story so far <Arrow diagonal /></button>

@@ -1025,6 +1025,12 @@ footer { padding: 1.4rem 3.1vw; display: flex; justify-content: space-between; b
 .bio-manifesto p:last-child { margin-bottom: 0; }
 .bio-manifesto b { color: var(--acid); font-weight: 600; }
 .bio-sign { margin: 1.4rem 0 1.8rem; font: 600 clamp(1.05rem,1.7vw,1.35rem) var(--display); letter-spacing: -.025em; }
+.bio-roles { margin: 1.5rem 0 .5rem; font: .62rem var(--mono); letter-spacing: .12em; text-transform: uppercase; color: #d9d6cc; }
+.bio-roles i { font-style: normal; margin: 0 .45rem; color: var(--acid); }
+.bio-manifesto > b { display: block; margin-bottom: .9rem; font: .6rem var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--acid); }
+.bio-manifesto p b { display: inline; font: inherit; font-weight: 600; letter-spacing: normal; text-transform: none; color: var(--acid); }
+.bio-pull { display: grid; gap: .8rem; margin: 1.6rem 0; }
+.bio-pull blockquote { margin: 0; padding-left: 1.1rem; border-left: 1px solid rgba(255,255,255,.28); font: 500 clamp(1rem,1.6vw,1.2rem) var(--display); letter-spacing: -.02em; color: #efece2; }
 .bio-actions { display: flex; flex-wrap: wrap; gap: .7rem; }
 .bio-actions button { display: inline-flex; align-items: center; gap: .55rem; padding: .8rem 1.3rem; border: 1px solid rgba(255,255,255,.28); background: none; color: #f3f1ea; cursor: pointer; font: .62rem var(--mono); letter-spacing: .1em; text-transform: uppercase; transition: background .3s, border-color .3s, color .3s; }
 .bio-actions button:hover { background: var(--acid); border-color: var(--acid); color: #14130f; }
