@@ -241,6 +241,38 @@ const extendedStillsCount: Record<string, number> = {
   "articles-pavel-nedved.mp4": 6,
 };
 
+/**
+ * Hand-picked stills, used verbatim in place of the `${mediaBase}/stills/<slug>-0N.jpg` convention.
+ * Local `/stills/*` files ship with the app; absolute URLs borrow an existing R2 frame set.
+ */
+const stillsOverride: Record<string, string[]> = {
+  "documentary-juve-duping-full-cut.mp4": [
+    "/stills/documentary-juve-duping-full-cut-01.jpg",
+    "/stills/documentary-juve-duping-full-cut-02.jpg",
+  ],
+  "documentary-touching-scene.mp4": [
+    "/stills/documentary-touching-scene-01.jpg",
+    "/stills/documentary-touching-scene-02.jpg",
+  ],
+  "documentary-showreel-teaser.mp4": [
+    "/stills/documentary-showreel-teaser-01.jpg",
+    "/stills/documentary-showreel-teaser-02.jpg",
+  ],
+  "motion-3d-reel-2.mp4": [
+    "/stills/motion-3d-reel-2-01.jpg",
+    "/stills/motion-3d-reel-2-02.jpg",
+  ],
+  "motion-articles-reel-2.mp4": [
+    "/stills/motion-articles-reel-2-01.jpg",
+    "/stills/motion-articles-reel-2-02.jpg",
+  ],
+  // The Pavel Nedvěd frame library belongs to this instalment of the Articles series.
+  "motion-articles-reel-1.mp4": Array.from(
+    { length: 6 },
+    (_, i) => `${mediaBase}/stills/articles-pavel-nedved-0${i + 1}.jpg`,
+  ),
+};
+
 const categories = [
   "All",
   "Documentary & Directing",
@@ -288,7 +320,7 @@ const projects: Project[] = [
     year: "2025",
     role: "Editor & visual storyteller",
     description:
-      "Archive, atmosphere and graphic structure woven into a textured football portrait with a distinctly cinematic memory.",
+      "Archive, atmosphere and graphic structure woven into a textured football portrait with a distinctly cinematic memory — a companion archive study built from historic footage, typographic interruption and a weathered visual language.",
     image: "/thumbnails/documentary-el-gohary.webp",
     video: `${mediaBase}/previews/documentary-el-gohary.mp4`,
     tone: "dark",
@@ -297,53 +329,6 @@ const projects: Project[] = [
       { title: "Archive animation", video: `${mediaBase}/previews/documentary-el-gohary-archive.mp4`, poster: "/thumbnails/documentary-el-gohary-archive.webp", duration: "0:09", role: "Companion film" },
       { title: "Full film", video: `${mediaBase}/previews/documentary-el-gohary-epic.mp4`, poster: "/thumbnails/documentary-el-gohary-epic.webp", duration: "4:06", role: "Extended cut" },
     ],
-  },
-  {
-    title: "El Gohary — Archive Cut",
-    category: "Documentary & Directing",
-    year: "2025",
-    role: "Archive editor & motion designer",
-    description: "A companion archive study built from historic footage, typographic interruption and a weathered visual language.",
-    image: "/thumbnails/documentary-el-gohary-archive.webp",
-    video: `${mediaBase}/previews/documentary-el-gohary-archive.mp4`,
-    tone: "warm",
-    featured: false,
-    extraClips: [
-      { title: "Full film", video: `${mediaBase}/previews/documentary-el-gohary-epic.mp4`, poster: "/thumbnails/documentary-el-gohary-epic.webp", duration: "4:06", role: "Extended cut" },
-    ],
-  },
-  {
-    title: "Juve — The Duping",
-    category: "Documentary & Directing",
-    year: "2024",
-    role: "Writer, editor & motion designer",
-    description: "Football history reshaped as a compact motion essay with archive, pacing and a clear editorial argument.",
-    image: "/thumbnails/documentary-juve-duping.webp",
-    video: `${mediaBase}/previews/documentary-juve-duping.mp4`,
-    tone: "silver",
-    featured: false,
-  },
-  {
-    title: "Maradona",
-    category: "Documentary & Directing",
-    year: "2024",
-    role: "Editor & visual storyteller",
-    description: "A character-led football portrait balancing archive energy with reflective pauses and graphic restraint.",
-    image: "/thumbnails/documentary-maradona.webp",
-    video: `${mediaBase}/previews/documentary-maradona.mp4`,
-    tone: "blue",
-    featured: false,
-  },
-  {
-    title: "Vesba Story",
-    category: "Documentary & Directing",
-    year: "2024",
-    role: "Editor & director",
-    description: "A documentary story assembled through atmosphere, lived detail and close observational editing.",
-    image: "/thumbnails/documentary-vesba-story.webp",
-    video: `${mediaBase}/previews/documentary-vesba-story.mp4`,
-    tone: "dark",
-    featured: false,
   },
   {
     title: "Vodafone × StarsClash",
@@ -399,29 +384,6 @@ const projects: Project[] = [
     image: "/thumbnails/commercial-drjob-pro.webp",
     video: `${mediaBase}/previews/commercial-drjob-pro.mp4`,
     tone: "blue",
-    featured: false,
-  },
-  {
-    title: "The Transfer",
-    category: "Motion & 3D",
-    year: "2024",
-    role: "Motion designer & editor",
-    description:
-      "A title-led football sequence built from dimensional typography, compositing and deliberate sound-to-frame timing.",
-    image: "/thumbnails/motion-the-transfer.webp",
-    video: `${mediaBase}/previews/motion-the-transfer.mp4`,
-    tone: "silver",
-    featured: true,
-  },
-  {
-    title: "Gold Era",
-    category: "Motion & 3D",
-    year: "2019",
-    role: "Editor & motion designer",
-    description: "A polished application identity sequence with metallic type, measured reveals and premium finishing.",
-    image: "/thumbnails/logo-gold-era.webp",
-    video: `${mediaBase}/previews/logo-gold-era.mp4`,
-    tone: "warm",
     featured: false,
   },
   {
@@ -537,7 +499,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Juve Duping — Full Cut",
+    title: "Juve Duping",
     category: "Documentary & Directing",
     year: "2024",
     role: "Director & Editor",
@@ -573,7 +535,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Showreel Teaser",
+    title: "Epic Century 2020",
     category: "Documentary & Directing",
     year: "2024",
     role: "Director & Editor",
@@ -722,7 +684,7 @@ const projects: Project[] = [
     year: "2019",
     role: "Editor",
     description:
-      "A promotional edit for the Gold Era application.",
+      "A promotional edit for the Gold Era application, carrying the polished identity sequence's metallic type, measured reveals and premium finishing.",
     image: "/thumbnails/commercial-gold-era-1.webp",
     video: `${mediaBase}/previews/commercial-gold-era-1.mp4`,
     tone: "warm",
@@ -2183,8 +2145,11 @@ export default function Home() {
       {activeProject && (() => {
         const stillsSlug = slugFromVideo(activeProject.video);
         const study = caseStudies[activeProject.video.split("/").pop() ?? ""];
-        const stillsCount = extendedStillsCount[activeProject.video.split("/").pop() ?? ""] ?? 2;
-        const stills = Array.from({ length: stillsCount }, (_, i) => `${mediaBase}/stills/${stillsSlug}-0${i + 1}.jpg`);
+        const stillsKey = activeProject.video.split("/").pop() ?? "";
+        const stillsCount = extendedStillsCount[stillsKey] ?? 2;
+        const stills =
+          stillsOverride[stillsKey] ??
+          Array.from({ length: stillsCount }, (_, i) => `${mediaBase}/stills/${stillsSlug}-0${i + 1}.jpg`);
         return (
         <div ref={dialogRef} tabIndex={-1} className="project-modal" role="dialog" aria-modal="true" aria-label={`${activeProject.title} project video`}>
           <div className="screening-top">

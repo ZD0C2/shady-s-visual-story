@@ -43,38 +43,14 @@ export const caseStudies: Record<string, CaseStudy> = {
       "Treated the archive as the narrative spine: newspaper spreads animated with a moving camera, and progressive highlight callouts that lead the eye through dense Arabic print exactly in step with the narration.",
     finalFrame: "A long-form Arabic documentary built almost entirely from print archive.",
   },
-  "documentary-juve-duping.mp4": {
-    format: "Widescreen documentary short",
-    toolkit: ["Premiere Pro", "DaVinci Resolve", "After Effects"],
-    challenge: "Documentary storytelling often defaults to talking heads; this needed to feel directed.",
-    approach:
-      "Staged the narrator in a controlled, low-key set with hard practical light, shooting in 4K for reframing latitude in the edit.",
-    finalFrame: "A 12-minute 4K master that demonstrates directing, cinematography and editing in one piece.",
-  },
-  "documentary-maradona.mp4": {
-    format: "Widescreen tribute documentary",
-    toolkit: ["Premiere Pro", "After Effects"],
-    challenge: "Archive-only edits risk becoming compilations rather than stories.",
-    approach:
-      "Structured decades of match footage into acts with rising emotional stakes, letting restoration and pacing carry weight that the archive alone couldn't.",
-    finalFrame: "A six-minute tribute cut built entirely from historic football archive.",
-  },
-  "documentary-vesba-story.mp4": {
-    format: "Widescreen brand story",
-    toolkit: ["Premiere Pro", "DaVinci Resolve"],
-    challenge: "Brand stories can feel like ads; this one needed to feel observed rather than sold.",
-    approach:
-      "Applied documentary grammar — patient framing, real pauses, close observational cuts — to material that started life as a branded commission.",
-    finalFrame: "A long-form story piece delivered as a finished master, closer to a short documentary than a promo.",
-  },
   "documentary-juve-duping-full-cut.mp4": {
     format: "Widescreen documentary — full cut",
     toolkit: ["Premiere Pro", "DaVinci Resolve", "After Effects"],
     challenge:
-      "The condensed cut of Juve — The Duping proved the noir approach worked; the harder problem was sustaining that same directed, low-key mood across a full runtime without it reading as repetitive.",
+      "Documentary storytelling often defaults to talking heads; this needed to feel directed, and to sustain a low-key noir mood across a full runtime without reading as repetitive.",
     approach:
-      "Kept the same hard-practical lighting and blocking from the short cut but let scenes breathe — holding on reaction beats and archive inserts that the shorter edit had to sacrifice for pace.",
-    finalFrame: "The complete 4K master, screened here alongside its shorter companion cut.",
+      "Staged the narrator in a controlled set with hard practical light, shooting in 4K for reframing latitude, then let scenes breathe — holding on reaction beats and archive inserts rather than cutting for pace.",
+    finalFrame: "The complete 4K master, demonstrating directing, cinematography and editing in one piece.",
   },
   "documentary-moments.mp4": {
     format: "Widescreen observational cutdown",
@@ -279,20 +255,6 @@ export const caseStudies: Record<string, CaseStudy> = {
   },
 
   /* ---------------- Motion & 3D ---------------- */
-  "motion-the-transfer.mp4": {
-    format: "3D motion sequence",
-    toolkit: ["After Effects", "Photoshop", "Cinema 4D"],
-    challenge: "Static football posters lose impact in motion feeds without added dimension.",
-    approach: "Parallax camera moves through layered composites, with type treated as a design element rather than an overlay.",
-    finalFrame: "A repeatable series format extended across several editions.",
-  },
-  "logo-gold-era.mp4": {
-    format: "Identity animation",
-    toolkit: ["After Effects", "Premiere Pro", "Element 3D"],
-    challenge: "Financial products need to feel trustworthy and premium, not gimmicky.",
-    approach: "Used gold as the literal material of the animation — particle bursts and bullion resolving into the logo mark.",
-    finalFrame: "A launch package spanning identity animation and in-app product demonstration.",
-  },
   "motion-maaloul-3d-feature.mp4": {
     format: "3D motion tribute — feature cut",
     toolkit: ["After Effects", "Cinema 4D", "Photoshop"],
