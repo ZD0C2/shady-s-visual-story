@@ -238,7 +238,6 @@ function slugFromVideo(video: string) {
 /** Projects with a real, hand-picked frame library (from Astra's Drive archive) get more than the default 2 stills. */
 const extendedStillsCount: Record<string, number> = {
   "documentary-ahly-epic.mp4": 6,
-  "articles-pavel-nedved.mp4": 6,
 };
 
 /**
@@ -266,11 +265,21 @@ const stillsOverride: Record<string, string[]> = {
     "/stills/motion-articles-reel-2-01.jpg",
     "/stills/motion-articles-reel-2-02.jpg",
   ],
-  // The Pavel Nedvěd frame library belongs to this instalment of the Articles series.
+  // The frames filed under the Pavel Nedvěd slug are actually this instalment's.
   "motion-articles-reel-1.mp4": Array.from(
     { length: 6 },
     (_, i) => `${mediaBase}/stills/articles-pavel-nedved-0${i + 1}.jpg`,
   ),
+  // …so Pavel Nedvěd gets its own, cut from its own film.
+  "articles-pavel-nedved.mp4": [
+    "/stills/articles-pavel-nedved-01.jpg",
+    "/stills/articles-pavel-nedved-02.jpg",
+    "/stills/articles-pavel-nedved-03.jpg",
+  ],
+  "digital-sons-of-yusuf-intro-2.mp4": [
+    `${mediaBase}/stills/digital-sons-of-yusuf-intro-2-01.jpg`,
+    "/stills/digital-sons-of-yusuf-intro-2-02.jpg",
+  ],
 };
 
 const categories = [
@@ -689,6 +698,9 @@ const projects: Project[] = [
     video: `${mediaBase}/previews/commercial-gold-era-1.mp4`,
     tone: "warm",
     featured: false,
+    extraClips: [
+      { title: "Identity animation", video: `${mediaBase}/previews/logo-gold-era.mp4`, poster: "/thumbnails/logo-gold-era.webp", role: "Logo sequence" },
+    ],
   },
   {
     title: "Gold Era — App Promo (Cut 2)",
@@ -1183,7 +1195,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Sons of Yusuf — Intro (Cut 2)",
+    title: "Sons of Yusuf — Intro",
     category: "Digital & YouTube Content",
     year: "2023",
     role: "Editor",
@@ -1219,7 +1231,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Archive Carousel — Scene Transitions",
+    title: "Archive Carousel",
     category: "Motion & 3D",
     year: "2023",
     role: "Motion Designer & 3D Artist",
