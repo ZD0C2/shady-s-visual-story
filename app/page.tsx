@@ -280,6 +280,11 @@ const stillsOverride: Record<string, string[]> = {
     `${mediaBase}/stills/digital-sons-of-yusuf-intro-2-01.jpg`,
     "/stills/digital-sons-of-yusuf-intro-2-02.jpg",
   ],
+  // frame-01 is the retired thumbnail (Real Madrid crest composite); frame-02 is the new thumbnail's own composite, larger.
+  "articles-wessam-zlatan.mp4": [
+    "/stills/articles-wessam-zlatan-01.jpg",
+    "/stills/articles-wessam-zlatan-02.jpg",
+  ],
 };
 
 const categories = [
