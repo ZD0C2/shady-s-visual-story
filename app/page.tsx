@@ -385,30 +385,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Dr.Job Pro",
-    category: "Brand & Commercial",
-    year: "2021",
-    role: "Editor & motion designer",
-    description: "A bilingual product story that reveals platform benefits through clean sequencing and controlled UI motion.",
-    image: "/thumbnails/commercial-drjob-pro.webp",
-    video: `${mediaBase}/previews/commercial-drjob-pro.mp4`,
-    tone: "blue",
-    featured: false,
-  },
-  {
-    title: "Ali Maâloul Tribute",
-    category: "Sports",
-    year: "2024",
-    role: "Editor & visual designer",
-    description:
-      "A career tribute cut as memory: match energy, emotional pauses and graphic frames brought into one continuous arc.",
-    image: "/thumbnails/sports-maaloul-tribute.webp",
-    video: `${mediaBase}/previews/sports-maaloul-tribute.mp4`,
-    tone: "red",
-    featured: true,
-  },
-  {
-    title: "Marmoush vs Mo",
+    title: "Marmoush vs Salah",
     category: "Sports",
     year: "2024",
     role: "Editor",
@@ -431,7 +408,7 @@ const projects: Project[] = [
     featured: true,
   },
   {
-    title: "SEF × Akon",
+    title: "Sharjah Entrepreneurship Festival — Akon",
     category: "Social Reels",
     year: "2024",
     role: "Social editor",
@@ -442,7 +419,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "SEF × Mo Gawdat",
+    title: "Sharjah Entrepreneurship Festival — Mo Gawdat",
     category: "Social Reels",
     year: "2024",
     role: "Social editor",
@@ -453,7 +430,7 @@ const projects: Project[] = [
     featured: true,
   },
   {
-    title: "SEF × Steven Bartlett",
+    title: "Sharjah Entrepreneurship Festival — Steven Bartlett",
     category: "Social Reels",
     year: "2024",
     role: "Social editor",
@@ -486,7 +463,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Wessam × Zlatan",
+    title: "Wessam Abou Ali — Documentary Visuals",
     category: "Digital & YouTube Content",
     year: "2024",
     role: "Writer, editor & motion designer",
@@ -715,7 +692,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Dr.Job Pro — Promo 1",
+    title: "Dr.Job — Promo",
     category: "Brand & Commercial",
     year: "2021",
     role: "Editor",
@@ -727,7 +704,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Dr.Job Pro — Promo 2",
+    title: "Dr.Job Works For You",
     category: "Brand & Commercial",
     year: "2021",
     role: "Editor",
@@ -739,7 +716,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Dr.Job Pro — Promo 3",
+    title: "Dr.Job Needs You",
     category: "Brand & Commercial",
     year: "2021",
     role: "Editor",
@@ -763,7 +740,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "StarsClash — Teaser Cut 2",
+    title: "StarsClash",
     category: "Brand & Commercial",
     year: "2021",
     role: "Video Editor",
@@ -799,7 +776,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Zed x Talents — Launch Film",
+    title: "Zed Talents — Brand Film",
     category: "Brand & Commercial",
     year: "2021",
     role: "Editor",
@@ -811,7 +788,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Zed Talents — Sample Cut 2",
+    title: "Zed Talents — Opening",
     category: "Brand & Commercial",
     year: "2021",
     role: "Editor",
@@ -895,7 +872,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Squads",
+    title: "Formation Styles",
     category: "Sports",
     year: "2023",
     role: "Editor",
@@ -907,7 +884,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Gary Neville Is Red",
+    title: "Gary Neville — Class of '92",
     category: "Sports",
     year: "2023",
     role: "Editor",
@@ -919,12 +896,12 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Gary Neville Is Red — Cut 2",
+    title: "Class of '92 — Intro",
     category: "Sports",
     year: "2023",
     role: "Editor",
     description:
-      "An alternate cut of the Gary Neville Is Red piece.",
+      "The opening section of the Class of '92 piece, built around Gary Neville's own commentary.",
     image: "/thumbnails/sports-gary-neville-is-red-2.webp",
     video: `${mediaBase}/previews/sports-gary-neville-is-red-2.mp4`,
     tone: "blue",
@@ -955,7 +932,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Abou Ali",
+    title: "Wessam Abou Ali — Documentary Episode",
     category: "Sports",
     year: "2023",
     role: "Editor",
@@ -1015,7 +992,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Wessam Abou Ali — Cut 2",
+    title: "Wessam Abou Ali — The Untold Story",
     category: "Visual Design",
     year: "2023",
     role: "Editor & Motion Designer",
@@ -1027,7 +1004,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Visual Frames — Showcase",
+    title: "Visual Frames",
     category: "Visual Design",
     year: "2023",
     role: "Editor & Colourist",
@@ -1051,7 +1028,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Before & After",
+    title: "Artistic Retouching",
     category: "Visual Design",
     year: "2023",
     role: "Colourist & Retoucher",
@@ -1063,7 +1040,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Reels — Mix 1",
+    title: "Interviews & Events — Vol. 1",
     category: "Social Reels",
     year: "2023",
     role: "Editor",
@@ -1075,7 +1052,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Reels — Mix 2",
+    title: "Interviews & Events — Vol. 2",
     category: "Social Reels",
     year: "2023",
     role: "Editor",
@@ -1099,7 +1076,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "SEF 2023 — Recap",
+    title: "Sharjah Entrepreneurship Festival 2023 — Recap",
     category: "Social Reels",
     year: "2023",
     role: "Editor",
@@ -1111,7 +1088,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "ChatGPT Recap — Update 2",
+    title: "ChatGPT Recap",
     category: "Social Reels",
     year: "2023",
     role: "Editor",
@@ -1123,7 +1100,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "ChatGPT Hackathon — Version 3",
+    title: "ChatGPT Hackathon",
     category: "Social Reels",
     year: "2023",
     role: "Editor",
@@ -1147,7 +1124,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Suggest a Speaker — SEF23",
+    title: "Suggest a Speaker — Sharjah Entrepreneurship Festival 2023",
     category: "Social Reels",
     year: "2023",
     role: "Editor",
@@ -1171,7 +1148,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "EMMA Reels — Vol. 1",
+    title: "EMMA",
     category: "Social Reels",
     year: "2023",
     role: "Editor & Motion Designer",

@@ -116,13 +116,6 @@ export const caseStudies: Record<string, CaseStudy> = {
       "Anchored the edit on a slow sand-pour against golden-hour desert light, letting the landscape carry the emotion instead of a busier montage.",
     finalFrame: "Delivered in multiple aspect variants for placement across formats, all built around the golden colour grade.",
   },
-  "commercial-drjob-pro.mp4": {
-    format: "Widescreen product film",
-    toolkit: ["Premiere Pro", "After Effects"],
-    challenge: "Platform features needed to be legible without a heavy voiceover load.",
-    approach: "Motion-graphic sequencing that reveals one benefit at a time, in bilingual text treatments.",
-    finalFrame: "Multiple language and length variants produced from a single underlying system.",
-  },
   "commercial-football-history-tales.mp4": {
     format: "Widescreen editorial series film",
     toolkit: ["Premiere Pro", "After Effects", "Photoshop"],
@@ -338,14 +331,6 @@ export const caseStudies: Record<string, CaseStudy> = {
   },
 
   /* ---------------- Sports ---------------- */
-  "sports-maaloul-tribute.mp4": {
-    format: "3D motion tribute",
-    toolkit: ["After Effects", "Photoshop", "Cinema 4D"],
-    challenge: "A career spanning Sfaxien, Al Ahly and Tunisia had to be legible at a glance without becoming a highlights reel.",
-    approach:
-      "Arranged career moments as floating screens and filmstrip frames inside a lit stadium environment, so the viewer reads the span of a career spatially.",
-    finalFrame: "A tribute package delivered in several cuts and design variants.",
-  },
   "sports-marmoush-vs-mo.mp4": {
     format: "Widescreen sports edit",
     toolkit: ["Premiere Pro", "After Effects"],
@@ -386,7 +371,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     toolkit: ["Premiere Pro", "After Effects"],
     challenge: "A second cut needed a different angle on the same commentary material.",
     approach: "Re-sequenced the same source around a different pacing and emphasis.",
-    finalFrame: "An alternate cut of the Gary Neville Is Red piece.",
+    finalFrame: "The opening section of the Class of '92 piece.",
   },
   "sports-amoory-like-fares-outro.mp4": {
     format: "Widescreen outro sequence",
