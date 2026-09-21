@@ -81,41 +81,6 @@ export const caseStudies: Record<string, CaseStudy> = {
   },
 
   /* ---------------- Brand & Commercial ---------------- */
-  "commercial-vodafone-starsclash.mp4": {
-    format: "Widescreen branded series",
-    toolkit: ["Premiere Pro", "After Effects", "Audition"],
-    challenge:
-      "Multi-camera studio footage had to stay energetic across a long runtime while keeping the brand's visual identity present in every segment.",
-    approach:
-      "Built a repeatable episode structure — cold open, contestant name cards, challenge blocks, reaction beats — so each episode felt consistent and on-brand.",
-    finalFrame:
-      "Hand-painted brush-stroke name cards, animated scoring accents and reaction cutaways timed to the action delivered a consistent, reusable graphic language across the format.",
-  },
-  "commercial-leeloo.mp4": {
-    format: "Widescreen brand film",
-    toolkit: ["Premiere Pro", "After Effects", "DaVinci Resolve"],
-    challenge:
-      "The venue needed to feel warm and worth travelling for, using both live food footage and unbuilt, still-under-construction architecture.",
-    approach:
-      "Split-frame food montages for appetite appeal, cut against a 3D walkthrough of the venue exterior at dusk to sell a space that didn't fully exist yet.",
-    finalFrame:
-      "A complete brand kit — intro, location film, snippets and outro — built to be reused across the venue's own channels.",
-  },
-  "commercial-minglings.mp4": {
-    format: "Vertical brand promo",
-    toolkit: ["Premiere Pro", "After Effects"],
-    challenge: "The message had to land in a vertical frame within the first seconds.",
-    approach: "Presenter-led framing with graphic sticker accents keeping the eye moving through a fast 9:16 cut.",
-    finalFrame: "A promo delivered in multiple lengths for feed and story placements.",
-  },
-  "commercial-saudi-national-day.mp4": {
-    format: "Widescreen cultural campaign film",
-    toolkit: ["Premiere Pro", "After Effects"],
-    challenge: "National campaigns are crowded; the film needed a single memorable image to anchor it.",
-    approach:
-      "Anchored the edit on a slow sand-pour against golden-hour desert light, letting the landscape carry the emotion instead of a busier montage.",
-    finalFrame: "Delivered in multiple aspect variants for placement across formats, all built around the golden colour grade.",
-  },
   "commercial-football-history-tales.mp4": {
     format: "Widescreen editorial series film",
     toolkit: ["Premiere Pro", "After Effects", "Photoshop"],

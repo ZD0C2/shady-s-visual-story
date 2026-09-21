@@ -239,6 +239,8 @@ function slugFromVideo(video: string) {
 const extendedStillsCount: Record<string, number> = {
   "documentary-ahly-epic.mp4": 6,
   "documentary-showreel-teaser.mp4": 4,
+  "commercial-minglings-promo.mp4": 3,
+  "commercial-gold-era-1.mp4": 3,
 };
 
 /**
@@ -264,6 +266,20 @@ const stillsOverride: Record<string, string[]> = {
     "/stills/documentary-showreel-teaser-02.jpg",
     "/stills/documentary-showreel-teaser-03.jpg",
     "/stills/documentary-showreel-teaser-04.jpg",
+  ],
+  "commercial-minglings-promo.mp4": [
+    "/stills/commercial-minglings-promo-01.jpg",
+    "/stills/commercial-minglings-promo-02.jpg",
+    "/stills/commercial-minglings-promo-03.jpg",
+  ],
+  "commercial-gold-era-1.mp4": [
+    "/stills/commercial-gold-era-1-01.jpg",
+    "/stills/commercial-gold-era-1-02.jpg",
+    "/stills/commercial-gold-era-1-03.jpg",
+  ],
+  "commercial-gold-era-2.mp4": [
+    "/stills/commercial-gold-era-2-01.jpg",
+    "/stills/commercial-gold-era-2-02.jpg",
   ],
   "documentary-touching-scene.mp4": [
     "/stills/documentary-touching-scene-01.jpg",
@@ -359,51 +375,6 @@ const projects: Project[] = [
       { title: "Archive animation", video: `${mediaBase}/previews/documentary-el-gohary-archive.mp4`, poster: "/thumbnails/documentary-el-gohary-archive.webp", duration: "0:09", role: "Companion film" },
       { title: "Full film", video: `${mediaBase}/previews/documentary-el-gohary-epic.mp4`, poster: "/thumbnails/documentary-el-gohary-epic.webp", duration: "4:06", role: "Extended cut" },
     ],
-  },
-  {
-    title: "Vodafone × StarsClash",
-    category: "Brand & Commercial",
-    year: "2021",
-    role: "Video editor",
-    description:
-      "A multi-camera branded format with fast reactions, repeatable episode architecture and a bold motion identity.",
-    image: "/thumbnails/commercial-vodafone-starsclash.webp",
-    video: `${mediaBase}/previews/commercial-vodafone-starsclash.mp4`,
-    tone: "red",
-    featured: true,
-  },
-  {
-    title: "LeeLoo — Brand Film",
-    category: "Brand & Commercial",
-    year: "2022",
-    role: "Creative director & editor",
-    description: "Appetite-led food cinematography meets a 3D architectural reveal of the venue and illuminated brand signage.",
-    image: "/thumbnails/commercial-leeloo.webp",
-    video: `${mediaBase}/previews/commercial-leeloo.mp4`,
-    tone: "warm",
-    featured: true,
-  },
-  {
-    title: "Minglings",
-    category: "Brand & Commercial",
-    year: "2022",
-    role: "Editor",
-    description: "A vertical-first hospitality promo built around presenter energy, graphic stickers and rapid social pacing.",
-    image: "/thumbnails/commercial-minglings.webp",
-    video: `${mediaBase}/previews/commercial-minglings.mp4`,
-    tone: "warm",
-    featured: false,
-  },
-  {
-    title: "Saudi National Day 91",
-    category: "Brand & Commercial",
-    year: "2021",
-    role: "Editor & colourist",
-    description: "A cultural campaign film anchored by desert light, heritage imagery and a memorable sand-pour hero shot.",
-    image: "/thumbnails/commercial-saudi-national-day.webp",
-    video: `${mediaBase}/previews/commercial-saudi-national-day.mp4`,
-    tone: "warm",
-    featured: false,
   },
   {
     title: "Marmoush vs Salah",
@@ -605,7 +576,7 @@ const projects: Project[] = [
     title: "Beyond The Headlines",
     category: "Motion & 3D",
     year: "2023",
-    role: "Writer, Motion Designer & Editor",
+    role: "Motion Designer & Editor",
     description:
       "Part of the 'Articles' motion-essay series — original football writing turned into narrated, animated pieces.",
     image: "/thumbnails/motion-articles-reel-1.webp",
@@ -617,7 +588,7 @@ const projects: Project[] = [
     title: "The Archive Room",
     category: "Motion & 3D",
     year: "2023",
-    role: "Writer, Motion Designer & Editor",
+    role: "Motion Designer & Editor",
     description:
       "Another instalment in the Articles motion-essay series.",
     image: "/thumbnails/motion-articles-reel-2.webp",
@@ -629,7 +600,7 @@ const projects: Project[] = [
     title: "Pages Of Memory",
     category: "Motion & 3D",
     year: "2023",
-    role: "Writer, Motion Designer & Editor",
+    role: "Motion Designer & Editor",
     description:
       "A further instalment in the Articles motion-essay series.",
     image: "/thumbnails/motion-articles-reel-3.webp",
@@ -641,7 +612,7 @@ const projects: Project[] = [
     title: "A Letter to Remember",
     category: "Motion & 3D",
     year: "2023",
-    role: "Writer, Motion Designer & Editor",
+    role: "Motion Designer & Editor",
     description:
       "A short instalment in the Articles motion-essay series.",
     image: "/thumbnails/motion-articles-reel-4.webp",
@@ -662,7 +633,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Minglings — Promo (Full Cut)",
+    title: "Minglings — Promo",
     category: "Brand & Commercial",
     year: "2019",
     role: "Editor",
@@ -674,7 +645,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "LeeLoo — Brand Film (Full Cut)",
+    title: "LeeLoo — Brand Film",
     category: "Brand & Commercial",
     year: "2019",
     role: "Creative Director & Editor",
@@ -683,10 +654,10 @@ const projects: Project[] = [
     image: "/thumbnails/commercial-leeloo-brand-film.webp",
     video: `${mediaBase}/previews/commercial-leeloo-brand-film.mp4`,
     tone: "blue",
-    featured: false,
+    featured: true,
   },
   {
-    title: "Gold Era — App Promo (Cut 1)",
+    title: "Gold Era — Easy Login",
     category: "Brand & Commercial",
     year: "2019",
     role: "Editor",
@@ -701,7 +672,7 @@ const projects: Project[] = [
     ],
   },
   {
-    title: "Gold Era — App Promo (Cut 2)",
+    title: "Gold Era — Future of Gold",
     category: "Brand & Commercial",
     year: "2019",
     role: "Editor",
