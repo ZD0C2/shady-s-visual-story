@@ -238,6 +238,7 @@ function slugFromVideo(video: string) {
 /** Projects with a real, hand-picked frame library (from Astra's Drive archive) get more than the default 2 stills. */
 const extendedStillsCount: Record<string, number> = {
   "documentary-ahly-epic.mp4": 6,
+  "documentary-showreel-teaser.mp4": 4,
 };
 
 /**
@@ -258,13 +259,15 @@ const stillsOverride: Record<string, string[]> = {
     "/stills/documentary-moments-01.jpg",
     "/stills/documentary-moments-02.jpg",
   ],
-  "documentary-touching-scene.mp4": [
-    "/stills/documentary-touching-scene-01.jpg",
-    "/stills/documentary-touching-scene-02.jpg",
-  ],
   "documentary-showreel-teaser.mp4": [
     "/stills/documentary-showreel-teaser-01.jpg",
     "/stills/documentary-showreel-teaser-02.jpg",
+    "/stills/documentary-showreel-teaser-03.jpg",
+    "/stills/documentary-showreel-teaser-04.jpg",
+  ],
+  "documentary-touching-scene.mp4": [
+    "/stills/documentary-touching-scene-01.jpg",
+    "/stills/documentary-touching-scene-02.jpg",
   ],
   "motion-3d-reel-2.mp4": [
     "/stills/motion-3d-reel-2-01.jpg",
@@ -288,6 +291,10 @@ const stillsOverride: Record<string, string[]> = {
   "digital-sons-of-yusuf-intro-2.mp4": [
     `${mediaBase}/stills/digital-sons-of-yusuf-intro-2-01.jpg`,
     "/stills/digital-sons-of-yusuf-intro-2-02.jpg",
+  ],
+  "motion-maaloul-3d-feature.mp4": [
+    "/stills/motion-maaloul-3d-feature-01.jpg",
+    "/stills/motion-maaloul-3d-feature-02.jpg",
   ],
   // frame-01 is the retired thumbnail (Real Madrid crest composite); frame-02 is the new thumbnail's own composite, larger.
   "articles-wessam-zlatan.mp4": [
@@ -329,7 +336,7 @@ const projects: Project[] = [
     title: "Ahly Epic",
     category: "Documentary & Directing",
     year: "2024",
-    role: "Director, cinematographer & editor",
+    role: "Director, cinematographer & editor — one-man crew",
     description:
       "A three-part feature documentary shaped through first-hand testimony, bespoke interview lighting and patient editorial rhythm.",
     image: "/thumbnails/documentary-ahly-epic.webp",
@@ -341,7 +348,7 @@ const projects: Project[] = [
     title: "El Gohary",
     category: "Documentary & Directing",
     year: "2025",
-    role: "Editor & visual storyteller",
+    role: "Director, cinematographer & editor — one-man crew",
     description:
       "Archive, atmosphere and graphic structure woven into a textured football portrait with a distinctly cinematic memory — a companion archive study built from historic footage, typographic interruption and a weathered visual language.",
     image: "/thumbnails/documentary-el-gohary.webp",
@@ -502,7 +509,7 @@ const projects: Project[] = [
     title: "Juve Duping",
     category: "Documentary & Directing",
     year: "2024",
-    role: "Director & Editor",
+    role: "Director, cinematographer & editor — one-man crew",
     description:
       "The complete cut of a noir-toned narrative documentary, built on multi-camera interview lighting and graded contrast.",
     image: "/thumbnails/documentary-juve-duping-full-cut.webp",
@@ -514,7 +521,7 @@ const projects: Project[] = [
     title: "Moments",
     category: "Documentary & Directing",
     year: "2024",
-    role: "Editor",
+    role: "Director, cinematographer & editor — one-man crew",
     description:
       "A quieter observational cutdown built from documentary B-roll and candid interview moments.",
     image: "/thumbnails/documentary-moments.webp",
@@ -526,7 +533,7 @@ const projects: Project[] = [
     title: "A Touching Scene",
     category: "Documentary & Directing",
     year: "2024",
-    role: "Editor",
+    role: "Director, cinematographer & editor — one-man crew",
     description:
       "A single emotional beat pulled from long-form documentary footage, cut for pacing and impact.",
     image: "/thumbnails/documentary-touching-scene.webp",
@@ -538,7 +545,7 @@ const projects: Project[] = [
     title: "Epic Century 2020",
     category: "Documentary & Directing",
     year: "2024",
-    role: "Director & Editor",
+    role: "Director, cinematographer & editor — one-man crew",
     description:
       "A longer-form teaser cut drawing on documentary and directing footage, built for festival/showreel submission.",
     image: "/thumbnails/documentary-showreel-teaser.webp",
@@ -571,7 +578,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "3D & Motion Reel — Vol. 2",
+    title: "Beyond Composition",
     category: "Motion & 3D",
     year: "2023",
     role: "Motion Designer",
@@ -583,7 +590,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "3D & Motion Reel — Vol. 3",
+    title: "Motion Theory",
     category: "Motion & 3D",
     year: "2023",
     role: "Motion Designer",
@@ -595,7 +602,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Articles — Motion Essay Reel 1",
+    title: "Beyond The Headlines",
     category: "Motion & 3D",
     year: "2023",
     role: "Writer, Motion Designer & Editor",
@@ -607,7 +614,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Articles — Motion Essay Reel 2",
+    title: "The Archive Room",
     category: "Motion & 3D",
     year: "2023",
     role: "Writer, Motion Designer & Editor",
@@ -619,7 +626,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Articles — Motion Essay Reel 3",
+    title: "Pages Of Memory",
     category: "Motion & 3D",
     year: "2023",
     role: "Writer, Motion Designer & Editor",
@@ -631,7 +638,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Articles — Motion Essay Reel 4",
+    title: "A Letter to Remember",
     category: "Motion & 3D",
     year: "2023",
     role: "Writer, Motion Designer & Editor",
