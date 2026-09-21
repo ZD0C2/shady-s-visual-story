@@ -249,6 +249,15 @@ const stillsOverride: Record<string, string[]> = {
     "/stills/documentary-juve-duping-full-cut-01.jpg",
     "/stills/documentary-juve-duping-full-cut-02.jpg",
   ],
+  // The R2 default pair was two near-identical frames of the same pan; these are held, distinct beats.
+  "documentary-el-gohary.mp4": [
+    "/stills/documentary-el-gohary-01.jpg",
+    "/stills/documentary-el-gohary-02.jpg",
+  ],
+  "documentary-moments.mp4": [
+    "/stills/documentary-moments-01.jpg",
+    "/stills/documentary-moments-02.jpg",
+  ],
   "documentary-touching-scene.mp4": [
     "/stills/documentary-touching-scene-01.jpg",
     "/stills/documentary-touching-scene-02.jpg",
