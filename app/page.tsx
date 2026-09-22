@@ -245,6 +245,9 @@ const extendedStillsCount: Record<string, number> = {
   "sports-visual-snippets-1.mp4": 3,
   "sports-squads.mp4": 3,
   "sports-gary-neville-is-red.mp4": 4,
+  "sports-vesba-story-fhd.mp4": 4,
+  "sports-sabaho-korah.mp4": 4,
+  "sports-amoory-like-fares-outro.mp4": 4,
 };
 
 /**
@@ -267,6 +270,24 @@ const stillsOverride: Record<string, string[]> = {
     "/stills/sports-gary-neville-is-red-02.jpg",
     "/stills/sports-gary-neville-is-red-03.jpg",
     "/stills/sports-gary-neville-is-red-04.jpg",
+  ],
+  "sports-vesba-story-fhd.mp4": [
+    "/stills/sports-vesba-story-fhd-01.jpg",
+    "/stills/sports-vesba-story-fhd-02.jpg",
+    "/stills/sports-vesba-story-fhd-03.jpg",
+    "/stills/sports-vesba-story-fhd-04.jpg",
+  ],
+  "sports-sabaho-korah.mp4": [
+    "/stills/sports-sabaho-korah-01.jpg",
+    "/stills/sports-sabaho-korah-02.jpg",
+    "/stills/sports-sabaho-korah-03.jpg",
+    "/stills/sports-sabaho-korah-04.jpg",
+  ],
+  "sports-amoory-like-fares-outro.mp4": [
+    "/stills/sports-amoory-like-fares-outro-01.jpg",
+    "/stills/sports-amoory-like-fares-outro-02.jpg",
+    "/stills/sports-amoory-like-fares-outro-03.jpg",
+    "/stills/sports-amoory-like-fares-outro-04.jpg",
   ],
   "documentary-juve-duping-full-cut.mp4": [
     "/stills/documentary-juve-duping-full-cut-01.jpg",
@@ -425,18 +446,6 @@ const projects: Project[] = [
     video: `${mediaBase}/previews/sports-marmoush-vs-mo.mp4`,
     tone: "red",
     featured: false,
-  },
-  {
-    title: "Portrait Retouch",
-    category: "Visual Design",
-    year: "2024",
-    role: "Visual designer",
-    description:
-      "Editorial image-making that turns raw sports photography into controlled, dramatic campaign-ready frames.",
-    image: "/thumbnails/visual-photo-retouch.webp",
-    video: `${mediaBase}/previews/visual-photo-retouch.mp4`,
-    tone: "blue",
-    featured: true,
   },
   {
     title: "Sharjah Entrepreneurship Festival — Akon",
@@ -939,7 +948,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Amoory Like Fares — Outro",
+    title: "Amoory Like Fares — A Cinematic Finale",
     category: "Sports",
     year: "2023",
     role: "Editor",
@@ -951,7 +960,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Vesba Story — Extended Cut",
+    title: "Vesba Story",
     category: "Sports",
     year: "2023",
     role: "Editor",
@@ -975,19 +984,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Brazil Squad",
-    category: "Sports",
-    year: "2023",
-    role: "Editor",
-    description:
-      "A squad-focused sports edit centred on the Brazilian national team.",
-    image: "/thumbnails/sports-brazil-squad.webp",
-    video: `${mediaBase}/previews/sports-brazil-squad.mp4`,
-    tone: "silver",
-    featured: false,
-  },
-  {
-    title: "Squat — Fitness Title Treatment",
+    title: "Fitness — Motion Study",
     category: "Sports",
     year: "2023",
     role: "Editor & Motion Designer",
@@ -999,7 +996,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Saba7o Korah — Nsoo7y Channel Promo",
+    title: "Saba7o Korah — Nsoo7y",
     category: "Sports",
     year: "2019",
     role: "Editor",
