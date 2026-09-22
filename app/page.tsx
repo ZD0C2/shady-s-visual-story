@@ -241,6 +241,7 @@ const extendedStillsCount: Record<string, number> = {
   "documentary-showreel-teaser.mp4": 4,
   "commercial-minglings-promo.mp4": 3,
   "commercial-gold-era-1.mp4": 3,
+  "sports-marmoush-vs-mo.mp4": 4,
 };
 
 /**
@@ -280,6 +281,25 @@ const stillsOverride: Record<string, string[]> = {
   "commercial-gold-era-2.mp4": [
     "/stills/commercial-gold-era-2-01.jpg",
     "/stills/commercial-gold-era-2-02.jpg",
+  ],
+  "commercial-starsclash-tayam-vs-amar.mp4": [
+    "/stills/commercial-starsclash-tayam-vs-amar-01.jpg",
+    "/stills/commercial-starsclash-tayam-vs-amar-02.jpg",
+  ],
+  // frame-01 kept from the R2 default (matches the "Agility" drill-overlay style); frame-02 replaced to match.
+  "commercial-zed-talents-3.mp4": [
+    `${mediaBase}/stills/commercial-zed-talents-3-01.jpg`,
+    "/stills/commercial-zed-talents-3-02.jpg",
+  ],
+  "commercial-zed-talents-registration.mp4": [
+    "/stills/commercial-zed-talents-registration-01.jpg",
+    "/stills/commercial-zed-talents-registration-02.jpg",
+  ],
+  "sports-marmoush-vs-mo.mp4": [
+    "/stills/sports-marmoush-vs-mo-01.jpg",
+    "/stills/sports-marmoush-vs-mo-02.jpg",
+    "/stills/sports-marmoush-vs-mo-03.jpg",
+    "/stills/sports-marmoush-vs-mo-04.jpg",
   ],
   "documentary-touching-scene.mp4": [
     "/stills/documentary-touching-scene-01.jpg",
@@ -720,7 +740,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "StarsClash — Tayam vs M.Amar",
+    title: "Vodafone × StarsClash",
     category: "Brand & Commercial",
     year: "2021",
     role: "Video Editor",
@@ -744,7 +764,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Zed Talents — Vol. 2",
+    title: "Zed Talents — The Next Generation",
     category: "Brand & Commercial",
     year: "2021",
     role: "Editor & Template Designer",
@@ -756,7 +776,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Zed Talents — Vol. 3",
+    title: "Zed Talents — Where Talent Rises",
     category: "Brand & Commercial",
     year: "2021",
     role: "Editor & Template Designer",
@@ -768,7 +788,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Zed Talents — Brand Film",
+    title: "Zed Talents × Decathlon — Brand in Motion",
     category: "Brand & Commercial",
     year: "2021",
     role: "Editor",
@@ -816,7 +836,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Ora — Preloader Animation (Alt Colourway)",
+    title: "Ora — Preloader Animation (Alt. Colourway)",
     category: "Brand & Commercial",
     year: "2021",
     role: "Motion Designer",
@@ -828,7 +848,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Ora — Shape Animation Logo (Design 3)",
+    title: "Ora — Logo in Motion",
     category: "Brand & Commercial",
     year: "2021",
     role: "Motion Designer",
