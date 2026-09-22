@@ -248,6 +248,8 @@ const extendedStillsCount: Record<string, number> = {
   "sports-vesba-story-fhd.mp4": 4,
   "sports-sabaho-korah.mp4": 4,
   "sports-amoory-like-fares-outro.mp4": 4,
+  "visual-ali-maaloul-2.mp4": 5,
+  "articles-pavel-nedved.mp4": 6,
 };
 
 /**
@@ -288,6 +290,17 @@ const stillsOverride: Record<string, string[]> = {
     "/stills/sports-amoory-like-fares-outro-02.jpg",
     "/stills/sports-amoory-like-fares-outro-03.jpg",
     "/stills/sports-amoory-like-fares-outro-04.jpg",
+  ],
+  "visual-ali-maaloul-2.mp4": [
+    "/stills/visual-ali-maaloul-2-01.jpg",
+    "/stills/visual-ali-maaloul-2-02.jpg",
+    "/stills/visual-ali-maaloul-2-03.jpg",
+    "/stills/visual-ali-maaloul-2-04.jpg",
+    "/stills/visual-ali-maaloul-2-05.jpg",
+  ],
+  "commercial-drjob-pro-2.mp4": [
+    "/stills/commercial-drjob-pro-2-01.jpg",
+    "/stills/commercial-drjob-pro-2-02.jpg",
   ],
   "documentary-juve-duping-full-cut.mp4": [
     "/stills/documentary-juve-duping-full-cut-01.jpg",
@@ -363,6 +376,9 @@ const stillsOverride: Record<string, string[]> = {
     "/stills/articles-pavel-nedved-01.jpg",
     "/stills/articles-pavel-nedved-02.jpg",
     "/stills/articles-pavel-nedved-03.jpg",
+    "/stills/articles-pavel-nedved-04.jpg",
+    "/stills/articles-pavel-nedved-05.jpg",
+    "/stills/articles-pavel-nedved-06.jpg",
   ],
   "digital-sons-of-yusuf-intro-2.mp4": [
     `${mediaBase}/stills/digital-sons-of-yusuf-intro-2-01.jpg`,
@@ -495,7 +511,7 @@ const projects: Project[] = [
     title: "Pavel Nedvěd",
     category: "Digital & YouTube Content",
     year: "2024",
-    role: "Writer, editor & motion designer",
+    role: "Editor & motion designer",
     description: "A written football article translated into a motion essay with archive, typography and authored pacing.",
     image: "/thumbnails/articles-pavel-nedved.webp",
     video: `${mediaBase}/previews/articles-pavel-nedved.mp4`,
@@ -573,7 +589,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Ali Maaloul — 3D Tribute (Feature Cut)",
+    title: "Ali Maaloul — Worlds Of A Legend",
     category: "Motion & 3D",
     year: "2023",
     role: "Motion Designer & Editor",
@@ -585,7 +601,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Ali Maaloul — 3D Tribute (Cutdown)",
+    title: "Ali Maaloul — A Moment In Dimension",
     category: "Motion & 3D",
     year: "2023",
     role: "Motion Designer & Editor",
@@ -1044,7 +1060,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Ali Maaloul — Visual Design Cut",
+    title: "Ali Maaloul — A Tribute in Frames",
     category: "Visual Design",
     year: "2023",
     role: "Editor & Motion Designer",
@@ -1068,7 +1084,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Interviews & Events — Vol. 1",
+    title: "Stages & Stories",
     category: "Social Reels",
     year: "2023",
     role: "Editor",
@@ -1080,7 +1096,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Interviews & Events — Vol. 2",
+    title: "Behind The Mic",
     category: "Social Reels",
     year: "2023",
     role: "Editor",
