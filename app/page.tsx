@@ -242,6 +242,9 @@ const extendedStillsCount: Record<string, number> = {
   "commercial-minglings-promo.mp4": 3,
   "commercial-gold-era-1.mp4": 3,
   "sports-marmoush-vs-mo.mp4": 4,
+  "sports-visual-snippets-1.mp4": 3,
+  "sports-squads.mp4": 3,
+  "sports-gary-neville-is-red.mp4": 4,
 };
 
 /**
@@ -249,6 +252,22 @@ const extendedStillsCount: Record<string, number> = {
  * Local `/stills/*` files ship with the app; absolute URLs borrow an existing R2 frame set.
  */
 const stillsOverride: Record<string, string[]> = {
+  "sports-visual-snippets-1.mp4": [
+    "/stills/sports-visual-snippets-1-01.jpg",
+    "/stills/sports-visual-snippets-1-02.jpg",
+    "/stills/sports-visual-snippets-1-03.jpg",
+  ],
+  "sports-squads.mp4": [
+    "/stills/sports-squads-01.jpg",
+    "/stills/sports-squads-02.jpg",
+    "/stills/sports-squads-03.jpg",
+  ],
+  "sports-gary-neville-is-red.mp4": [
+    "/stills/sports-gary-neville-is-red-01.jpg",
+    "/stills/sports-gary-neville-is-red-02.jpg",
+    "/stills/sports-gary-neville-is-red-03.jpg",
+    "/stills/sports-gary-neville-is-red-04.jpg",
+  ],
   "documentary-juve-duping-full-cut.mp4": [
     "/stills/documentary-juve-duping-full-cut-01.jpg",
     "/stills/documentary-juve-duping-full-cut-02.jpg",
@@ -860,7 +879,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Visual Snippets — Vol. 1",
+    title: "Frames Of The Game",
     category: "Sports",
     year: "2023",
     role: "Editor",
@@ -872,7 +891,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Visual Snippets — Vol. 2",
+    title: "The Art Of The Frame",
     category: "Sports",
     year: "2023",
     role: "Editor",
