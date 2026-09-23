@@ -1267,13 +1267,13 @@ const projects: Project[] = [
 
 /** One muted highlight reel per work category, previewed on hover in the "Explore by Discipline" section. */
 const categoryReels: { category: (typeof categories)[number]; video: string; poster: string }[] = [
-  { category: "Documentary & Directing", video: `${mediaBase}/previews/documentary-directing-promo.mp4`, poster: "/thumbnails/documentary-directing-promo.webp" },
-  { category: "Motion & 3D", video: `${mediaBase}/previews/motion-3d-promo.mp4`, poster: "/thumbnails/motion-3d-promo.webp" },
-  { category: "Brand & Commercial", video: `${mediaBase}/previews/brand-commercial-promo.mp4`, poster: "/thumbnails/brand-commercial-promo.webp" },
-  { category: "Sports", video: `${mediaBase}/previews/sports-promo.mp4`, poster: "/thumbnails/sports-promo.webp" },
-  { category: "Visual Design", video: `${mediaBase}/previews/visual-design-promo.mp4`, poster: "/thumbnails/visual-design-promo.webp" },
-  { category: "Social Reels", video: `${mediaBase}/previews/social-reels-promo.mp4`, poster: "/thumbnails/social-reels-promo.webp" },
-  { category: "Digital & YouTube Content", video: `${mediaBase}/previews/digital-youtube-content-promo.mp4`, poster: "/thumbnails/digital-youtube-content-promo.webp" },
+  { category: "Documentary & Directing", video: `${mediaBase}/previews/documentary-directing-promo.mp4`, poster: "/wheel/documentary-directing-promo.webp" },
+  { category: "Motion & 3D", video: `${mediaBase}/previews/motion-3d-promo.mp4`, poster: "/wheel/motion-3d-promo.webp" },
+  { category: "Brand & Commercial", video: `${mediaBase}/previews/brand-commercial-promo.mp4`, poster: "/wheel/brand-commercial-promo.webp" },
+  { category: "Sports", video: `${mediaBase}/previews/sports-promo.mp4`, poster: "/wheel/sports-promo.webp" },
+  { category: "Visual Design", video: `${mediaBase}/previews/visual-design-promo.mp4`, poster: "/wheel/visual-design-promo.webp" },
+  { category: "Social Reels", video: `${mediaBase}/previews/social-reels-promo.mp4`, poster: "/wheel/social-reels-promo.webp" },
+  { category: "Digital & YouTube Content", video: `${mediaBase}/previews/digital-youtube-content-promo.mp4`, poster: "/wheel/digital-youtube-content-promo.webp" },
 ];
 
 /** Thumbnails used in the drifting frame rail between the hero and the discipline grid. */
