@@ -1652,7 +1652,7 @@ export default function Home() {
   }, [manifestoMuted]);
 
   const filteredProjects = projects.filter((project) =>
-    activeCategory === "All" ? project.featured : project.category === activeCategory,
+    activeCategory === "All" || project.category === activeCategory,
   );
   const displayedProjects = viewMode === "index" ? projects : filteredProjects;
 
@@ -2084,7 +2084,7 @@ export default function Home() {
             <div className="archive-heading"><p className="category-label">Explore the archive</p></div>
             <div className="work-tabs" role="tablist" aria-label="Filter Shady Maged's work">
               {categories.map((category, index) => {
-                const count = category === "All" ? projects.filter((project) => project.featured).length : projects.filter((project) => project.category === category).length;
+                const count = category === "All" ? projects.length : projects.filter((project) => project.category === category).length;
                 return (
                   <button
                     key={category}
