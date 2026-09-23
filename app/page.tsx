@@ -1455,8 +1455,11 @@ function ProjectCard({
           onBlur={pause}
           aria-label={`Watch ${project.title}`}
         >
-          <img src={project.image} alt="" loading="lazy" />
-          <video ref={videoRef} src={project.video} poster={project.image} muted loop playsInline preload="none" aria-hidden="true" />
+          <img className="project-row-backdrop" src={project.image} alt="" loading="lazy" aria-hidden="true" />
+          <span className="project-row-frame">
+            <img src={project.image} alt="" loading="lazy" />
+            <video ref={videoRef} src={project.video} poster={project.image} muted loop playsInline preload="none" aria-hidden="true" />
+          </span>
           <span className="project-row-veil" aria-hidden="true" />
           <span className="project-row-index">{String(index + 1).padStart(2, "0")}<i>/</i>{String(total).padStart(2, "0")}</span>
           <span className="project-row-body">

@@ -507,13 +507,17 @@ a:hover .arrow.diagonal, button:hover .arrow.diagonal { transform: rotate(-45deg
 .project-row:nth-child(2) { animation-delay: .06s; }
 .project-row:nth-child(3) { animation-delay: .12s; }
 .project-row:nth-child(4) { animation-delay: .18s; }
-.project-row-media { position: relative; display: block; width: 100%; min-height: clamp(13rem,22vw,20rem); padding: 0; background: #141412; border: 0; border-radius: .9rem; overflow: hidden; cursor: pointer; text-align: left; color: white; }
-.project-row-media img, .project-row-media video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .5s,transform 1s cubic-bezier(.16,1,.3,1); }
-.project-row-media video { opacity: 0; }
-.project-row-media:hover video, .project-row-media:focus-visible video { opacity: 1; }
-.project-row-media:hover img, .project-row-media:focus-visible img { opacity: 0; }
-.project-row-media:hover img, .project-row-media:hover video { transform: scale(1.05); }
-.project-row-veil { position: absolute; z-index: 1; inset: 0; pointer-events: none; background: linear-gradient(0deg,rgba(0,0,0,.88) 0%,rgba(0,0,0,.35) 45%,rgba(0,0,0,.05) 68%,transparent 85%); }
+.project-row-media { position: relative; display: block; contain: paint; width: 100%; min-height: clamp(13rem,22vw,20rem); padding: 0; background: #141412; border: 0; border-radius: .9rem; overflow: hidden; cursor: pointer; text-align: left; color: white; }
+/* 16:9 thumbnails in a ~3.5:1 banner lost half the frame to cover-cropping; the full frame now sits right, over a blurred wash of itself. */
+.project-row-backdrop { position: absolute; inset: -12%; width: 124%; height: 124%; object-fit: cover; filter: blur(26px) saturate(1.25) brightness(.5); transform: scale(1.02); transition: filter .6s; }
+.project-row-media:hover .project-row-backdrop { filter: blur(26px) saturate(1.4) brightness(.6); }
+.project-row-frame { position: absolute; top: 0; right: 0; bottom: 0; height: 100%; aspect-ratio: 16 / 9; max-width: 100%; overflow: hidden; -webkit-mask-image: linear-gradient(90deg,transparent 0,#000 24%); mask-image: linear-gradient(90deg,transparent 0,#000 24%); }
+.project-row-frame img, .project-row-frame video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .5s,transform 1s cubic-bezier(.16,1,.3,1); }
+.project-row-frame video { opacity: 0; }
+.project-row-media:hover .project-row-frame video, .project-row-media:focus-visible .project-row-frame video { opacity: 1; }
+.project-row-media:hover .project-row-frame img, .project-row-media:focus-visible .project-row-frame img { opacity: 0; }
+.project-row-media:hover .project-row-frame img, .project-row-media:hover .project-row-frame video { transform: scale(1.04); }
+.project-row-veil { position: absolute; z-index: 1; inset: 0; pointer-events: none; background: linear-gradient(90deg,rgba(0,0,0,.45) 0%,transparent 55%), linear-gradient(0deg,rgba(0,0,0,.8) 0%,rgba(0,0,0,.3) 45%,rgba(0,0,0,.04) 68%,transparent 85%); }
 .project-row-index { position: absolute; z-index: 2; top: clamp(1rem,2vw,1.6rem); right: clamp(1.2rem,2.4vw,2rem); font: .68rem var(--mono); letter-spacing: .08em; color: rgba(255,255,255,.75); white-space: nowrap; }
 .project-row-index i { font-style: normal; margin: 0 .2rem; opacity: .6; }
 .project-row-body { position: absolute; z-index: 2; left: clamp(1.2rem,2.4vw,2rem); right: clamp(6rem,12vw,10rem); bottom: clamp(1.1rem,2.2vw,1.8rem); display: flex; flex-direction: column; gap: .45rem; }
