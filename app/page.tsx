@@ -1532,6 +1532,25 @@ export default function Home() {
   const [heroNoteOpen, setHeroNoteOpen] = useState(false);
   const [openDisciplines, setOpenDisciplines] = useState<Record<string, boolean>>({});
   const [activeReel, setActiveReel] = useState(0);
+  // True while Overview was chosen for the visitor on entering Social Reels, so leaving can hand Editorial back.
+  const autoOverviewRef = useRef(false);
+
+  const selectCategory = (category: (typeof categories)[number]) => {
+    if (category === activeCategory) return;
+    if (category === "Social Reels") {
+      if (viewMode !== "iconic") autoOverviewRef.current = true;
+      setViewMode("iconic");
+    } else if (activeCategory === "Social Reels" && autoOverviewRef.current) {
+      autoOverviewRef.current = false;
+      setViewMode("editorial");
+    }
+    setActiveCategory(category);
+  };
+
+  const chooseViewMode = (mode: "editorial" | "iconic" | "index") => {
+    autoOverviewRef.current = false;
+    setViewMode(mode);
+  };
 
   const reelCount = categoryReels.length;
   const reelStep = 360 / reelCount;
@@ -1725,7 +1744,7 @@ export default function Home() {
   const companionAction = () => {
     animateCompanion();
     if (companionPhase === "edit") {
-      setViewMode((mode) => mode === "iconic" ? "editorial" : "iconic");
+      chooseViewMode(viewMode === "iconic" ? "editorial" : "iconic");
       document.getElementById("work")?.scrollIntoView({ behavior: "smooth", block: "start" });
       return;
     }
@@ -1819,7 +1838,7 @@ export default function Home() {
                 key={category}
                 className={activeCategory === category ? "active" : ""}
                 onClick={() => {
-                  setActiveCategory(category);
+                  selectCategory(category);
                   setMenuOpen(false);
                   setMenuSection(null);
                   document.getElementById("work")?.scrollIntoView({ behavior: "smooth" });
@@ -1945,7 +1964,7 @@ export default function Home() {
                     onHover={() => setHoveredDiscipline(index)}
                     onLeave={() => setHoveredDiscipline((current) => (current === index ? null : current))}
                     onSelect={() => {
-                      setActiveCategory(reel.category);
+                      selectCategory(reel.category);
                       document.getElementById("work")?.scrollIntoView({ behavior: "smooth" });
                     }}
                   />
@@ -2036,7 +2055,7 @@ export default function Home() {
                     aria-selected={activeCategory === category}
                     aria-controls="project-grid"
                     className={activeCategory === category ? "active" : ""}
-                    onClick={() => setActiveCategory(category)}
+                    onClick={() => selectCategory(category)}
                   >
                     <i>{String(index + 1).padStart(2, "0")}</i><span>{category}</span><sup>{String(count).padStart(2, "0")}</sup>
                   </button>
@@ -2049,9 +2068,9 @@ export default function Home() {
             <div className="work-toolbar">
               <span aria-live="polite"><b>{String(displayedProjects.length).padStart(2, "0")}</b> projects</span>
               <div className="view-switch" aria-label="Choose project view">
-                <button className={viewMode === "editorial" ? "active" : ""} onClick={() => setViewMode("editorial")} aria-pressed={viewMode === "editorial"}>Editorial</button>
-                <button className={viewMode === "iconic" ? "active" : ""} onClick={() => setViewMode("iconic")} aria-pressed={viewMode === "iconic"}>Overview</button>
-                <button className={viewMode === "index" ? "active" : ""} onClick={() => setViewMode("index")} aria-pressed={viewMode === "index"}>Index</button>
+                <button className={viewMode === "editorial" ? "active" : ""} onClick={() => chooseViewMode("editorial")} aria-pressed={viewMode === "editorial"}>Editorial</button>
+                <button className={viewMode === "iconic" ? "active" : ""} onClick={() => chooseViewMode("iconic")} aria-pressed={viewMode === "iconic"}>Overview</button>
+                <button className={viewMode === "index" ? "active" : ""} onClick={() => chooseViewMode("index")} aria-pressed={viewMode === "index"}>Index</button>
               </div>
             </div>
             <div key={`${activeCategory}-${viewMode}`} id="project-grid" className={`projects-grid view-${viewMode}`} role="tabpanel">
