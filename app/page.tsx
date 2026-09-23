@@ -395,6 +395,31 @@ const stillsOverride: Record<string, string[]> = {
   ],
 };
 
+function projectStills(video: string) {
+  const key = video.split("/").pop() ?? "";
+  const count = extendedStillsCount[key] ?? 2;
+  return stillsOverride[key] ?? Array.from({ length: count }, (_, i) => `${mediaBase}/stills/${slugFromVideo(video)}-0${i + 1}.jpg`);
+}
+
+/** Thumbnails that are not 16:9; the editorial row lays these out as a strip of native-shape frames (thumbnail + /strips/<slug>-N.webp) instead of cropping one. */
+const TALL_THUMBS = new Set([
+  "/thumbnails/social-chatgpt-hackathon-3.webp",
+  "/thumbnails/social-chatgpt-interviews.webp",
+  "/thumbnails/social-chatgpt-recap-update-2.webp",
+  "/thumbnails/social-emma-reels-1.webp",
+  "/thumbnails/social-karim-hanafy.webp",
+  "/thumbnails/social-reels-mix-1.webp",
+  "/thumbnails/social-reels-mix-2.webp",
+  "/thumbnails/social-sef-2023-recap.webp",
+  "/thumbnails/social-sef-akon.webp",
+  "/thumbnails/social-sef-mo-gawdat.webp",
+  "/thumbnails/social-sef-steven-bartlett.webp",
+  "/thumbnails/social-sharjah-hackathon.webp",
+  "/thumbnails/social-sons-of-yusuf-teaser.webp",
+  "/thumbnails/social-suggest-a-speaker-sef23.webp",
+]);
+const SQUARE_THUMBS = new Set(["/thumbnails/commercial-zed-talents-launch.webp"]);
+
 const categories = [
   "All",
   "Documentary & Directing",
@@ -1444,6 +1469,8 @@ function ProjectCard({
   };
 
   if (variant === "editorial") {
+    const shape = TALL_THUMBS.has(project.image) ? "tall" : SQUARE_THUMBS.has(project.image) ? "square" : "wide";
+    const video = <video ref={videoRef} src={project.video} poster={project.image} muted loop playsInline preload="none" aria-hidden="true" />;
     return (
       <article className={`project-row tone-${project.tone}`}>
         <button
@@ -1455,8 +1482,21 @@ function ProjectCard({
           onBlur={pause}
           aria-label={`Watch ${project.title}`}
         >
-          <img src={project.image} alt="" loading="lazy" />
-          <video ref={videoRef} src={project.video} poster={project.image} muted loop playsInline preload="none" aria-hidden="true" />
+          {shape === "wide" ? (
+            <>
+              <img src={project.image} alt="" loading="lazy" />
+              {video}
+            </>
+          ) : (
+            <span className={`project-row-strip is-${shape}`} aria-hidden="true">
+              {[project.image, `/strips/${slugFromVideo(project.video)}-1.webp`, `/strips/${slugFromVideo(project.video)}-2.webp`].slice(0, shape === "tall" ? 3 : 1).map((src, i) => (
+                <span key={src}>
+                  <img src={src} alt="" loading="lazy" />
+                  {i === 0 && video}
+                </span>
+              ))}
+            </span>
+          )}
           <span className="project-row-veil" aria-hidden="true" />
           <span className="project-row-index">{String(index + 1).padStart(2, "0")}<i>/</i>{String(total).padStart(2, "0")}</span>
           <span className="project-row-body">
@@ -2195,13 +2235,8 @@ export default function Home() {
       <footer><span>© {new Date().getFullYear()} Shady Maged</span><span>Film · Motion · Story</span><a href="#top">Back to top ↑</a></footer>
 
       {activeProject && (() => {
-        const stillsSlug = slugFromVideo(activeProject.video);
         const study = caseStudies[activeProject.video.split("/").pop() ?? ""];
-        const stillsKey = activeProject.video.split("/").pop() ?? "";
-        const stillsCount = extendedStillsCount[stillsKey] ?? 2;
-        const stills =
-          stillsOverride[stillsKey] ??
-          Array.from({ length: stillsCount }, (_, i) => `${mediaBase}/stills/${stillsSlug}-0${i + 1}.jpg`);
+        const stills = projectStills(activeProject.video);
         return (
         <div ref={dialogRef} tabIndex={-1} className="project-modal" role="dialog" aria-modal="true" aria-label={`${activeProject.title} project video`}>
           <div className="screening-top">
