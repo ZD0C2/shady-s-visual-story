@@ -1481,17 +1481,25 @@ function ProjectCard({
   project: (typeof projects)[number]; index: number; total: number; variant: "editorial" | "iconic" | "index"; onOpen: () => void;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const play = () => videoRef.current?.play().catch(() => undefined);
+  // A <video poster> fetches its poster the instant it's in the DOM, ignoring `loading="lazy"` —
+  // with dozens of cards mounted at once (e.g. the All tab's 70), that's dozens of eager image
+  // fetches before anyone scrolls. Deferring the <video> itself to first hover/focus fixes it.
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const play = () => {
+    setVideoLoaded(true);
+    videoRef.current?.play().catch(() => undefined);
+  };
   const pause = () => {
     if (!videoRef.current) return;
     videoRef.current.pause();
     videoRef.current.currentTime = 0;
   };
+  useEffect(() => { if (videoLoaded) play(); }, [videoLoaded]); // eslint-disable-line react-hooks/exhaustive-deps
   const frames = projectFrames(project);
 
   if (variant === "editorial") {
     const { shape, tiles, cover } = frames;
-    const video = <video ref={videoRef} src={project.video} poster={cover} muted loop playsInline preload="none" aria-hidden="true" />;
+    const video = videoLoaded && <video ref={videoRef} src={project.video} poster={cover} muted loop playsInline preload="none" aria-hidden="true" />;
     return (
       <article className={`project-row tone-${project.tone}`}>
         <button
@@ -1563,7 +1571,7 @@ function ProjectCard({
         aria-label={`Play ${project.title}`}
       >
         <img src={frames.cover} alt="" loading="lazy" />
-        <video ref={videoRef} src={project.video} poster={frames.cover} muted loop playsInline preload="none" aria-hidden="true" />
+        {videoLoaded && <video ref={videoRef} src={project.video} poster={frames.cover} muted loop playsInline preload="none" aria-hidden="true" />}
         <span className="project-index">{String(index + 1).padStart(2, "0")}</span>
         <span className="play-mark liquid-glass"><span>Play</span><Arrow diagonal /></span>
         <span className="card-plate"><b>{project.title}</b><i>{project.year}</i></span>
