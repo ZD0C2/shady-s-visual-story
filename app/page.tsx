@@ -1590,7 +1590,7 @@ export default function Home() {
   const [activeProject, setActiveProject] = useState<(typeof projects)[number] | null>(null);
   const [activeClip, setActiveClip] = useState<ProjectClip | null>(null);
   const [bioOpen, setBioOpen] = useState(false);
-  const [activeCategory, setActiveCategory] = useState<(typeof categories)[number]>("All");
+  const [activeCategory, setActiveCategory] = useState<(typeof categories)[number]>("Documentary & Directing");
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuSection, setMenuSection] = useState<"work" | null>(null);
   const [companionPhase, setCompanionPhase] = useState("direct");
@@ -1728,6 +1728,9 @@ export default function Home() {
   useEffect(() => {
     setActiveClip(null);
     setLightboxIndex(null);
+    // The project modal's own video plays with sound; the background score would otherwise
+    // keep playing underneath it, so mute it the moment a project is opened.
+    if (activeProject) setManifestoMuted(true);
   }, [activeProject]);
 
   useEffect(() => {
