@@ -1703,6 +1703,23 @@ export default function Home() {
     score.play().catch(() => setManifestoMuted(true));
   }, [manifestoMuted]);
 
+  // This background loop sits well below the fold; autoplaying it unconditionally meant every
+  // visitor downloaded its full 3.25MB before ever scrolling near it. Play it only once it's
+  // actually in view, same pattern as AmbientLayer's studio clips.
+  useEffect(() => {
+    const el = manifestoVideoRef.current;
+    if (!el || prefersReducedMotion()) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) el.play().catch(() => undefined);
+        else el.pause();
+      },
+      { rootMargin: "300px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   const filteredProjects = projects.filter((project) =>
     activeCategory === "All" || project.category === activeCategory,
   );
@@ -2217,11 +2234,10 @@ export default function Home() {
             ref={manifestoVideoRef}
             src="/curiosity-media.mp4"
             poster="/curiosity-media-poster.jpg"
-            autoPlay
             muted
             loop
             playsInline
-            preload="metadata"
+            preload="none"
           />
           {AMBIENT.montage && <ManifestoMontage />}
           <audio ref={manifestoScoreRef} src={MANIFESTO_SCORE} loop preload="none" />
