@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 import { useSectionMotion } from "./use-section-motion";
 import { caseStudies } from "./data/case-studies";
 
@@ -1616,6 +1616,23 @@ export default function Home() {
     setViewMode(mode);
   };
 
+  // Swapping a long list (All has 70 cards) for a short one shrinks the page under the
+  // visitor, and the browser clamps their scroll position to the footer. Re-seat the
+  // new list's top just under the sticky header whenever it has scrolled out of view.
+  const workContentRef = useRef<HTMLDivElement>(null);
+  const gridMountedRef = useRef(false);
+  useLayoutEffect(() => {
+    if (!gridMountedRef.current) {
+      gridMountedRef.current = true;
+      return;
+    }
+    const el = workContentRef.current;
+    if (!el) return;
+    const headerOffset = 120;
+    const top = el.getBoundingClientRect().top;
+    if (top < headerOffset) window.scrollTo({ top: window.scrollY + top - headerOffset, behavior: "instant" as ScrollBehavior });
+  }, [activeCategory, viewMode]);
+
   const reelCount = categoryReels.length;
   const reelStep = 360 / reelCount;
   const wheelRef = useRef<HTMLDivElement>(null);
@@ -2128,7 +2145,7 @@ export default function Home() {
             </div>
             <p className="filter-status" aria-live="polite"><b>{displayedProjects.length}</b> projects in view</p>
           </aside>
-          <div className="work-content">
+          <div className="work-content" ref={workContentRef}>
             <div className="work-toolbar">
               <span aria-live="polite"><b>{String(displayedProjects.length).padStart(2, "0")}</b> projects</span>
               <div className="view-switch" aria-label="Choose project view">
