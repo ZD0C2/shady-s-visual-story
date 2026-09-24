@@ -347,6 +347,7 @@ const stillsOverride: Record<string, string[]> = {
   "commercial-zed-talents-registration.mp4": [
     "/stills/commercial-zed-talents-registration-01.jpg",
     "/stills/commercial-zed-talents-registration-02.jpg",
+    "/stills/commercial-zed-talents-registration-03.jpg",
   ],
   "sports-marmoush-vs-mo.mp4": [
     "/stills/sports-marmoush-vs-mo-01.jpg",
@@ -419,6 +420,25 @@ const TALL_THUMBS = new Set([
   "/thumbnails/social-suggest-a-speaker-sef23.webp",
 ]);
 const SQUARE_THUMBS = new Set(["/thumbnails/commercial-zed-talents-launch.webp"]);
+/** Vertical source films whose 16:9 thumbnails were made by stretching; they are shown through their true-shape stills instead. */
+const STRETCHED_THUMB_VIDEOS = new Set(["commercial-minglings-promo.mp4", "commercial-zed-talents-registration.mp4"]);
+
+type FrameShape = "wide" | "tall" | "square";
+
+/** How a project's imagery should be laid out so nothing is ever stretched or cropped to a sliver. */
+function projectFrames(project: { image: string; video: string }): { shape: FrameShape; tiles: string[]; cover: string } {
+  const file = project.video.split("/").pop() ?? "";
+  if (STRETCHED_THUMB_VIDEOS.has(file)) {
+    const tiles = projectStills(project.video).slice(0, 3);
+    return { shape: "tall", tiles, cover: tiles[0] };
+  }
+  if (TALL_THUMBS.has(project.image)) {
+    const slug = slugFromVideo(project.video);
+    return { shape: "tall", tiles: [project.image, `/strips/${slug}-1.webp`, `/strips/${slug}-2.webp`], cover: project.image };
+  }
+  if (SQUARE_THUMBS.has(project.image)) return { shape: "square", tiles: [project.image], cover: project.image };
+  return { shape: "wide", tiles: [project.image], cover: project.image };
+}
 
 const categories = [
   "All",
@@ -1302,7 +1322,7 @@ const categoryReels: { category: (typeof categories)[number]; video: string; pos
 ];
 
 /** Thumbnails used in the drifting frame rail between the hero and the discipline grid. */
-const railFrames = projects.filter((p) => p.featured).slice(0, 10).map((p) => p.image);
+const railFrames = projects.filter((p) => p.featured).slice(0, 10).map((p) => projectFrames(p));
 
 /** Pixels between two category ticks on the camera-control dial. */
 const DIAL_SPACING = 78;
@@ -1467,10 +1487,11 @@ function ProjectCard({
     videoRef.current.pause();
     videoRef.current.currentTime = 0;
   };
+  const frames = projectFrames(project);
 
   if (variant === "editorial") {
-    const shape = TALL_THUMBS.has(project.image) ? "tall" : SQUARE_THUMBS.has(project.image) ? "square" : "wide";
-    const video = <video ref={videoRef} src={project.video} poster={project.image} muted loop playsInline preload="none" aria-hidden="true" />;
+    const { shape, tiles, cover } = frames;
+    const video = <video ref={videoRef} src={project.video} poster={cover} muted loop playsInline preload="none" aria-hidden="true" />;
     return (
       <article className={`project-row tone-${project.tone}`}>
         <button
@@ -1484,12 +1505,12 @@ function ProjectCard({
         >
           {shape === "wide" ? (
             <>
-              <img src={project.image} alt="" loading="lazy" />
+              <img src={cover} alt="" loading="lazy" />
               {video}
             </>
           ) : (
             <span className={`project-row-strip is-${shape}`} aria-hidden="true">
-              {[project.image, `/strips/${slugFromVideo(project.video)}-1.webp`, `/strips/${slugFromVideo(project.video)}-2.webp`].slice(0, shape === "tall" ? 3 : 1).map((src, i) => (
+              {tiles.map((src, i) => (
                 <span key={src}>
                   <img src={src} alt="" loading="lazy" />
                   {i === 0 && video}
@@ -1515,7 +1536,13 @@ function ProjectCard({
     return (
       <button className="project-line" onClick={onOpen} aria-label={`Watch ${project.title}`}>
         <span className="project-line-index">{String(index + 1).padStart(2, "0")}</span>
-        <img src={project.image} alt="" loading="lazy" />
+        {frames.shape === "wide" ? (
+          <img src={frames.cover} alt="" loading="lazy" />
+        ) : (
+          <span className={`project-line-strip is-${frames.shape}`} aria-hidden="true">
+            {frames.tiles.map((src) => <img key={src} src={src} alt="" loading="lazy" />)}
+          </span>
+        )}
         <span className="project-line-title">{project.title}</span>
         <span className="project-line-category">{project.category}</span>
         <span className="project-line-year">{project.year}</span>
@@ -1535,8 +1562,8 @@ function ProjectCard({
         onBlur={pause}
         aria-label={`Play ${project.title}`}
       >
-        <img src={project.image} alt="" loading="lazy" />
-        <video ref={videoRef} src={project.video} poster={project.image} muted loop playsInline preload="none" aria-hidden="true" />
+        <img src={frames.cover} alt="" loading="lazy" />
+        <video ref={videoRef} src={project.video} poster={frames.cover} muted loop playsInline preload="none" aria-hidden="true" />
         <span className="project-index">{String(index + 1).padStart(2, "0")}</span>
         <span className="play-mark liquid-glass"><span>Play</span><Arrow diagonal /></span>
         <span className="card-plate"><b>{project.title}</b><i>{project.year}</i></span>
@@ -1968,9 +1995,9 @@ export default function Home() {
 
       <section className="stills-rail" aria-label="Selected frames">
         <div className="stills-track">
-          {[...railFrames, ...railFrames].map((src, i) => (
-            <div className="stills-frame" key={`${src}-${i}`} aria-hidden={i >= railFrames.length}>
-              <img src={src} alt="" loading="lazy" />
+          {[...railFrames, ...railFrames].map((frame, i) => (
+            <div className={`stills-frame is-${frame.shape}`} key={`${frame.cover}-${i}`} aria-hidden={i >= railFrames.length}>
+              <img src={frame.cover} alt="" loading="lazy" />
             </div>
           ))}
         </div>
@@ -2273,7 +2300,7 @@ export default function Home() {
                 {stills.map((src, i) => (
                   <figure key={src}>
                     <button type="button" onClick={() => setLightboxIndex(i)} aria-label={`Open frame ${i + 1} of ${activeProject.title}`}>
-                      <img src={src} alt="" loading="lazy" onError={(e) => { (e.currentTarget.closest("figure") as HTMLElement).style.display = "none"; }} />
+                      <img src={src} alt="" onError={(e) => { (e.currentTarget.closest("figure") as HTMLElement).style.display = "none"; }} />
                     </button>
                     <figcaption>{activeProject.title} — frame {i + 1}</figcaption>
                   </figure>
