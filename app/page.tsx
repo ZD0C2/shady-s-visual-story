@@ -1992,7 +1992,7 @@ export default function Home() {
         <div className="hero-type" aria-label="Shady Maged — creative director and editor">
           <span className="hero-line line-one">Shady</span>
           <span className="hero-line line-two">Maged</span>
-          <span className="hero-line line-three">Direct · Edit · Design</span>
+          <span className="hero-line line-three">Edit · Create · Inspire</span>
         </div>
 
         <div className="portrait-stage">
