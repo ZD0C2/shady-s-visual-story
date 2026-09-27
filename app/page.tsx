@@ -394,6 +394,10 @@ const stillsOverride: Record<string, string[]> = {
     "/stills/articles-wessam-zlatan-01.jpg",
     "/stills/articles-wessam-zlatan-02.jpg",
   ],
+  "documentary-amir-hamdan.mp4": [
+    "/stills/documentary-amir-hamdan-01.jpg",
+    "/stills/documentary-amir-hamdan-02.jpg",
+  ],
 };
 
 function projectStills(video: string) {
@@ -631,6 +635,18 @@ const projects: Project[] = [
     image: "/thumbnails/documentary-showreel-teaser.webp",
     video: `${mediaBase}/previews/documentary-showreel-teaser.mp4`,
     tone: "silver",
+    featured: false,
+  },
+  {
+    title: "Amir Hamdan — The System Is Broken",
+    category: "Documentary & Directing",
+    year: "2026",
+    role: "Editor & Motion Designer",
+    description:
+      "A presenter-led video essay on the soaring cost of university education, cut with bold on-screen data graphics and a driving pace.",
+    image: "/thumbnails/documentary-amir-hamdan.webp",
+    video: "/previews/documentary-amir-hamdan.mp4",
+    tone: "dark",
     featured: false,
   },
   {
