@@ -1882,7 +1882,7 @@ export default function Home() {
   };
 
   const copyEmail = async () => {
-    const email = "captinshady90@gmail.com";
+    const email = "shadyartisto@gmail.com";
     try {
       if (navigator.clipboard?.writeText) {
         await navigator.clipboard.writeText(email);
@@ -2473,7 +2473,7 @@ export default function Home() {
             <p>04 · Contact desk</p>
             <h2 id="contact-desk-title">Let’s give the next story <em>movement.</em></h2>
             <div className="desk-actions">
-              <a href="mailto:captinshady90@gmail.com?subject=Project%20enquiry%20for%20Shady%20Maged"><span>Write an email</span><b>captinshady90@gmail.com</b><Arrow diagonal /></a>
+              <a href="mailto:shadyartisto@gmail.com?subject=Project%20enquiry%20for%20Shady%20Maged"><span>Write an email</span><b>shadyartisto@gmail.com</b><Arrow diagonal /></a>
               <button onClick={copyEmail}><span>{copied ? "Copied" : "Copy email"}</span><b>{copied ? "Ready to paste" : "One click"}</b><Arrow diagonal /></button>
               <a href="tel:01275288876"><span>Call Shady</span><b>0127 528 8876</b><Arrow diagonal /></a>
             </div>
