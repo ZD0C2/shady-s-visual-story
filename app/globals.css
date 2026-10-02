@@ -851,6 +851,10 @@ footer { padding: 1.4rem 3.1vw; display: flex; justify-content: space-between; b
 .menu-contact { position: relative; display: flex; align-items: center; gap: .6rem; padding: .85rem 1.2rem; border-radius: 3rem; background: #d7b783; color: #171815; cursor: pointer; font: 500 .75rem var(--mono); letter-spacing: .1em; text-transform: uppercase; }
 
 .theme-graphite { background: #171815; color: #eeeade; --surface: #171815; }
+/* Dark is the default theme: these three muted bits failed contrast on the dark surface (cream-on-cream index numbers, ~3:1 counts and section numbers). */
+.work-tabs button i { color: var(--ink); }
+.theme-graphite .work-tabs sup { color: #a8a498; }
+.theme-graphite .section-heading > p span, .theme-graphite .approach-title > p span, .theme-graphite .manifesto-copy > p span, .theme-graphite .contact-section > p span { color: #a39a86; }
 .theme-graphite .hero { background: #1a1b18; color: #eeeade; }
 .theme-graphite .hero-type { color: #f3efe4; }
 .theme-graphite .hero-grid { background-image: linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px); }

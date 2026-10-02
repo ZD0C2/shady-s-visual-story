@@ -1611,7 +1611,7 @@ export default function Home() {
   const [menuSection, setMenuSection] = useState<"work" | null>(null);
   const [companionPhase, setCompanionPhase] = useState("direct");
   const [viewMode, setViewMode] = useState<"editorial" | "iconic" | "index">("editorial");
-  const [theme, setTheme] = useState<"light" | "graphite">("light");
+  const [theme, setTheme] = useState<"light" | "graphite">("graphite");
   const [contactOpen, setContactOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
@@ -1749,17 +1749,23 @@ export default function Home() {
     if (activeProject) setManifestoMuted(true);
   }, [activeProject]);
 
+  // Dark is the default. Only a choice made with the toggle is remembered, under a new key so
+  // the "light" the previous version auto-saved for every visitor doesn't override the new default.
   useEffect(() => {
-    const savedTheme = window.localStorage.getItem("shady-theme");
-    if (savedTheme !== "graphite") return;
-    const frame = window.requestAnimationFrame(() => setTheme("graphite"));
-    return () => window.cancelAnimationFrame(frame);
+    let savedChoice: string | null = null;
+    try { savedChoice = window.localStorage.getItem("shady-theme-choice"); } catch { /* storage blocked */ }
+    if (savedChoice === "light") setTheme("light");
   }, []);
 
   useEffect(() => {
-    window.localStorage.setItem("shady-theme", theme);
     document.documentElement.style.colorScheme = theme === "graphite" ? "dark" : "light";
   }, [theme]);
+
+  const toggleTheme = () => {
+    const next = theme === "light" ? "graphite" : "light";
+    setTheme(next);
+    try { window.localStorage.setItem("shady-theme-choice", next); } catch { /* storage blocked */ }
+  };
 
   useEffect(() => {
     if (!activeProject && !contactOpen && !menuOpen && !bioOpen) return;
@@ -1918,7 +1924,7 @@ export default function Home() {
         <button className="monogram" onClick={() => setBioOpen(true)} aria-label="About Shady Maged"><span>S</span><span>M</span></button>
         <div className="nav-center"><span>Film</span><i /> <span>Motion</span><i /> <span>Story</span></div>
         <div className="nav-actions">
-          <button className="theme-toggle liquid-glass" onClick={() => setTheme(theme === "light" ? "graphite" : "light")} aria-label={`Switch to ${theme === "light" ? "graphite" : "light"} theme`}>
+          <button className="theme-toggle liquid-glass" onClick={toggleTheme} aria-label={`Switch to ${theme === "light" ? "graphite" : "light"} theme`}>
             <ThemeIcon />
           </button>
           <button
@@ -1974,7 +1980,7 @@ export default function Home() {
             ))}
           </div>
           <div className="command-menu-footer">
-            <button className="theme-toggle liquid-glass" onClick={() => setTheme(theme === "light" ? "graphite" : "light")} aria-label={`Switch to ${theme === "light" ? "graphite" : "light"} theme`}>
+            <button className="theme-toggle liquid-glass" onClick={toggleTheme} aria-label={`Switch to ${theme === "light" ? "graphite" : "light"} theme`}>
               <ThemeIcon />
             </button>
             <button className="menu-contact liquid-glass" onClick={() => { setMenuOpen(false); setMenuSection(null); setContactOpen(true); }}>
